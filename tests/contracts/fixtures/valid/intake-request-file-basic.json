@@ -1,0 +1,20 @@
+{
+  "request_id": "intake-001",
+  "requester_id": "authorforge",
+  "source_type": "file_path",
+  "sources": [
+    {
+      "source_id": "src-001",
+      "source_class": "file",
+      "path": "/tmp/manuscripts/chapter-01.md",
+      "media_type": "text/markdown"
+    }
+  ],
+  "normalization_mode": "structure_normalized",
+  "requested_artifact": "extraction_result",
+  "allow_partial": true,
+  "observation_policy": {
+    "mode": "none"
+  },
+  "submitted_at": "2026-03-19T10:00:00Z"
+}

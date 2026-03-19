@@ -1,0 +1,44 @@
+{
+  "package_id": "pkg-001",
+  "request_id": "intake-001",
+  "source_refs": [
+    "src-001"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "ready",
+  "freshness": {
+    "state": "fresh",
+    "asserted_at": "2026-03-19T10:03:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:abc123",
+    "operator_visible_summary": "Fresh against current source hash."
+  },
+  "invalidation": {
+    "policy": "compound",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk-001",
+      "source_ref": "src-001",
+      "structure_kind": "paragraph",
+      "text": "This is a bounded retrieval chunk prepared from the extracted source.",
+      "ordinal": 0
+    }
+  ],
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "Retrieval package is complete."
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "details_redacted": true,
+  "created_at": "2026-03-19T10:03:00Z"
+}

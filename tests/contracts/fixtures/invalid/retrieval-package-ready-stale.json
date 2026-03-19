@@ -1,0 +1,43 @@
+{
+  "package_id": "pkg-002",
+  "request_id": "intake-001",
+  "source_refs": [
+    "src-001"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "ready",
+  "freshness": {
+    "state": "stale",
+    "asserted_at": "2026-03-19T10:03:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:abc123",
+    "operator_visible_summary": "This package is stale and should not validate as ready."
+  },
+  "invalidation": {
+    "policy": "ttl",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk-001",
+      "source_ref": "src-001",
+      "structure_kind": "paragraph",
+      "text": "This chunk is incorrectly marked as ready while stale.",
+      "ordinal": 0
+    }
+  ],
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "Package appears complete."
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "created_at": "2026-03-19T10:03:00Z"
+}

@@ -1,0 +1,24 @@
+{
+  "request_id": "intake-002",
+  "requester_id": "authorforge",
+  "source_type": "directory_scope",
+  "sources": [
+    {
+      "source_id": "src-dir-001",
+      "source_class": "directory",
+      "path": "/tmp/manuscripts",
+      "recursive": true
+    }
+  ],
+  "normalization_mode": "preserve",
+  "requested_artifact": "retrieval_package",
+  "observation_policy": {
+    "mode": "contract_scoped",
+    "scope_ref": "watch-001",
+    "path_scope": "/tmp/manuscripts",
+    "operator_visible": false,
+    "removable_without_corruption": true,
+    "source_class_bound": true
+  },
+  "submitted_at": "2026-03-19T10:05:00Z"
+}

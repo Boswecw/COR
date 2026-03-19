@@ -1,0 +1,26 @@
+{
+  "artifact_id": "extract-002",
+  "request_id": "intake-001",
+  "source_ref": "src-001",
+  "state": "ready",
+  "syntax_boundary": "semantic_summary",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:def456",
+    "extractor_version": "phase1.0"
+  },
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "Extraction completed."
+  },
+  "structures": {
+    "content_blocks": [
+      {
+        "block_id": "blk-1",
+        "block_kind": "paragraph",
+        "text": "This content should not validate because the boundary is semantic."
+      }
+    ]
+  },
+  "extracted_at": "2026-03-19T10:02:00Z"
+}

@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/service-status.schema.json",
+  "title": "Cortex Service Status",
+  "description": "Bounded operator-visible service-status envelope for Cortex.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "service_id",
+    "service_class",
+    "state",
+    "operator_visible_message",
+    "last_updated_at"
+  ],
+  "properties": {
+    "service_id": {
+      "type": "string",
+      "const": "cortex"
+    },
+    "service_class": {
+      "type": "string",
+      "const": "file_intelligence"
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "degraded",
+        "unavailable",
+        "denied",
+        "stale",
+        "partial_success"
+      ]
+    },
+    "degraded_subtype": {
+      "type": "string",
+      "enum": [
+        "degraded",
+        "extraction_incomplete",
+        "integrity_failed",
+        "re_prep_required",
+        "dependency_unavailable",
+        "observation_contract_missing",
+        "freshness_unknown"
+      ]
+    },
+    "denied_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "reason_class",
+        "scope",
+        "remediable",
+        "operator_visible_summary",
+        "last_updated_at"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "const": "denied"
+        },
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "contract_invalid",
+            "ineligible_source",
+            "privacy_scope_violation",
+            "integrity_failed",
+            "semantic_request_not_allowed",
+            "dependency_unavailable",
+            "unsupported_source_type",
+            "operator_disabled"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "request",
+            "source",
+            "service",
+            "artifact",
+            "observation_contract"
+          ]
+        },
+        "remediable": {
+          "type": "boolean"
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "last_updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "readiness_class",
+        "summary"
+      ],
+      "properties": {
+        "readiness_class": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "ready_with_constraints",
+            "degraded",
+            "not_ready"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "watcher_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active_watch_scope_count",
+        "contract_scoped_only"
+      ],
+      "properties": {
+        "active_watch_scope_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contract_scoped_only": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "operator_visible_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "default": true
+    },
+    "last_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "degraded"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "degraded_subtype"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "denied"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "denied_state"
+        ]
+      }
+    }
+  ]
+}

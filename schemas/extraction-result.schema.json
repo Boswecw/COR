@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/extraction-result.schema.json",
+  "title": "Cortex Extraction Result",
+  "description": "Syntax-level extraction result contract for Cortex.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "request_id",
+    "source_ref",
+    "state",
+    "syntax_boundary",
+    "semantic_boundary_enforced",
+    "provenance",
+    "extracted_at"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partial_success",
+        "denied",
+        "unavailable",
+        "stale"
+      ]
+    },
+    "syntax_boundary": {
+      "type": "string",
+      "const": "syntax_only"
+    },
+    "semantic_boundary_enforced": {
+      "type": "boolean",
+      "const": true
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_hash",
+        "extractor_version"
+      ],
+      "properties": {
+        "source_hash": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "extractor_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "source_modified_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "source_hash",
+            "source_modified_at",
+            "ttl",
+            "manual_review"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "completeness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete",
+            "failed"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "structures": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section_id",
+              "heading",
+              "level",
+              "block_count"
+            ],
+            "properties": {
+              "section_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "heading": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 300
+              },
+              "level": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 8
+              },
+              "block_count": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "tables_detected": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "metadata_fields": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "content_blocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "block_id",
+              "block_kind",
+              "text"
+            ],
+            "properties": {
+              "block_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              },
+              "block_kind": {
+                "type": "string",
+                "enum": [
+                  "heading",
+                  "paragraph",
+                  "list",
+                  "table",
+                  "quote",
+                  "code"
+                ]
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 20000
+              }
+            }
+          }
+        }
+      }
+    },
+    "refusal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_class",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "semantic_request_not_allowed",
+            "privacy_scope_violation",
+            "integrity_failed",
+            "ineligible_source",
+            "unsupported_source_type",
+            "dependency_unavailable"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "extracted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "enum": [
+              "ready",
+              "partial_success",
+              "stale"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "completeness",
+          "structures"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "ready"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "partial_success"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "properties": {
+              "status": {
+                "const": "incomplete"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "enum": [
+              "denied",
+              "unavailable"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "refusal",
+          "completeness"
+        ],
+        "properties": {
+          "completeness": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "stale"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "freshness"
+        ],
+        "properties": {
+          "freshness": {
+            "properties": {
+              "state": {
+                "const": "stale"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

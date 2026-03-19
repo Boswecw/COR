@@ -1,0 +1,400 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/retrieval-package.schema.json",
+  "title": "Cortex Retrieval Package",
+  "description": "Governed retrieval-oriented package emitted by Cortex.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "package_id",
+    "request_id",
+    "source_refs",
+    "retrieval_profile",
+    "state",
+    "freshness",
+    "invalidation",
+    "non_canonical",
+    "non_semantic_default",
+    "created_at"
+  ],
+  "properties": {
+    "package_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "retrieval_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "chunking_mode",
+        "max_chunk_chars",
+        "overlap_chars"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "chunking_mode": {
+          "type": "string",
+          "enum": [
+            "section",
+            "paragraph",
+            "hybrid"
+          ]
+        },
+        "max_chunk_chars": {
+          "type": "integer",
+          "minimum": 200,
+          "maximum": 12000
+        },
+        "overlap_chars": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000
+        }
+      }
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "stale",
+        "partial_success",
+        "denied"
+      ]
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "asserted_at",
+        "ttl_seconds",
+        "source_dependency_marker",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "asserted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ttl_seconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "source_dependency_marker": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "invalidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy",
+        "stale_if_source_changes",
+        "stale_if_profile_changes",
+        "manual_invalidation_allowed"
+      ],
+      "properties": {
+        "policy": {
+          "type": "string",
+          "enum": [
+            "ttl",
+            "source_change",
+            "profile_change",
+            "compound"
+          ]
+        },
+        "stale_if_source_changes": {
+          "type": "boolean"
+        },
+        "stale_if_profile_changes": {
+          "type": "boolean"
+        },
+        "manual_invalidation_allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "chunks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "chunk_id",
+          "source_ref",
+          "structure_kind",
+          "text",
+          "ordinal"
+        ],
+        "properties": {
+          "chunk_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "source_ref": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "structure_kind": {
+            "type": "string",
+            "enum": [
+              "section",
+              "paragraph",
+              "table",
+              "list",
+              "quote",
+              "code"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          },
+          "ordinal": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "completeness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "refusal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_class",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "profile_invalid",
+            "missing_required_structure",
+            "privacy_scope_violation",
+            "integrity_failed",
+            "stale_input",
+            "unsupported_route"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "non_canonical": {
+      "type": "boolean",
+      "const": true
+    },
+    "non_semantic_default": {
+      "type": "boolean",
+      "const": true
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "default": true
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "enum": [
+              "ready",
+              "stale",
+              "partial_success"
+            ]
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "chunks",
+          "completeness"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "ready"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "freshness": {
+            "properties": {
+              "state": {
+                "const": "fresh"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          },
+          "completeness": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "refusal"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "partial_success"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "completeness": {
+            "properties": {
+              "status": {
+                "const": "incomplete"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "stale"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "freshness": {
+            "properties": {
+              "state": {
+                "const": "stale"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "denied"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "refusal"
+        ]
+      }
+    }
+  ]
+}

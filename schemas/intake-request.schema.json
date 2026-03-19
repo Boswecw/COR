@@ -1,0 +1,236 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/intake-request.schema.json",
+  "title": "Cortex Intake Request",
+  "description": "Bounded contract for admitting eligible local content into Cortex.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "requester_id",
+    "source_type",
+    "sources",
+    "normalization_mode",
+    "requested_artifact",
+    "observation_policy",
+    "submitted_at"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "requester_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "file_path",
+        "directory_scope"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_id",
+          "source_class",
+          "path"
+        ],
+        "properties": {
+          "source_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "source_class": {
+            "type": "string",
+            "enum": [
+              "file",
+              "directory"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "recursive": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "normalization_mode": {
+      "type": "string",
+      "enum": [
+        "preserve",
+        "whitespace_normalized",
+        "structure_normalized"
+      ]
+    },
+    "requested_artifact": {
+      "type": "string",
+      "enum": [
+        "extraction_result",
+        "retrieval_package"
+      ]
+    },
+    "allow_partial": {
+      "type": "boolean",
+      "default": false
+    },
+    "observation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "contract_scoped"
+          ]
+        },
+        "scope_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "path_scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "operator_visible": {
+          "type": "boolean"
+        },
+        "removable_without_corruption": {
+          "type": "boolean"
+        },
+        "source_class_bound": {
+          "type": "boolean"
+        }
+      }
+    },
+    "submitted_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "source_type": {
+            "const": "file_path"
+          }
+        },
+        "required": [
+          "source_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sources": {
+            "items": {
+              "properties": {
+                "source_class": {
+                  "const": "file"
+                }
+              },
+              "required": [
+                "source_class"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_type": {
+            "const": "directory_scope"
+          }
+        },
+        "required": [
+          "source_type"
+        ]
+      },
+      "then": {
+        "properties": {
+          "sources": {
+            "items": {
+              "properties": {
+                "source_class": {
+                  "const": "directory"
+                }
+              },
+              "required": [
+                "source_class"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "observation_policy": {
+            "properties": {
+              "mode": {
+                "const": "contract_scoped"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          }
+        },
+        "required": [
+          "observation_policy"
+        ]
+      },
+      "then": {
+        "properties": {
+          "observation_policy": {
+            "required": [
+              "scope_ref",
+              "path_scope",
+              "operator_visible",
+              "removable_without_corruption",
+              "source_class_bound"
+            ],
+            "properties": {
+              "operator_visible": {
+                "const": true
+              },
+              "removable_without_corruption": {
+                "const": true
+              },
+              "source_class_bound": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
