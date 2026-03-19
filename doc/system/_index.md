@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.0 (2026-03-19) - Normalized to Forge Documentation Protocol v1
+**Document version:** 1.2 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,6 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, and Runtime Slices 1 through 4.
 
 Assembly contract:
 
@@ -18,10 +19,10 @@ Assembly contract:
 
 | Part | File | Contents |
 |------|------|----------|
-| SS1 | [01-overview-charter.md](01-overview-charter.md) | Mission, role, success posture, Phase 1 framing |
-| SS2 | [02-boundaries-and-doctrine.md](02-boundaries-and-doctrine.md) | Authority boundaries, syntax-before-semantics doctrine, non-goals |
-| SS3 | [03-contract-surface.md](03-contract-surface.md) | Intake, extraction, retrieval package, and service-status contracts |
-| SS4 | [04-validation-and-delivery.md](04-validation-and-delivery.md) | Validation tooling, fixtures, delivery order, and next hardening steps |
+| SS1 | [01-overview-charter.md](01-overview-charter.md) | Mission, role, success posture, and current bounded runtime baseline |
+| SS2 | [02-boundaries-and-doctrine.md](02-boundaries-and-doctrine.md) | Authority boundaries, syntax-before-semantics doctrine, and anti-control-plane posture |
+| SS3 | [03-contract-surface.md](03-contract-surface.md) | Intake, extraction, retrieval, handoff, service-status, and diagnostics surfaces |
+| SS4 | [04-validation-and-delivery.md](04-validation-and-delivery.md) | Validation wiring, schema-backed enforcement, delivered slices, and current delivery posture |
 
 ## Quick Assembly
 

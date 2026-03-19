@@ -14,6 +14,19 @@
     "readiness_class": "not_ready",
     "summary": "Cortex is not ready because the service is explicitly disabled for this bounded action."
   },
+  "runtime_surface_summary": {
+    "implemented_slices": [
+      "slice1_intake_validation",
+      "slice2_extraction_emission",
+      "slice3_retrieval_package_emission",
+      "slice4_service_status_truth"
+    ],
+    "admitted_source_lanes": [
+      "local_file_markdown",
+      "local_file_plain_text"
+    ],
+    "bounded_runtime_only": true
+  },
   "operator_visible_message": "Cortex is denied for the requested service action.",
   "details_redacted": true,
   "last_updated_at": "2026-03-19T12:20:00Z"

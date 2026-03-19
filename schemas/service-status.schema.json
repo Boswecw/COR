@@ -9,6 +9,7 @@
     "service_id",
     "service_class",
     "state",
+    "runtime_surface_summary",
     "operator_visible_message",
     "last_updated_at"
   ],
@@ -134,6 +135,45 @@
           "minimum": 0
         },
         "contract_scoped_only": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "runtime_surface_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implemented_slices",
+        "admitted_source_lanes",
+        "bounded_runtime_only"
+      ],
+      "properties": {
+        "implemented_slices": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "slice1_intake_validation",
+              "slice2_extraction_emission",
+              "slice3_retrieval_package_emission",
+              "slice4_service_status_truth"
+            ]
+          }
+        },
+        "admitted_source_lanes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "local_file_markdown",
+              "local_file_plain_text"
+            ]
+          }
+        },
+        "bounded_runtime_only": {
           "type": "boolean",
           "const": true
         }

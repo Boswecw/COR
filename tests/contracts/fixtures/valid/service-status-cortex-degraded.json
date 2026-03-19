@@ -7,6 +7,19 @@
     "readiness_class": "degraded",
     "summary": "Extraction completed with incomplete structure capture for one or more artifacts."
   },
+  "runtime_surface_summary": {
+    "implemented_slices": [
+      "slice1_intake_validation",
+      "slice2_extraction_emission",
+      "slice3_retrieval_package_emission",
+      "slice4_service_status_truth"
+    ],
+    "admitted_source_lanes": [
+      "local_file_markdown",
+      "local_file_plain_text"
+    ],
+    "bounded_runtime_only": true
+  },
   "watcher_summary": {
     "active_watch_scope_count": 1,
     "contract_scoped_only": true

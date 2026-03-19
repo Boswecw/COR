@@ -17,6 +17,8 @@ Cortex does not own:
 - semantic interpretation
 - model authority
 - workflow sequencing
+- retry or queue semantics
+- executor selection
 - downstream execution ownership
 - canonical business truth
 - broad surveillance authority
@@ -31,6 +33,8 @@ The governing doctrines are:
 - retrieval infrastructure, not retrieval authority
 - explicit invalidation over assumed freshness
 - default-denied observation
+- bounded reverse signaling only
+- informational service status, not control-plane behavior
 
 ## Cross-service boundaries
 
@@ -51,4 +55,7 @@ Does not delegate execution authority into Cortex.
 
 ## Anti-drift warning
 
-Any proposal that turns Cortex into a semantic surface, workflow router, surveillance surface, or generalized transform sink should be rejected unless the architecture is explicitly reworked.
+Any proposal that turns Cortex into a semantic surface, workflow router, retry coordinator, surveillance surface, status-control plane, or generalized transform sink should be rejected unless the architecture is explicitly reworked.
+
+No automatic next slice is implied by the current runtime baseline.
+Further runtime expansion must be explicit, narrow, and grounded back to the constitutional plan.

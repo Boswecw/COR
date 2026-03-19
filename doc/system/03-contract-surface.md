@@ -18,6 +18,9 @@ The intake contract requires explicit source identity, source class, artifact re
 Observation defaults to denied.
 If a watcher is requested, it must be contract-scoped, operator-visible, removable, and bounded by source class.
 
+Runtime Slice 1 now executes this contract mechanically through schema-backed intake validation.
+The runtime output remains limited to accepted or denied validation truth plus bounded contract-error paths.
+
 ## Extraction result
 
 Extraction results are syntax-only by contract.
@@ -29,6 +32,9 @@ They must expose:
 - freshness posture when relevant
 - refusal posture when requests cross into semantics or other denied boundaries
 
+Runtime Slice 2 now emits bounded extraction-result outputs for supported local `.md` and `.txt` sources only.
+Unsupported, unreadable, malformed, or intake-invalid inputs fail closed through `denied` or `unavailable` extraction results.
+
 ## Retrieval package
 
 Retrieval packages are:
@@ -38,6 +44,10 @@ Retrieval packages are:
 - freshness-bound
 
 They require explicit retrieval profile, freshness, invalidation, and completeness fields.
+They do not decide ranking, canonical truth, or downstream semantic acceptance.
+
+Runtime Slice 3 now emits one governed retrieval-package path from ready syntax-only extraction output only.
+Chunking remains deterministic and syntax-derived, using section-bounded chunks when available and paragraph fallback only when no section structure exists.
 
 ## Service status
 
@@ -49,6 +59,12 @@ Service status exposes truthful operator-visible state with the narrow Phase 1 v
 - `denied`
 - `stale`
 - `partial_success`
+
+It remains an operational truth surface only.
+It does not become a raw-content channel or downstream coordination surface.
+
+Runtime Slice 4 now emits one governed service-status path from bounded local runtime truth only.
+It reports implemented runtime slices, admitted source lanes, zero active watcher scopes, and ready/degraded/unavailable posture without adding recommendation or control-plane behavior.
 
 ## Handoff envelope
 
@@ -72,6 +88,35 @@ It must reject orchestration-shaped fields such as:
 - `queue_name`
 - `dispatch_plan`
 - `agent_assignment`
+
+## Embedded diagnostics
+
+Embedded diagnostics are now schema-backed rather than prose-only.
+
+They are:
+
+- redacted by default
+- limited to Cortex-owned operational truth
+- allowed to expose bounded state, freshness, integrity, completeness, watcher scope, and denial summaries
+
+They must reject content-exposure shapes such as:
+
+- `raw_content_preview`
+- `full_text_preview`
+- `full_text_search`
+- `content_browser`
+- `raw_artifact_dump`
+
+## Implemented schema layer
+
+The current machine-checked schema inventory is:
+
+- `schemas/intake-request.schema.json`
+- `schemas/extraction-result.schema.json`
+- `schemas/retrieval-package.schema.json`
+- `schemas/service-status.schema.json`
+- `schemas/handoff-envelope.schema.json`
+- `schemas/embedded-diagnostics.schema.json`
 
 ## Supporting references
 

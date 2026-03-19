@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.0 (2026-03-19) - Normalized to Forge Documentation Protocol v1
+**Document version:** 1.2 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,6 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, and Runtime Slices 1 through 4.
 
 Assembly contract:
 
@@ -18,10 +19,10 @@ Assembly contract:
 
 | Part | File | Contents |
 |------|------|----------|
-| SS1 | [01-overview-charter.md](01-overview-charter.md) | Mission, role, success posture, Phase 1 framing |
-| SS2 | [02-boundaries-and-doctrine.md](02-boundaries-and-doctrine.md) | Authority boundaries, syntax-before-semantics doctrine, non-goals |
-| SS3 | [03-contract-surface.md](03-contract-surface.md) | Intake, extraction, retrieval package, and service-status contracts |
-| SS4 | [04-validation-and-delivery.md](04-validation-and-delivery.md) | Validation tooling, fixtures, delivery order, and next hardening steps |
+| SS1 | [01-overview-charter.md](01-overview-charter.md) | Mission, role, success posture, and current bounded runtime baseline |
+| SS2 | [02-boundaries-and-doctrine.md](02-boundaries-and-doctrine.md) | Authority boundaries, syntax-before-semantics doctrine, and anti-control-plane posture |
+| SS3 | [03-contract-surface.md](03-contract-surface.md) | Intake, extraction, retrieval, handoff, service-status, and diagnostics surfaces |
+| SS4 | [04-validation-and-delivery.md](04-validation-and-delivery.md) | Validation wiring, schema-backed enforcement, delivered slices, and current delivery posture |
 
 ## Quick Assembly
 
@@ -44,7 +45,9 @@ Its Phase 1 purpose is narrow:
 - intake eligible local content
 - extract syntax-level structure and metadata
 - prepare one governed retrieval package form
+- emit bounded handoff transfer truth
 - surface truthful operational state without privacy collapse
+- expose redacted embedded diagnostics for Cortex-owned surfaces only
 
 ## Constitutional role
 
@@ -68,6 +71,23 @@ Cortex is only successful if it remains:
 - non-semantic by default
 - freshness-bound rather than silently stale
 - visible only through consuming applications
+- unable to drift into workflow, queue, or executor ownership
+
+## Current bounded runtime baseline
+
+The currently implemented executable runtime surfaces are:
+
+- Slice 1 - intake validation
+- Slice 2 - syntax-only extraction-result emission
+- Slice 3 - one governed retrieval-package emission path
+- Slice 4 - service-status truth
+
+The currently admitted source lanes remain narrow:
+
+- local `.md`
+- local `.txt`
+
+This is the current bounded baseline, not a promise of broader source or control-surface expansion.
 
 ## Foundational references
 
@@ -98,6 +118,8 @@ Cortex does not own:
 - semantic interpretation
 - model authority
 - workflow sequencing
+- retry or queue semantics
+- executor selection
 - downstream execution ownership
 - canonical business truth
 - broad surveillance authority
@@ -112,6 +134,8 @@ The governing doctrines are:
 - retrieval infrastructure, not retrieval authority
 - explicit invalidation over assumed freshness
 - default-denied observation
+- bounded reverse signaling only
+- informational service status, not control-plane behavior
 
 ## Cross-service boundaries
 
@@ -132,7 +156,10 @@ Does not delegate execution authority into Cortex.
 
 ## Anti-drift warning
 
-Any proposal that turns Cortex into a semantic surface, workflow router, surveillance surface, or generalized transform sink should be rejected unless the architecture is explicitly reworked.
+Any proposal that turns Cortex into a semantic surface, workflow router, retry coordinator, surveillance surface, status-control plane, or generalized transform sink should be rejected unless the architecture is explicitly reworked.
+
+No automatic next slice is implied by the current runtime baseline.
+Further runtime expansion must be explicit, narrow, and grounded back to the constitutional plan.
 
 ---
 
@@ -156,6 +183,9 @@ The intake contract requires explicit source identity, source class, artifact re
 Observation defaults to denied.
 If a watcher is requested, it must be contract-scoped, operator-visible, removable, and bounded by source class.
 
+Runtime Slice 1 now executes this contract mechanically through schema-backed intake validation.
+The runtime output remains limited to accepted or denied validation truth plus bounded contract-error paths.
+
 ## Extraction result
 
 Extraction results are syntax-only by contract.
@@ -167,6 +197,9 @@ They must expose:
 - freshness posture when relevant
 - refusal posture when requests cross into semantics or other denied boundaries
 
+Runtime Slice 2 now emits bounded extraction-result outputs for supported local `.md` and `.txt` sources only.
+Unsupported, unreadable, malformed, or intake-invalid inputs fail closed through `denied` or `unavailable` extraction results.
+
 ## Retrieval package
 
 Retrieval packages are:
@@ -176,6 +209,10 @@ Retrieval packages are:
 - freshness-bound
 
 They require explicit retrieval profile, freshness, invalidation, and completeness fields.
+They do not decide ranking, canonical truth, or downstream semantic acceptance.
+
+Runtime Slice 3 now emits one governed retrieval-package path from ready syntax-only extraction output only.
+Chunking remains deterministic and syntax-derived, using section-bounded chunks when available and paragraph fallback only when no section structure exists.
 
 ## Service status
 
@@ -187,6 +224,12 @@ Service status exposes truthful operator-visible state with the narrow Phase 1 v
 - `denied`
 - `stale`
 - `partial_success`
+
+It remains an operational truth surface only.
+It does not become a raw-content channel or downstream coordination surface.
+
+Runtime Slice 4 now emits one governed service-status path from bounded local runtime truth only.
+It reports implemented runtime slices, admitted source lanes, zero active watcher scopes, and ready/degraded/unavailable posture without adding recommendation or control-plane behavior.
 
 ## Handoff envelope
 
@@ -210,6 +253,35 @@ It must reject orchestration-shaped fields such as:
 - `queue_name`
 - `dispatch_plan`
 - `agent_assignment`
+
+## Embedded diagnostics
+
+Embedded diagnostics are now schema-backed rather than prose-only.
+
+They are:
+
+- redacted by default
+- limited to Cortex-owned operational truth
+- allowed to expose bounded state, freshness, integrity, completeness, watcher scope, and denial summaries
+
+They must reject content-exposure shapes such as:
+
+- `raw_content_preview`
+- `full_text_preview`
+- `full_text_search`
+- `content_browser`
+- `raw_artifact_dump`
+
+## Implemented schema layer
+
+The current machine-checked schema inventory is:
+
+- `schemas/intake-request.schema.json`
+- `schemas/extraction-result.schema.json`
+- `schemas/retrieval-package.schema.json`
+- `schemas/service-status.schema.json`
+- `schemas/handoff-envelope.schema.json`
+- `schemas/embedded-diagnostics.schema.json`
 
 ## Supporting references
 
@@ -238,6 +310,59 @@ Cortex now includes:
 - automatic fixture discovery by schema-prefix naming
 - explicit schema-contract checks for handoff reverse signaling, denial taxonomy, anti-orchestration guards, and embedded diagnostics privacy boundaries
 
+The current machine-checked contract layer covers:
+
+- intake request
+- extraction result
+- retrieval package
+- service status
+- handoff envelope
+- embedded diagnostics
+
+## Runtime slice 1 delivered
+
+The first executable runtime slice is now present for intake validation only.
+
+It adds:
+
+- a minimal in-process intake validation module
+- a local CLI path for validating a candidate intake payload
+- focused runtime tests that reuse contract fixtures
+- explicit fail-closed handling for malformed JSON and unreadable payload files
+
+## Runtime slice 2 delivered
+
+The second executable runtime slice is now present for syntax-only extraction emission only.
+
+It adds:
+
+- a bounded extraction emitter for local `.md` and `.txt` sources
+- reuse of the intake-validation slice before extraction emission
+- schema-valid `ready`, `denied`, and `unavailable` extraction-result outputs
+- focused runtime tests for supported, unsupported, unreadable, and malformed-input paths
+
+## Runtime slice 3 delivered
+
+The third executable runtime slice is now present for one governed retrieval-package emission path only.
+
+It adds:
+
+- a retrieval-package emitter driven by ready syntax-only extraction-result input
+- deterministic section-bounded chunking with paragraph fallback only when section structure is absent
+- schema-valid `ready` and fail-closed `denied` retrieval-package outputs
+- focused runtime tests for deterministic ordering, unsupported paths, stale upstream input, malformed upstream input, and infrastructure-only output
+
+## Runtime slice 4 delivered
+
+The fourth executable runtime slice is now present for one governed service-status truth path only.
+
+It adds:
+
+- a service-status emitter driven by bounded local runtime truth rather than broad environment probing
+- schema-valid `ready`, `degraded`, and `unavailable` service-status outputs
+- explicit reporting of implemented runtime slices and admitted source lanes
+- focused runtime tests for ready, degraded, unavailable, CLI, and informational-only output posture
+
 ## Delivery order
 
 The current delivery order remains:
@@ -264,6 +389,17 @@ The current remediation pass adds:
 - a strict embedded diagnostics schema with privacy-preserving defaults
 - boundary fixtures for service status, retrieval package, and extraction result branches that were previously under-exercised
 - handoff alignment so reverse signaling remains optional rather than forced on every forward transfer envelope
+- doctrine alignment so invalidation is represented through stale posture and invalidation policy rather than a separate workflow-like wire state
+
+## Current repo posture
+
+The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
+
+Slices 1 through 4 now form the current bounded runtime baseline.
+No further implementation target is implied by this system reference alone.
+Any next step should be explicit, narrow, and anchored to the governing plan rather than inferred from momentum.
+
+This assembled system doc is therefore a control reference, not a product or roadmap document.
 
 ## Assembly purpose
 

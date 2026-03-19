@@ -11,14 +11,11 @@
     ],
     "admitted_source_lanes": [
       "local_file_markdown",
-      "local_file_plain_text"
+      "local_file_pdf"
     ],
     "bounded_runtime_only": true
   },
-  "watcher_summary": {
-    "active_watch_scope_count": 2,
-    "contract_scoped_only": false
-  },
-  "operator_visible_message": "Cortex claims watcher visibility but allows an unscoped watcher posture.",
-  "last_updated_at": "2026-03-19T12:23:00Z"
+  "operator_visible_message": "Cortex claims an ungoverned source lane in service status.",
+  "details_redacted": true,
+  "last_updated_at": "2026-03-19T12:25:00Z"
 }

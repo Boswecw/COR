@@ -22,6 +22,7 @@ The allowed service states are:
 - `service_id`
 - `service_class`
 - `state`
+- `runtime_surface_summary`
 - `operator_visible_message`
 - `last_updated_at`
 
@@ -29,6 +30,19 @@ The allowed service states are:
 
 - `degraded_subtype` is required when `state` is `degraded`
 - `denied_state` is required when `state` is `denied`
+
+## Runtime surface summary
+
+`runtime_surface_summary` is required.
+
+It carries only bounded local runtime truth:
+
+- `implemented_slices`
+- `admitted_source_lanes`
+- `bounded_runtime_only`
+
+It is allowed to report only the runtime slices Cortex actually implements and the governed source lanes it actually admits.
+It is not allowed to imply unbounded source support, future capability promises, or broader platform reach.
 
 ## Required posture
 
@@ -49,3 +63,15 @@ If watcher scopes exist, their presence must be operator-visible through status 
 
 Service status is allowed to report operational truth.
 It is not allowed to become a raw-content diagnostic channel.
+
+## Control boundary
+
+Service status must remain informational only.
+
+It must not include:
+
+- next-action recommendations
+- workflow or queue identifiers
+- dispatch plans
+- executor assignment
+- orchestration state

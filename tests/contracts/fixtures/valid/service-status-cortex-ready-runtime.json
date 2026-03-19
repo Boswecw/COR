@@ -1,10 +1,10 @@
 {
   "service_id": "cortex",
   "service_class": "file_intelligence",
-  "state": "stale",
+  "state": "ready",
   "readiness_summary": {
-    "readiness_class": "ready_with_constraints",
-    "summary": "Cortex is reachable, but one or more current artifacts are explicitly stale."
+    "readiness_class": "ready",
+    "summary": "Cortex is ready for slices 1 through 4 on bounded local Markdown and plain-text lanes."
   },
   "runtime_surface_summary": {
     "implemented_slices": [
@@ -20,10 +20,10 @@
     "bounded_runtime_only": true
   },
   "watcher_summary": {
-    "active_watch_scope_count": 1,
+    "active_watch_scope_count": 0,
     "contract_scoped_only": true
   },
-  "operator_visible_message": "Cortex is stale for one or more bounded artifacts until freshness is reasserted.",
+  "operator_visible_message": "Cortex is ready for bounded intake, extraction, retrieval-package, and service-status runtime paths on local Markdown and plain-text files.",
   "details_redacted": true,
-  "last_updated_at": "2026-03-19T12:21:00Z"
+  "last_updated_at": "2026-03-19T12:24:00Z"
 }
