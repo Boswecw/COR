@@ -91,9 +91,11 @@ Current runtime progression:
 2. **Runtime Slice 2 — syntax-only extraction-result emission**
 3. **Runtime Slice 3 — one governed retrieval-package emission path**
 4. **Runtime Slice 4 — service-status truth path**
+5. **Runtime Slice 5 — bounded PDF source lane**
+6. **Runtime Slice 6 — bounded DOCX source lane**
 
 This order matters.
-Slices 1 through 4 are now implemented in bounded form.
+Slices 1 through 6 are now implemented in bounded form.
 
 Do not broaden source ecosystems before the narrow runtime path is stable across these slices.
 
@@ -120,7 +122,7 @@ Each source lane must be:
 
 ## Recommended source-lane roadmap
 
-### Tier 1 — strong support candidates
+### Tier 1 — admitted strong support lanes
 
 These fit Cortex’s syntax-first posture best.
 
@@ -137,24 +139,15 @@ Why:
 
 ### Tier 2 — bounded / degraded support
 
-- text-based `.pdf`
+Text-based `.pdf` is now admitted in a bounded degraded lane.
 
-Why:
+Its posture remains:
 
-- useful and common
-- but structurally messier
-- text order may be unstable
-- headings are often inferred rather than explicit
-- multi-column/page furniture can distort extraction
-
-PDF should enter as a **degraded lane**, not as a parity format with Markdown or DOCX.
-
-Initial PDF posture should be:
-
-- text-based PDFs only
-- no OCR in first lane
+- text-layer PDFs only
+- no OCR
+- no image interpretation
 - explicit degraded completeness posture where appropriate
-- fail closed on unreadable or unsupported PDFs
+- fail closed on unreadable, encrypted, scanned, or unsupported PDFs
 
 ### Tier 3 — specialized governed lane
 
@@ -224,6 +217,14 @@ For each new lane, define:
 
 If a source family cannot be supported cleanly under these rules, it should not be admitted yet.
 
+The shared source-lane framework now carries:
+
+- explicit lane registration
+- shared admission checks
+- shared failure taxonomy
+- shared provenance posture
+- shared service-status lane reporting
+
 ---
 
 ## Format-specific guardrails
@@ -246,14 +247,15 @@ Avoid:
 
 Allowed posture:
 
-- document properties if already available through parser output
-- headings
+- headings when explicit style evidence exists
 - paragraphs
-- lists
-- simple tables later if explicitly added
+- simple lists when explicit numbering or list-style evidence exists
+- bounded plain table text when deterministic
 
 Avoid:
 
+- tracked changes semantics
+- comments or review semantics
 - semantic use of styling beyond bounded structural mapping
 - broad style interpretation
 - hidden editorial meaning
@@ -321,11 +323,7 @@ If it is the second, do not implement it.
 
 ## Current recommendation
 
-Near-term source expansion should proceed in this order:
-
-1. `.docx`
-2. text-based `.pdf`
-3. Scrivener project lane
+Keep expanding only through explicit lane admission and shared lane-contract hardening.
 
 Do **not** add all formats in one pass.
 

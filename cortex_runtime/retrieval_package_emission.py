@@ -415,7 +415,7 @@ def emit_retrieval_package_from_source_file(
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Emit a bounded Cortex retrieval-package from a ready extraction result or a direct local text source."
+        description="Emit a bounded Cortex retrieval-package from a ready extraction result or a direct local text, PDF, or DOCX source."
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -424,7 +424,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     group.add_argument(
         "--source-path",
-        help="Path to a bounded local text-like source file for direct retrieval-package emission.",
+        help="Path to a bounded local text-like, PDF, or DOCX source file for direct retrieval-package emission.",
     )
     parser.add_argument(
         "--request-id",

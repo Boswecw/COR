@@ -20,6 +20,9 @@ Current status:
 - Runtime Slice 2 syntax-only extraction emission path implemented for bounded local `.md` and `.txt` sources
 - Runtime Slice 3 governed retrieval-package emission path implemented from ready syntax-only extraction output
 - Runtime Slice 4 service-status truth path implemented for current bounded runtime surfaces and admitted source lanes
+- Runtime Slice 5 bounded local PDF source lane implemented for text-layer `.pdf` files only
+- Shared source-lane framework extracted for admitted-lane registration, failure posture, provenance, and service-status reporting
+- Runtime Slice 6 bounded local DOCX source lane implemented for local `.docx` files only
 
 Start here:
 
@@ -45,3 +48,13 @@ Runtime Slice 3:
 Runtime Slice 4:
 
 - emit current bounded service-status truth: `python -m cortex_runtime.service_status`
+
+Runtime Slice 5:
+
+- emit a syntax-only extraction result from a bounded local text-layer PDF: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.pdf --request-id pdf-001 --source-ref pdf-local`
+- emit a retrieval package from the same bounded local PDF lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.pdf --request-id pdf-001 --source-ref pdf-local`
+
+Runtime Slice 6:
+
+- emit a syntax-only extraction result from a bounded local DOCX source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.docx --request-id docx-001 --source-ref docx-local`
+- emit a retrieval package from the same bounded local DOCX lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.docx --request-id docx-001 --source-ref docx-local`

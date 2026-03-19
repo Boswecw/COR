@@ -65,6 +65,44 @@ It adds:
 - explicit reporting of implemented runtime slices and admitted source lanes
 - focused runtime tests for ready, degraded, unavailable, CLI, and informational-only output posture
 
+## Runtime slice 5 delivered
+
+The fifth executable runtime slice is now present for one bounded local PDF source lane only.
+
+It adds:
+
+- a text-layer-only PDF extraction path using bounded local PDF tooling already present on the host
+- explicit deny behavior for encrypted PDFs and PDFs with no extractable text layer
+- explicit unavailable behavior for corrupt PDFs or unavailable PDF tooling
+- optional `partial_success` when some PDF pages are extractable and others are text-layer-free
+- retrieval-package compatibility for ready PDF extraction outputs through the existing deterministic paragraph path
+- focused runtime tests for text, encrypted, scanned, partial, corrupt, and retrieval-compatible PDF paths
+
+## Shared lane framework delivered
+
+The runtime now exposes a shared source-lane model rather than only format-specific branches.
+
+It adds:
+
+- explicit admitted-lane registration
+- shared admission checks
+- shared failure taxonomy wiring
+- shared provenance metadata for lane identity
+- shared service-status lane reporting
+
+## Runtime slice 6 delivered
+
+The sixth executable runtime slice is now present for one bounded local DOCX source lane only.
+
+It adds:
+
+- a bounded local `.docx` extraction path using OpenXML package reads only
+- deterministic recovery of headings, paragraphs, simple lists, and bounded table text
+- explicit deny behavior for comments and tracked changes
+- explicit unavailable behavior for corrupt or unreadable DOCX packages
+- retrieval-package compatibility for ready DOCX extraction outputs through the existing deterministic section path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Delivery order
 
 The current delivery order remains:
@@ -97,7 +135,7 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 4 now form the current bounded runtime baseline.
+Slices 1 through 6 now form the current bounded runtime baseline.
 No further implementation target is implied by this system reference alone.
 Any next step should be explicit, narrow, and anchored to the governing plan rather than inferred from momentum.
 

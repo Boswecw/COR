@@ -45,11 +45,15 @@ The currently implemented executable runtime surfaces are:
 - Slice 2 - syntax-only extraction-result emission
 - Slice 3 - one governed retrieval-package emission path
 - Slice 4 - service-status truth
+- Slice 5 - bounded local PDF source lane
+- Slice 6 - bounded local DOCX source lane
 
 The currently admitted source lanes remain narrow:
 
 - local `.md`
 - local `.txt`
+- local text-layer `.pdf`
+- local `.docx`
 
 This is the current bounded baseline, not a promise of broader source or control-surface expansion.
 

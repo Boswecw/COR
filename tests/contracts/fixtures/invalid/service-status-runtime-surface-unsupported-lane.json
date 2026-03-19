@@ -7,11 +7,13 @@
       "slice1_intake_validation",
       "slice2_extraction_emission",
       "slice3_retrieval_package_emission",
-      "slice4_service_status_truth"
+      "slice4_service_status_truth",
+      "slice5_pdf_source_lane",
+      "slice6_docx_source_lane"
     ],
     "admitted_source_lanes": [
       "local_file_markdown",
-      "local_file_pdf"
+      "local_file_epub"
     ],
     "bounded_runtime_only": true
   },

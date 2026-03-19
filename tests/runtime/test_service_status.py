@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from jsonschema import Draft202012Validator
 
+from cortex_runtime.extraction_emission import pdf_lane_runtime_available
 from cortex_runtime.service_status import emit_service_status, main
 
 
@@ -37,7 +38,8 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         result = emit_service_status()
 
         assert_schema_valid(self, result)
-        self.assertEqual(result["state"], "ready")
+        expected_state = "ready" if pdf_lane_runtime_available() else "degraded"
+        self.assertEqual(result["state"], expected_state)
         self.assertEqual(result["service_id"], "cortex")
         self.assertEqual(result["service_class"], "file_intelligence")
 
@@ -45,19 +47,26 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         result = emit_service_status()
 
         assert_schema_valid(self, result)
+        expected_slices = [
+            "slice1_intake_validation",
+            "slice2_extraction_emission",
+            "slice3_retrieval_package_emission",
+            "slice4_service_status_truth",
+            "slice6_docx_source_lane",
+        ]
+        expected_lanes = [
+            "local_file_markdown",
+            "local_file_plain_text",
+        ]
+        if pdf_lane_runtime_available():
+            expected_slices.insert(4, "slice5_pdf_source_lane")
+            expected_lanes.append("local_file_pdf_text")
+        expected_lanes.append("local_file_docx_text")
         self.assertEqual(
             result["runtime_surface_summary"]["implemented_slices"],
-            [
-                "slice1_intake_validation",
-                "slice2_extraction_emission",
-                "slice3_retrieval_package_emission",
-                "slice4_service_status_truth",
-            ],
+            expected_slices,
         )
-        self.assertEqual(
-            result["runtime_surface_summary"]["admitted_source_lanes"],
-            ["local_file_markdown", "local_file_plain_text"],
-        )
+        self.assertEqual(result["runtime_surface_summary"]["admitted_source_lanes"], expected_lanes)
         self.assertEqual(result["watcher_summary"]["active_watch_scope_count"], 0)
 
     def test_degraded_status_is_reported_when_runtime_slice_is_missing(self) -> None:
@@ -108,8 +117,9 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
 
         result = json.loads(output.getvalue())
         assert_schema_valid(self, result)
-        self.assertEqual(exit_code, 0)
-        self.assertEqual(result["state"], "ready")
+        expected_state = "ready" if pdf_lane_runtime_available() else "degraded"
+        self.assertEqual(exit_code, 0 if expected_state == "ready" else 1)
+        self.assertEqual(result["state"], expected_state)
 
 
 if __name__ == "__main__":

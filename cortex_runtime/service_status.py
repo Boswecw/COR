@@ -10,6 +10,14 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
+from cortex_runtime.source_lanes import (
+    RUNTIME_SLICE_LABELS as SOURCE_LANE_SLICE_LABELS,
+    SOURCE_LANE_LABELS,
+    admitted_source_lanes as configured_admitted_source_lanes,
+    configured_source_lane_slice_ids,
+    implemented_source_lane_slices,
+)
+
 
 ROOT = Path(__file__).resolve().parent.parent
 SERVICE_STATUS_SCHEMA_PATH = ROOT / "schemas/service-status.schema.json"
@@ -17,26 +25,19 @@ SERVICE_STATUS_SCHEMA_REF = "schemas/service-status.schema.json"
 SERVICE_ID = "cortex"
 SERVICE_CLASS = "file_intelligence"
 
-RUNTIME_SLICE_SPECS = (
+BASE_RUNTIME_SLICE_SPECS = (
     ("slice1_intake_validation", "cortex_runtime.intake_validation"),
     ("slice2_extraction_emission", "cortex_runtime.extraction_emission"),
     ("slice3_retrieval_package_emission", "cortex_runtime.retrieval_package_emission"),
     ("slice4_service_status_truth", "cortex_runtime.service_status"),
 )
-RUNTIME_SLICE_LABELS = {
+BASE_RUNTIME_SLICE_LABELS = {
     "slice1_intake_validation": "intake validation",
     "slice2_extraction_emission": "syntax-only extraction emission",
     "slice3_retrieval_package_emission": "governed retrieval-package emission",
     "slice4_service_status_truth": "service-status truth",
 }
-SOURCE_LANE_MAP = {
-    ".md": "local_file_markdown",
-    ".txt": "local_file_plain_text",
-}
-SOURCE_LANE_LABELS = {
-    "local_file_markdown": "local Markdown files",
-    "local_file_plain_text": "local plain-text files",
-}
+RUNTIME_SLICE_LABELS = {**BASE_RUNTIME_SLICE_LABELS, **SOURCE_LANE_SLICE_LABELS}
 
 
 def _utc_now() -> str:
@@ -76,40 +77,34 @@ def _source_lane_label_list(source_lanes: list[str]) -> str:
 
 def _implemented_runtime_slices() -> list[str]:
     implemented: list[str] = []
-    for slice_id, module_name in RUNTIME_SLICE_SPECS:
+    for slice_id, module_name in BASE_RUNTIME_SLICE_SPECS:
         try:
             importlib.import_module(module_name)
         except Exception:
             continue
         implemented.append(slice_id)
+    implemented.extend(implemented_source_lane_slices())
     return implemented
 
 
 def _admitted_source_lanes() -> tuple[list[str], str | None]:
     try:
-        extraction_module = importlib.import_module("cortex_runtime.extraction_emission")
+        lanes = configured_admitted_source_lanes()
     except Exception:
         return (
             [],
-            "Cortex source-lane truth is unavailable because the bounded extraction runtime could not be loaded.",
+            "Cortex source-lane truth is unavailable because the bounded source-lane registry could not be loaded.",
         )
 
-    suffixes = getattr(extraction_module, "SUPPORTED_SUFFIXES", None)
-    if not isinstance(suffixes, (set, frozenset, list, tuple)):
-        return (
-            [],
-            "Cortex source-lane truth is unavailable because extraction support is not exposed in a bounded form.",
-        )
-
-    normalized_suffixes = sorted({str(suffix).lower() for suffix in suffixes})
-    unsupported_suffixes = [suffix for suffix in normalized_suffixes if suffix not in SOURCE_LANE_MAP]
-    if unsupported_suffixes:
+    normalized_lanes = [str(lane) for lane in lanes]
+    unsupported_lanes = [lane for lane in normalized_lanes if lane not in SOURCE_LANE_LABELS]
+    if unsupported_lanes:
         return (
             [],
             "Cortex source-lane truth is unavailable because extraction support exceeds the bounded service-status vocabulary.",
         )
 
-    return [SOURCE_LANE_MAP[suffix] for suffix in normalized_suffixes], None
+    return normalized_lanes, None
 
 
 def _runtime_surface_summary(
@@ -178,7 +173,9 @@ def _build_unavailable_status(
 def _status_candidate() -> dict[str, Any]:
     implemented_slices = _implemented_runtime_slices()
     admitted_source_lanes, source_lane_message = _admitted_source_lanes()
-    expected_slices = [slice_id for slice_id, _ in RUNTIME_SLICE_SPECS]
+    expected_slices = [
+        slice_id for slice_id, _ in BASE_RUNTIME_SLICE_SPECS
+    ] + configured_source_lane_slice_ids()
 
     if source_lane_message is not None or not admitted_source_lanes:
         message = source_lane_message or (
@@ -208,15 +205,16 @@ def _status_candidate() -> dict[str, Any]:
         )
 
     summary = (
-        "Implemented runtime slices: "
-        + _slice_label_list(implemented_slices)
-        + ". Admitted source lanes: "
+        "Bounded runtime slices are implemented for intake, extraction, retrieval-package, service-status, "
+        "and admitted source lanes: "
         + _source_lane_label_list(admitted_source_lanes)
         + "."
     )
     message = (
         "Cortex is ready for bounded intake, syntax-only extraction, retrieval-package, "
-        "and service-status runtime paths on local Markdown and plain-text files."
+        "and service-status runtime paths on "
+        + _source_lane_label_list(admitted_source_lanes)
+        + "."
     )
     return _build_status(
         state="ready",
