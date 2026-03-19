@@ -1,0 +1,2454 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ScrivenerProject Template="No" Version="2.0" Identifier="SANITIZED" Creator="SCRWIN-3.1.5.1" Device="SANITIZED" Modified="SANITIZED" ModID="SANITIZED">
+    <Binder>
+        <BinderItem UUID="F8F9FDEF-FD9F-4A8C-B33D-3434A1220ADC" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 1</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+                <IconFileName>Information</IconFileName>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+        </BinderItem>
+        <BinderItem UUID="4A1D6B18-0952-42EB-A487-D17915DD3BA1" Type="DraftFolder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 2</Title>
+            <MetaData />
+            <CorkboardAndOutliner>
+                <SelectedSubdocumentUUIDs>EAB079E7-B4C4-4038-8260-399D9A677BEB</SelectedSubdocumentUUIDs>
+                <OutlinerExpandedState>
+                    <ItemID>2972E447-67AD-4208-9C95-BC58E47495AA</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>E5686E9D-821C-4551-85FE-4EE9255129C4</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>F104F6B9-5B37-44FA-B1B9-44259CAB6D8F</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>EFED7B16-A7D8-49AF-A368-5E716D731581</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>08768E7B-C1DC-43DC-9660-437CA5D3B9EF</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>C27DA172-BB6F-476C-B33F-457FC786DEA7</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>448DB029-3E78-40A9-A4CF-1CD5B44BB7C2</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>EAB079E7-B4C4-4038-8260-399D9A677BEB</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>0422D000-675A-4B92-860B-FC3FDF04CCB5</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>75E35A26-E4F9-4A83-A680-BA3FF999B50C</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>03B6F13C-456A-4617-8CCB-B32CEDAFC116</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>7232CD4F-CFC7-4EE6-988A-CCB63AF0E642</ItemID>
+                </OutlinerExpandedState>
+                <OutlinerExpandedState>
+                    <ItemID>3CF29C0A-57E8-452F-815E-BCE4179C6671</ItemID>
+                </OutlinerExpandedState>
+                <CorkboardSettings>
+                    <Arrangement>Linear</Arrangement>
+                </CorkboardSettings>
+            </CorkboardAndOutliner>
+            <Children>
+                <BinderItem UUID="03B6F13C-456A-4617-8CCB-B32CEDAFC116" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 3</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>972FDF2E-6367-49D9-9EB5-8197175E526A</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="4CC621EE-F648-4298-B519-048C01AA47F6" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 4</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1432,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="1A808608-5D6E-4B95-A3E3-EBF108849662" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 5</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1406,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3A4DA1D8-0A45-4E16-AD0E-E11EFD04B5C9" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 6</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1093,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E6355B86-5A59-4566-9CF3-9826C892672B" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 7</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>6635,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6685F2F7-94EF-4059-91A9-F68FE9A3A2CE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 8</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2321,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9DC35E83-06F6-445C-A023-1299120CC05D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 9</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1013,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="209B8706-36B7-4E9F-BDC7-5B1E918EACD0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 10</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1297,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B38F0009-3038-481A-AC52-4547B476F460" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 11</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1472,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D382DB1B-12C4-4325-A069-3D0833E26CBF" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 12</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1667,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="439DA544-824D-493D-9299-7E323BBD0145" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 13</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2955,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C80E5BBA-17CA-42BA-8BF4-32DA561403C0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 14</Title>
+                            <MetaData>
+                                <LabelID>7</LabelID>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>905,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B1745ACF-F99A-4A89-BCCB-6BC5E5B1EAC9" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 15</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1322,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="BA69950C-1379-428F-B11F-8A7C4042C491" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 16</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1671,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A2BEA9AC-AF0C-4E46-A545-615976BA5906" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 17</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>4598,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="582B0466-E1DD-493C-AF88-F413D8A268E1" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 18</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1052,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4D4C4443-9C55-42D1-93F4-3C4A003D1A3B" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 19</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>938,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="FD5141BD-8F72-48C1-872E-D3C1436CC810" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 20</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1034,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8D26D95F-FEF1-45B6-AC91-76E4638C7B92" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 21</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>905,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="102067AC-5E62-4EE3-BA3C-951C35908E3A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 22</Title>
+                            <MetaData>
+                                <LabelID>7</LabelID>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1285,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="116C07ED-241C-4D41-8157-3F369A4F520F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 23</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2666,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4EDC7207-7249-48FD-AA9E-FAF9C0A9754E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 24</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1936,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C815F6A6-4F4B-49D9-819D-1EF44D107442" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 25</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>818,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="972FDF2E-6367-49D9-9EB5-8197175E526A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 26</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1269,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="EFED7B16-A7D8-49AF-A368-5E716D731581" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 27</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="7E6C0F59-5D65-4FB4-95C5-E3F8F679C738" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 28</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>359,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7F0B2206-B6F9-40DE-ADEB-767EDBE8CAB6" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 29</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>12,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6D9F4604-A66B-4A37-AFA0-933CD392A230" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 30</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3590,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6CC4541E-9B23-4B63-9A5A-0A76F2D03C11" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 31</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3530,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E1E2122C-23EF-4D29-9175-96BF6246A12E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 32</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>0,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="66B30649-1F47-4B6C-A73D-EBDE53529DFF" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 33</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3335,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="63895DB4-F4EA-40B0-B1C4-73DD86082B08" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 34</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1896,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9681F60D-FB0A-4328-8DBD-94CCDE81AE6E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 35</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3019,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="DAEFF8D6-0EB2-408A-B8C3-13DBAAA0057F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 36</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2838,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C8C8F041-DCAA-4DD7-A930-5D4C22F9C255" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 37</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1743,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6766C40D-C991-4F59-B2D2-23878BB71A3A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 38</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1509,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="F294F84E-F9FF-440D-B8E8-EC92991F235A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 39</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1737,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="F56302D9-4D6E-48F3-A31E-2D0265AEDE91" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 40</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1573,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E77FE62B-1A5B-4678-85C6-E73963DC16E2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 41</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3568,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="AF601543-D6BF-45FB-A0FA-61B9A5ECB6B4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 42</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>558,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="0CA942BD-DE9D-4BDF-8297-BDD68C485407" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 43</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>0,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="F104F6B9-5B37-44FA-B1B9-44259CAB6D8F" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 44</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>C2EBCF01-D5FB-49FD-935C-5D7449323FD1</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="FF17E0A9-975F-4365-91D0-21154570B94A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 45</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1668,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7CCCFD8B-D48B-4EE8-8846-C8CD5CD2AADA" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 46</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1901,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="466A8E7D-C062-4AF4-AE34-C28574DA98F0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 47</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1107,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D30B066A-43E0-4B31-85E8-CCF32E7FF841" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 48</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1537,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="24653C4B-3EE4-4726-8A2A-85B7226703A0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 49</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2191,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C22871EA-39AA-4ADA-8D5A-DA246FE587A3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 50</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1696,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4481173A-52ED-439C-8FC8-94AC4DC5BCD4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 51</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1238,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="928C6F58-F67F-41EF-A8C2-BF6D12C48BD3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 52</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1449,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A297F31D-037A-4EE4-AF6B-2470CFFDE3FE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 53</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1154,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C2EBCF01-D5FB-49FD-935C-5D7449323FD1" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 54</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2105,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A55AC8D3-7CAB-4871-919E-D6A863746D74" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 55</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1723,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9C02B839-2E49-44C1-8D5C-47A85B1AEEC0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 56</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1345,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E39574CF-81DB-4A44-85BA-B89C92BA3496" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 57</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1628,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D4E04FE0-7593-4327-9ED2-4B61FD5A4FB2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 58</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2101,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="ACE5799D-77B1-44BE-B158-89E303C22E25" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 59</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2538,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="5E58BAB9-4ADD-4266-86E4-E5E65D6E2ED8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 60</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1438,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="86E10780-9799-4008-9B2B-4346A51B0589" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 61</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>5261,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="0422D000-675A-4B92-860B-FC3FDF04CCB5" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 62</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="A72982C7-280C-4E47-A507-BC56914D4D5C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 63</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>0,2190</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="67E09052-A155-43AC-85D3-F65B74ACC2E7" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 64</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1538,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="75373AA7-1A41-4FE8-BA3A-D39D5C5F363B" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 65</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1703,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9D2D34F8-0BAB-4311-81B4-F74505642F8A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 66</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1343,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="1AE6393A-631F-43CA-8CD9-225392507EFA" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 67</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1187,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="78433F93-1687-4AE0-ABFF-945522CF0BE0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 68</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1668,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E0AB780E-2A6B-4F7E-A254-D69C45014318" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 69</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1917,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B8B2E557-935C-4EA3-BEBA-581D2F339682" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 70</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1306,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7E0D9C01-A497-4016-94EF-443DE5C6EC0D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 71</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2008,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="EA49AA93-3363-4B85-9043-57B73E3C1FA8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 72</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1605,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D4C8A186-F8CA-43E9-82A1-ED5165EDA851" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 73</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1507,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C7DBE668-5F67-49AD-8B17-3FCF42DD4D73" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 74</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>627,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="092CECCA-8812-4B7D-A464-27300453BD40" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 75</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2300,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="EBFFF82E-4B9A-40E9-B027-99AE0B12EA25" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 76</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>815,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="71CBBEA9-F925-4A82-BD06-81BF888605EB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 77</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3327,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="49D9ABCB-4B33-45D4-8AB3-29D881289DFB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 78</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2001,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4211ACFD-DBD7-4E91-AA88-E8CEF347CA23" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 79</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2553,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="ACAD1646-0B0B-4534-A4F8-58EB0761667D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 80</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1788,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8955F9C4-B23A-4A7A-B4B6-4E476E81E71E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 81</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3833,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D11410B1-36F0-4A24-9946-8A120A69B6F8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 82</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1503,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="75E35A26-E4F9-4A83-A680-BA3FF999B50C" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 83</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>4C048AD7-D874-4996-AB42-FA0EC7A1BB67</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="1C28FC14-F524-4CAC-9B39-3652DAE7DC0F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 84</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2559,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="FE66138C-148D-4D20-97B8-8CC5B50197BB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 85</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2166,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="EE29C760-B2C9-4B45-B06A-FC290769F639" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 86</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2197,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="DE79BF50-67D5-4314-A1CA-E92BD97B2196" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 87</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1468,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A98BC293-AD5C-4137-8491-66F8A7D5DEE9" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 88</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1322,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="07C4C24B-01D1-4412-8AD5-DCF492AA9AC1" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 89</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1576,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="5B67E587-A050-48B0-972B-35698CA45AA5" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 90</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1658,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D244A1F0-347A-47B6-8629-4E3B531912EE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 91</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1738,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="BB03BECE-C69E-439A-B502-B2B0AC85E9B0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 92</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1393,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="763D065B-BCC3-4912-A299-D2477003DEF0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 93</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2026,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8D182505-4D8B-4342-A217-17BED0DD175D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 94</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1431,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="CCF5EFE5-F90B-4DE4-AB40-4DC7704F0253" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 95</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1419,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="194CF4EA-C5C7-4022-A39E-DBC4EE8D37FD" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 96</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1492,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9C1A3C2C-5334-4E28-9FF8-BF6061AA9189" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 97</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1133,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="ED78B4D8-A6B2-4E30-A9A7-C264FB0B3DB3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 98</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>836,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="04B7CEAA-16D9-4B5F-A666-86E6745334A3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 99</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1609,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="487528F0-C79D-49D6-87E0-A7979E139E75" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 100</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1143,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4C048AD7-D874-4996-AB42-FA0EC7A1BB67" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 101</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2046,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="504BDAA5-4EB7-4D6B-B70F-004F698F6F15" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 102</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="2C27D012-4620-4A57-8529-F376FFA0FDF2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 103</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1745,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="95AD079E-F760-4EB0-9FEB-D07000086A3E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 104</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1713,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="412A0835-8DF0-41E3-BE5A-46FD4B6F3C6E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 105</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1937,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6E99CE76-B38E-46EC-9E4D-FA86DF8D2D9C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 106</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2182,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7BF50E67-EB57-413B-8E55-DF70356CFB7C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 107</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2994,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="EDBA12B1-F2C1-4910-BD1C-23CCB5DA9AC4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 108</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1598,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="0709F6FB-BE22-4F8C-BFAD-65C3C4BC2D29" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 109</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>526,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="448DB029-3E78-40A9-A4CF-1CD5B44BB7C2" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 110</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>7A1FA022-32C2-4109-BF83-1512AEBC55A0</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="A444925D-65BB-4E89-A556-53DCA0BA52C8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 111</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1969,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="97B7CF95-D546-433B-A8CC-0BB945AF78B4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 112</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1495,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="5329D60E-8DB5-45FC-A95B-AF4E5BCDDC8F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 113</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1658,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="357599BA-E7EC-4928-A2CC-A335D47AFCBB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 114</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1901,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3538B129-3C8F-4350-9798-7E2C064D23A0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 115</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1465,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7A1FA022-32C2-4109-BF83-1512AEBC55A0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 116</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1736,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="EAB079E7-B4C4-4038-8260-399D9A677BEB" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 117</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>29ACBC47-FDC2-4E42-9B21-D796B723B43A</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="B0571731-ED78-4F4B-91F4-21E901C8E594" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 118</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1792,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="88DBF651-467E-4317-9231-2BB9DAD897E2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 119</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1417,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="CEFEDE58-1F95-43C0-A6CE-8A93B994AA8B" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 120</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1598,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3EE15392-E819-4ECA-A5E1-AE13D787EB49" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 121</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1563,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="21D444D6-86BA-4FC7-A934-1B3D8D9B73AD" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 122</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1367,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7D1B62FC-0A55-4911-8880-6A838BDB9995" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 123</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1462,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D4757F24-3A95-4468-9C8A-37B1AC5D260C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 124</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1468,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8ABD4F49-2F7C-474E-ABDA-9697AB08DC13" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 125</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1556,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7404795C-952E-4031-9418-3D8EAE84F8C5" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 126</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1178,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="85B0EA0D-FCF3-4BBE-9061-2560FD523757" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 127</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1149,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="CEDC6A08-7E4F-48BE-B31F-C593F7421764" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 128</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1137,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9AF034F6-70A7-4C69-8AC4-2299E2E14AE8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 129</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>838,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="74218714-E787-478B-A48F-276F344FCEB6" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 130</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2449,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="29ACBC47-FDC2-4E42-9B21-D796B723B43A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 131</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>770,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="2972E447-67AD-4208-9C95-BC58E47495AA" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 132</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>A3BA300C-D49E-4BEA-A441-D601A22765DE</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="F2468A10-05D8-40F6-ABCD-F54B2B6D6446" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 133</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1567">0,1567</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="59412599-659A-4E8D-8B48-17409FF036EC" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 134</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="2698">0,2698</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B749073E-7DD0-464D-8206-6A2B971C776D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 135</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1813">0,1813</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4F3645E8-87E7-42E9-95A2-1782D1C4ECBE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 136</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1598">0,1598</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="DDB95671-9F3A-4C13-9460-0729C149C794" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 137</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1771">0,1771</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C168DCD9-03F4-4043-A2E8-5F93F9DD9915" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 138</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1363">0,1363</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6917EA99-FD26-4A38-8314-7CD07F41112A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 139</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1822">0,1822</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="F9FFDF68-3615-4513-B92D-0F3F3997DA21" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 140</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="1966">0,1966</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A5C7CB7E-E888-460C-AFB4-8F490F9F400F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 141</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="2401">0,2401</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="634F6168-6BCF-4B60-A15E-51885AE0EB56" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 142</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="4494">0,4494</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="45C340AC-619D-4215-8721-26EF0EBDFB5E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 143</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="3288">0,3288</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="779475C9-73D2-4D12-8B26-AC571F7A8B81" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 144</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="4770">0,4770</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C4CD317D-8D93-4621-9CCA-D8166094152E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 145</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="2636">0,2636</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="41334E99-C3B9-42FC-B3C3-B18FCFAC94B0" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 146</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="3899">0,3899</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B7E5E145-68FD-4622-B97F-89996039558A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 147</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="4537">0,4537</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="AC1CCB04-F21B-43F8-8B22-D091AAEC7E45" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 148</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="6764">0,6764</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="099DB318-E97C-4F0B-881A-64B49694597D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 149</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="7211">0,7211</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A3BA300C-D49E-4BEA-A441-D601A22765DE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 150</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection Caret="6835">0,6835</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="C27DA172-BB6F-476C-B33F-457FC786DEA7" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 151</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>2595F4E7-237B-404B-945B-F67CC4AF5C6D</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="BE8AC022-B69B-482A-9F69-C80AF3DC53ED" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 152</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1455,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8A3AE53E-FFF1-4533-8E0C-9E49AFA5F142" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 153</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1747,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="50FF9C2B-59A6-41A5-9947-9889B9E402DA" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 154</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1759,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="BCCFB02C-37B7-44C1-817E-91CE6128A034" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 155</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1888,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D9FD95D2-150A-474A-ADBE-6FE59B47D738" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 156</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1090,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="0DBBE7E2-637C-427B-9D9F-F51CF4D15611" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 157</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1060,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7DCDB459-4CCB-429B-A50A-682892983FFA" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 158</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1745,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D3350FBF-3BE1-4C7E-B4F4-32BB2E89BE53" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 159</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1284,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7A686A8D-E531-46CC-B612-5C680B13E92A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 160</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1351,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="36683F7F-91C4-490E-8889-5BDBED9CE9EC" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 161</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1486,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="52877DD9-5166-42C6-8A7F-C978EB4B1D7D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 162</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1259,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="2595F4E7-237B-404B-945B-F67CC4AF5C6D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 163</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2179,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="3CF29C0A-57E8-452F-815E-BCE4179C6671" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 164</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>DD398B50-91C9-47C1-9773-5833059D0672</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="B0EA4DE4-3B19-456B-85C1-0A58BE5DE42E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 165</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1931,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8CB91069-DC09-450B-9A4B-DE4D64B380B2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 166</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1071,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="34B5327F-C286-4DDA-B2BF-1AABBED5FE45" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 167</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1754,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A2A5590C-D646-4E1D-862C-1651714889AA" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 168</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1702,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="1C0183CA-0EF2-4653-AE7A-CDCAB086FCC1" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 169</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2000,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9234AAAB-7DA3-41B2-B239-FC140D090E35" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 170</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1352,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="86DB2CB3-3583-40E6-817C-2A255D8C8DAF" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 171</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2127,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="1D51B806-F986-4039-9715-B0B2CEEC82B2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 172</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1758,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C32256F9-BAE7-4B68-AF64-B200FBA1F2CC" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 173</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1256,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="87B19F8B-8B70-4BFD-A4DB-A19A93A13373" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 174</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>4335,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8C13BC4B-19CD-4C19-819F-EA1C58D11A80" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 175</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1727,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7463728B-0D1B-44A4-9CB2-4B96DD79F10D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 176</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1415,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A2742CB8-76D4-4DB5-8A70-3382E1D46A4C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 177</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2204,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="DD398B50-91C9-47C1-9773-5833059D0672" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 178</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1716,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="E5686E9D-821C-4551-85FE-4EE9255129C4" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 179</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>EE0CD69A-274E-42F7-A864-2F10CD4CB968</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="9F370C70-8CA0-476C-9A9F-DF638DAD1D34" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 180</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1502,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="DB82D270-3237-4AFC-AC86-0A53BF3B2BF3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 181</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1381,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="26601D87-40D2-4395-8381-DF3E86165B02" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 182</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1560,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="D8461635-1B15-4C17-A933-2542C1CDFD85" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 183</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1621,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A66EFF1D-B26D-4FE4-B77F-03E1F1CCB247" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 184</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1411,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="2800E944-BD20-429A-A369-AB0E114567A4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 185</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1606,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7F36BC49-A1E4-4DD0-8837-31DD6CFA4928" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 186</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1286,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="126141A9-6CB1-4C40-A1F0-0C31DF050230" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 187</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1560,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="6F016235-7298-4DDA-BD42-8991C55F4946" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 188</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1223,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="618F6059-160F-4C85-98EF-0AB8B97BBE26" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 189</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1425,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="78348BBE-7C91-406B-9EE3-E0C49858FE1F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 190</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1299,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="EE0CD69A-274E-42F7-A864-2F10CD4CB968" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 191</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1560,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="7232CD4F-CFC7-4EE6-988A-CCB63AF0E642" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 192</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="698DDD96-23E8-4DBE-B3A2-CECC974309E9" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 193</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1338,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="84DBC362-A75A-456A-AE79-C7706CA04B2B" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 194</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1286,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="595BC9F6-A7C7-498C-953B-A6912324A97F" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 195</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>912,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4DAD3414-10C6-44F0-8E67-0E6FF242D3A5" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 196</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>931,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="F6751C81-4E72-425A-A404-2EC4829E99C4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 197</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1165,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8F7E58E0-A650-4D5A-8476-003D5552F4F8" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 198</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1021,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4B3F1AEA-E4A7-4C3C-A104-64EF4963E7FF" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 199</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1520,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3B310951-34B6-417C-8215-97477CED6B27" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 200</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>685,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C741066F-00EE-43E5-9D6C-A2DCC131B20A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 201</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>731,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="FC315F52-1A2C-498D-ABD1-D12CB43BAAFC" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 202</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>907,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3C99B323-59B7-4A45-A8A1-CDC9C266AAA7" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 203</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>675,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="2B51F775-709E-4377-873E-0E42EFCE0BE1" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 204</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>725,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="26DA6FCF-4068-4F53-9B79-9B6C40BF2614" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 205</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>822,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8623DEE9-5AEC-47D7-A151-3F9FFB58F0B3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 206</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>953,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="8F8FC7C1-008A-4054-9031-B0ACA8F95A43" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 207</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2134,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="08768E7B-C1DC-43DC-9660-437CA5D3B9EF" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 208</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <CorkboardAndOutliner>
+                        <SelectedSubdocumentUUIDs>72F4EBB4-279A-42A5-9806-92D4A347153E</SelectedSubdocumentUUIDs>
+                        <CorkboardSettings>
+                            <Arrangement>Linear</Arrangement>
+                        </CorkboardSettings>
+                    </CorkboardAndOutliner>
+                    <Children>
+                        <BinderItem UUID="92C686A4-5630-412D-B8AB-26AC1A59A9DD" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 209</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1181,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="433C9A4C-7C08-49B0-88C0-86B0D11F59E2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 210</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1795,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="56455EA2-644D-48B9-91F2-1100749045D6" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 211</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1529,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="415AE1B3-15AC-441A-B4DA-BE72A0CF7FBB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 212</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1798,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="953E49F2-FB87-4515-A4C7-376C2A0312D7" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 213</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1199,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="72F4EBB4-279A-42A5-9806-92D4A347153E" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 214</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1631,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="87E9D362-04A7-483D-AC0F-13BBA2FCDBCE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 215</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1610,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="2BEDFFA4-F250-4C41-9CA2-0D4FF740D992" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 216</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1798,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="9A298140-FE03-40FE-92C4-0C422995D5D2" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 217</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2338,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C32ECBA0-3BF7-48CC-9C23-265BDFE08403" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 218</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2128,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="E0CFFA35-2240-4D68-9C5F-52579ECB4AB9" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 219</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>2623,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="7E7D3EAA-F3AD-4C39-87E7-D69DEEE23E91" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 220</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1867,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="A46FAE31-0E12-4E93-8A84-B49B8132A0FD" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 221</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>3139,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem UUID="8F38C46E-C387-4954-BEEE-5CFB2404ADAA" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 222</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+            <Children>
+                <BinderItem UUID="B4A02EDC-D77E-4664-ACCD-9048B0C51E41" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>6813,328</TextSelection>
+                    </TextSettings>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem UUID="06C0455C-36DD-4F38-BB7B-F7DD2453A8A5" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 223</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+                <IconFileName>Characters (Photo)</IconFileName>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+            <DefaultChildTemplateUUID>28AFDB37-2FF4-4BD4-A273-1AEFF4E9EAE4</DefaultChildTemplateUUID>
+        </BinderItem>
+        <BinderItem UUID="6830B6AC-686B-4370-A979-2FD1D7288BDA" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 224</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+                <IconFileName>Locations (Map)</IconFileName>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+            <DefaultChildTemplateUUID>0863BD1D-FA0F-4B8F-9B3F-3A0A2ACF174C</DefaultChildTemplateUUID>
+        </BinderItem>
+        <BinderItem UUID="57ECC98D-8199-4935-B5F1-D1F7A2D60646" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 225</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+                <IconFileName>Front Matter</IconFileName>
+                <SectionType ChildDefault="F3D99402-96E3-4558-A2BE-FB83286017C8" />
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+            <Children>
+                <BinderItem UUID="1FF93A44-228E-438A-9D4B-E6B6258219A2" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 226</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="323E42B8-881A-4A72-938C-1D683D78D8DF" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 227</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>153,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="FD4B78C9-DEBC-4CAF-91C6-970A36B5332F" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 228</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="9FDC7D70-BD4A-472E-B140-EDA8E105FAD6" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 229</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>8,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="5F40F985-59BA-43CC-8650-9EDD1E6A62B5" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 230</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>722,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="17AA5803-9EA9-49C2-A454-2E8386E18F0A" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 231</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>10,219</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="C4B7C4A2-E9D1-4229-8506-14813799C9F3" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 232</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>434,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="B23591A4-8EC3-4E1F-B242-ECCA0207561C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 233</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>460,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="4EAE1477-5186-4446-B9B1-FD3F9D5EFEFB" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 234</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1905,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="3115440A-224C-4963-9BDB-1D6A72B27915" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 235</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>817,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                        <BinderItem UUID="684A686D-E3B1-4ABB-B20F-E7B2B2ACE0EE" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 236</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>933,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+                <BinderItem UUID="89B13BE7-31C7-43FF-8E30-7A9BA402C959" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 237</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                    <Children>
+                        <BinderItem UUID="915399B5-737B-41AB-8D84-74BC19125546" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                            <Title>Sanitized Item 238</Title>
+                            <MetaData>
+                                <IncludeInCompile>Yes</IncludeInCompile>
+                            </MetaData>
+                            <TextSettings>
+                                <TextSelection>1,0</TextSelection>
+                            </TextSettings>
+                        </BinderItem>
+                    </Children>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem UUID="69822417-D015-4BDD-90BD-18AAA6198D15" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 239</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+                <IconFileName>Notes (Yellow Notepad)</IconFileName>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+        </BinderItem>
+        <BinderItem UUID="669D7B65-8096-4EFD-A0E2-6BDE8C1E3585" Type="ResearchFolder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 240</Title>
+            <MetaData />
+            <Children>
+                <BinderItem UUID="FE7FB472-D711-4FA1-8146-81DC6351AE72" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>689,0</TextSelection>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem UUID="D4B688BD-A250-4DEA-A568-7E83BE59B78D" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 241</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>0,0</TextSelection>
+                    </TextSettings>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem UUID="5C03DE09-C285-48ED-827F-78E62B7D0F72" Type="Folder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 242</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+            </MetaData>
+            <TextSettings>
+                <TextSelection>0,0</TextSelection>
+            </TextSettings>
+            <Children>
+                <BinderItem UUID="28AFDB37-2FF4-4BD4-A273-1AEFF4E9EAE4" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 243</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                        <IconFileName>Characters (Character Sheet)</IconFileName>
+                        <ShowSynopsisImage>Yes</ShowSynopsisImage>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection Caret="14">0,14</TextSelection>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem UUID="0863BD1D-FA0F-4B8F-9B3F-3A0A2ACF174C" Type="Text" Created="SANITIZED" Modified="SANITIZED">
+                    <Title>Sanitized Item 244</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                        <IconFileName>Locations (Location Sheet)</IconFileName>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection Caret="15">0,15</TextSelection>
+                    </TextSettings>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem UUID="F2DF7FDE-46C4-4962-97F3-128A46433573" Type="TrashFolder" Created="SANITIZED" Modified="SANITIZED">
+            <Title>Sanitized Item 245</Title>
+            <MetaData />
+        </BinderItem>
+    </Binder>
+    <Collections>
+        <Collection Type="Binder" ID="48DE1CBF-217F-4B94-944D-6D8C97396DCF" Color="0.941176 0.937255 0.956863">
+            <Title>Sanitized Item 246</Title>
+        </Collection>
+        <Collection Type="RecentSearch" ID="2655DDF6-4AB8-42CB-A433-1CD76FC351D2" Color="0.901961 0.901961 0.980392">
+            <Title>Sanitized Item 247</Title>
+            <SearchSettings Operator="Any" Type="All" Scope="All" CompileSetting="All" CaseSensitive="No" IgnoreDiacritics="No" />
+        </Collection>
+    </Collections>
+    <SectionTypes>
+        <TypeDefinitions>
+            <Type ID="D2E24F2F-E4A2-49D0-BACA-26098774C8F9">Part Heading</Type>
+            <Type ID="417A6CCE-D4E1-44BA-9A8D-038360B4B905">Chapter Heading</Type>
+            <Type ID="9AFECE21-8C79-45E0-9B9F-D6D62A9729D3">Scene</Type>
+            <Type ID="5770D705-B9A4-4798-AAB1-B2C56190B02E">Chapter</Type>
+            <Type ID="DFBFB5B6-D47F-4913-9E23-FC3950C10171">Heading</Type>
+            <Type ID="4BA429EF-6143-4FB6-9B43-D4E6E4F0CE1D">Section</Type>
+            <Type ID="F3D99402-96E3-4558-A2BE-FB83286017C8">Front Matter</Type>
+            <Type ID="235F7C42-10F1-40AB-9FC5-19AA26EABA47">Table of Contents</Type>
+            <Type ID="EA9C9DBA-B644-4EBB-BDAD-621E5455275A">N/A</Type>
+        </TypeDefinitions>
+        <LevelTypes>
+            <Folders>
+                <Type>EA9C9DBA-B644-4EBB-BDAD-621E5455275A</Type>
+                <Type>417A6CCE-D4E1-44BA-9A8D-038360B4B905</Type>
+            </Folders>
+            <Containers>
+                <Type>4BA429EF-6143-4FB6-9B43-D4E6E4F0CE1D</Type>
+            </Containers>
+            <Files>
+                <Type>4BA429EF-6143-4FB6-9B43-D4E6E4F0CE1D</Type>
+                <Type>4BA429EF-6143-4FB6-9B43-D4E6E4F0CE1D</Type>
+                <Type>9AFECE21-8C79-45E0-9B9F-D6D62A9729D3</Type>
+            </Files>
+        </LevelTypes>
+    </SectionTypes>
+    <LabelSettings>
+        <Title>Sanitized Item 248</Title>
+        <DefaultLabelID>-1</DefaultLabelID>
+        <Labels>
+            <Label ID="-1">SANITIZED</Label>
+            <Label ID="7" Color="0.993500 0.701213 0.732586">SANITIZED</Label>
+            <Label ID="8" Color="0.995422 0.790951 0.652384">SANITIZED</Label>
+            <Label ID="9" Color="0.997726 0.892729 0.652567">SANITIZED</Label>
+            <Label ID="10" Color="0.715862 0.948714 0.697688">SANITIZED</Label>
+            <Label ID="11" Color="0.702312 0.888273 0.974258">SANITIZED</Label>
+            <Label ID="12" Color="0.957565 0.766751 0.999619">SANITIZED</Label>
+        </Labels>
+    </LabelSettings>
+    <StatusSettings>
+        <Title>Sanitized Item 249</Title>
+        <DefaultStatusID>-1</DefaultStatusID>
+        <StatusItems>
+            <Status ID="-1">SANITIZED</Status>
+            <Status ID="1">SANITIZED</Status>
+            <Status ID="6">SANITIZED</Status>
+            <Status ID="2">SANITIZED</Status>
+            <Status ID="3">SANITIZED</Status>
+            <Status ID="4">SANITIZED</Status>
+            <Status ID="5">SANITIZED</Status>
+        </StatusItems>
+    </StatusSettings>
+    <ProjectBookmarks>
+        <Bookmark BinderUUID="06C0455C-36DD-4F38-BB7B-F7DD2453A8A5" />
+        <Bookmark BinderUUID="6830B6AC-686B-4370-A979-2FD1D7288BDA" />
+        <Bookmark BinderUUID="69822417-D015-4BDD-90BD-18AAA6198D15" />
+    </ProjectBookmarks>
+    <ProjectTargets Notify="No">
+        <DraftTarget Type="Words" CountIncludedOnly="Yes" CurrentCompileGroupOnly="Yes" Deadline="2025-03-02 14:46:53 -0500" IgnoreDeadline="Yes">0</DraftTarget>
+        <SessionTarget Type="Words" CountDraftOnly="Yes" AllowNegatives="Yes" ResetType="Time" ResetTime="00:00" DeterminedFromDeadline="No" CanWriteOnDeadlineDate="No" WritingDays="">0</SessionTarget>
+        <PreviousSession Words="0" Characters="0" Date="2025-09-01 22:52:57 -0400" />
+    </ProjectTargets>
+    <TemplateFolderUUID>5C03DE09-C285-48ED-827F-78E62B7D0F72</TemplateFolderUUID>
+    <BookmarksFolderUUID>69822417-D015-4BDD-90BD-18AAA6198D15</BookmarksFolderUUID>
+    <RecentWritingHistory Date="2025-09-01 00:00:00 -0400">
+        <DraftWordCount>0</DraftWordCount>
+        <DraftCharCount>0</DraftCharCount>
+        <OtherWordCount>0</OtherWordCount>
+        <OtherCharCount>0</OtherCharCount>
+    </RecentWritingHistory>
+    <PrintSettings PaperSize="612.0,792.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="na-letter" Orientation="Portrait" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1" />
+</ScrivenerProject>

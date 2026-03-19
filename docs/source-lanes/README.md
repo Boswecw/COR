@@ -31,6 +31,8 @@ Governance references in this directory:
 - `shared-provenance-model.md`
 - `lane-admission-playbook.md`
 - `contract-symmetry-audit.md`
+- `scrivener/` (phase-0 evidence packet)
+- `../fixtures/scrivener/` (canonical fixture intake packet)
 - `next-lane-candidate-matrix.md` (historical, pre-ODT)
 - `next-lane-candidate-matrix-v2.md` (historical, pre-Slice-9)
 - `next-lane-candidate-matrix-v3.md`
