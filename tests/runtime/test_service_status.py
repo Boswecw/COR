@@ -4,40 +4,18 @@ import io
 import json
 import unittest
 from contextlib import redirect_stdout
-from pathlib import Path
 from unittest.mock import patch
-
-from jsonschema import Draft202012Validator
 
 from cortex_runtime.extraction_emission import pdf_lane_runtime_available
 from cortex_runtime.service_status import emit_service_status, main
-
-
-ROOT = Path(__file__).resolve().parents[2]
-SERVICE_STATUS_SCHEMA_PATH = ROOT / "schemas/service-status.schema.json"
-
-
-def service_status_validator() -> Draft202012Validator:
-    with SERVICE_STATUS_SCHEMA_PATH.open("r", encoding="utf-8") as handle:
-        return Draft202012Validator(json.load(handle))
-
-
-def assert_schema_valid(testcase: unittest.TestCase, payload: dict[str, object]) -> None:
-    errors = sorted(
-        service_status_validator().iter_errors(payload),
-        key=lambda error: (".".join(str(part) for part in error.path), error.message),
-    )
-    testcase.assertEqual(
-        [],
-        [f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}" for error in errors],
-    )
+from tests.runtime.runtime_test_support import assert_schema_valid
 
 
 class ServiceStatusRuntimeTests(unittest.TestCase):
     def test_service_status_emits_schema_valid_ready_output(self) -> None:
         result = emit_service_status()
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         expected_state = "ready" if pdf_lane_runtime_available() else "degraded"
         self.assertEqual(result["state"], expected_state)
         self.assertEqual(result["service_id"], "cortex")
@@ -46,13 +24,14 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
     def test_implemented_slices_and_admitted_source_lanes_are_reported(self) -> None:
         result = emit_service_status()
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         expected_slices = [
             "slice1_intake_validation",
             "slice2_extraction_emission",
             "slice3_retrieval_package_emission",
             "slice4_service_status_truth",
             "slice6_docx_source_lane",
+            "slice7_rtf_source_lane",
         ]
         expected_lanes = [
             "local_file_markdown",
@@ -62,6 +41,7 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
             expected_slices.insert(4, "slice5_pdf_source_lane")
             expected_lanes.append("local_file_pdf_text")
         expected_lanes.append("local_file_docx_text")
+        expected_lanes.append("local_file_rtf_text")
         self.assertEqual(
             result["runtime_surface_summary"]["implemented_slices"],
             expected_slices,
@@ -80,7 +60,7 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         ):
             result = emit_service_status()
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         self.assertEqual(result["state"], "degraded")
         self.assertEqual(result["degraded_subtype"], "dependency_unavailable")
         self.assertNotIn("slice3_retrieval_package_emission", result["runtime_surface_summary"]["implemented_slices"])
@@ -95,14 +75,14 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         ):
             result = emit_service_status()
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         self.assertEqual(result["state"], "unavailable")
         self.assertEqual(result["runtime_surface_summary"]["admitted_source_lanes"], [])
 
     def test_output_remains_informational_only(self) -> None:
         result = emit_service_status()
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         self.assertNotIn("next_action", result)
         self.assertNotIn("recommendation", result)
         self.assertNotIn("workflow_id", result)
@@ -116,7 +96,7 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
             exit_code = main([])
 
         result = json.loads(output.getvalue())
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="service-status.schema.json")
         expected_state = "ready" if pdf_lane_runtime_available() else "degraded"
         self.assertEqual(exit_code, 0 if expected_state == "ready" else 1)
         self.assertEqual(result["state"], expected_state)

@@ -47,6 +47,7 @@ It is not allowed to imply unbounded source support, future capability promises,
 Source-lane reporting must remain explicit.
 If a bounded local text-layer PDF lane is admitted, it must be reported as such rather than implied through a generic "document" capability claim.
 If a bounded local DOCX lane is admitted, it must also be reported explicitly rather than folded into a generic office-document claim.
+If a bounded local RTF lane is admitted, it must also be reported explicitly rather than folded into a generic rich-text capability claim.
 
 ## Required posture
 

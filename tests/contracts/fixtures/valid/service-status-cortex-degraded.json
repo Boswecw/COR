@@ -14,13 +14,15 @@
       "slice3_retrieval_package_emission",
       "slice4_service_status_truth",
       "slice5_pdf_source_lane",
-      "slice6_docx_source_lane"
+      "slice6_docx_source_lane",
+      "slice7_rtf_source_lane"
     ],
     "admitted_source_lanes": [
       "local_file_markdown",
       "local_file_plain_text",
       "local_file_pdf_text",
-      "local_file_docx_text"
+      "local_file_docx_text",
+      "local_file_rtf_text"
     ],
     "bounded_runtime_only": true
   },

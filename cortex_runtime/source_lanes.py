@@ -65,6 +65,16 @@ PDF_TEXT_LANE = SourceLaneSpec(
     dependency_summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
 )
 
+RTF_TEXT_LANE = SourceLaneSpec(
+    lane_id="local_file_rtf_text",
+    metadata_id="rtf_text",
+    suffix=".rtf",
+    media_types=("application/rtf", "text/rtf"),
+    operator_label="local RTF files",
+    runtime_slice_id="slice7_rtf_source_lane",
+    runtime_slice_label="bounded RTF source lane",
+)
+
 DOCX_TEXT_LANE = SourceLaneSpec(
     lane_id="local_file_docx_text",
     metadata_id="docx_text",
@@ -80,6 +90,7 @@ ALL_SOURCE_LANES = (
     PLAIN_TEXT_LANE,
     PDF_TEXT_LANE,
     DOCX_TEXT_LANE,
+    RTF_TEXT_LANE,
 )
 
 SOURCE_LANE_LABELS = {lane.lane_id: lane.operator_label for lane in ALL_SOURCE_LANES}
@@ -116,6 +127,13 @@ def configured_supported_media_types() -> set[str]:
     for lane in ALL_SOURCE_LANES:
         media_types.update(lane.media_types)
     return media_types
+
+
+def supported_suffix_list_text() -> str:
+    ordered_suffixes = [lane.suffix for lane in ALL_SOURCE_LANES]
+    if len(ordered_suffixes) == 1:
+        return ordered_suffixes[0]
+    return ", ".join(ordered_suffixes[:-1]) + ", and " + ordered_suffixes[-1]
 
 
 def source_lane_spec_for_path(source_path: str | Path) -> SourceLaneSpec | None:
@@ -170,7 +188,9 @@ def lane_eligibility_for_path(
             failure_state="denied",
             reason_class="unsupported_source_type",
             operator_visible_summary=(
-                "Extraction is denied because only bounded local .md, .txt, .pdf, and .docx sources are supported."
+                "Extraction is denied because only bounded local "
+                + supported_suffix_list_text()
+                + " sources are supported."
             ),
         )
 

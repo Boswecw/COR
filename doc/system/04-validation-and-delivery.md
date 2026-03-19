@@ -103,6 +103,19 @@ It adds:
 - retrieval-package compatibility for ready DOCX extraction outputs through the existing deterministic section path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 7 delivered
+
+The seventh executable runtime slice is now present for one bounded local RTF source lane only.
+
+It adds:
+
+- a bounded local `.rtf` extraction path using an in-repo stdlib parser rather than external conversion tooling
+- paragraph-only recovery with basic escaped character support only as needed for honest plain-text extraction
+- explicit deny behavior for annotation, review, field, object, media, and other rich destinations outside the lane
+- explicit unavailable behavior for corrupt or syntactically untrustworthy RTF sources
+- retrieval-package compatibility for ready RTF extraction outputs through the existing deterministic paragraph path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Delivery order
 
 The current delivery order remains:
@@ -135,7 +148,7 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 6 now form the current bounded runtime baseline.
+Slices 1 through 7 now form the current bounded runtime baseline.
 No further implementation target is implied by this system reference alone.
 Any next step should be explicit, narrow, and anchored to the governing plan rather than inferred from momentum.
 

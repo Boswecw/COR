@@ -41,6 +41,8 @@ That lane admits text-layer `.pdf` files, remains text-only and non-OCR, allows 
 The extraction runtime now also uses a shared source-lane framework for lane admission, shared provenance metadata, shared failure posture, and admitted-lane reporting.
 Runtime Slice 6 adds one bounded local DOCX lane only.
 That lane admits local `.docx` packages, remains syntax-only, recovers headings only from explicit paragraph-style evidence, recovers simple lists and bounded table text only when deterministic, denies comments or tracked changes, and marks corrupt or unreadable packages unavailable.
+Runtime Slice 7 adds one bounded local RTF lane only.
+That lane admits local `.rtf` files, remains paragraph-only, supports basic escaped character recovery only as needed for honest plain-text extraction, denies annotation, review, field, media, and other rich destinations outside the lane, and marks corrupt or syntactically untrustworthy sources unavailable.
 
 ## Retrieval package
 
@@ -57,6 +59,7 @@ Runtime Slice 3 now emits one governed retrieval-package path from ready syntax-
 Chunking remains deterministic and syntax-derived, using section-bounded chunks when available and paragraph fallback only when no section structure exists.
 Ready PDF extraction results remain compatible with this path through the same paragraph-bounded fallback rather than any PDF-specific semantic shaping.
 Ready DOCX extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists.
+Ready RTF extraction results remain compatible with the same path through paragraph-bounded chunking only.
 
 ## Service status
 
@@ -136,6 +139,7 @@ This section is grounded in:
 - `docs/contracts/extraction-result.md`
 - `docs/contracts/source-lane-docx.md`
 - `docs/contracts/source-lane-pdf.md`
+- `docs/contracts/source-lane-rtf.md`
 - `docs/contracts/retrieval-package.md`
 - `docs/contracts/handoff-envelope.md`
 - `docs/contracts/service-status.md`

@@ -4,47 +4,21 @@ import io
 import json
 import unittest
 from contextlib import redirect_stdout
-from pathlib import Path
-from typing import Any
 
-from jsonschema import Draft202012Validator
-
-from cortex_runtime.extraction_emission import emit_extraction_result_from_source_file
+from cortex_runtime.extraction_emission import emit_extraction_result_from_source_file, pdf_lane_runtime_available
 from cortex_runtime.retrieval_package_emission import (
     emit_retrieval_package_from_extraction_json_text,
     emit_retrieval_package_from_extraction_result,
     emit_retrieval_package_from_source_file,
     main,
 )
+from tests.runtime.runtime_test_support import ROOT, assert_schema_valid, load_json
 
-
-ROOT = Path(__file__).resolve().parents[2]
-RETRIEVAL_SCHEMA_PATH = ROOT / "schemas/retrieval-package.schema.json"
 SUPPORTED_SOURCE_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.md"
 UNSUPPORTED_SOURCE_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 INVALID_UPSTREAM_FIXTURE = ROOT / "tests/contracts/fixtures/invalid/extraction-result-denied-missing-refusal.json"
 STALE_UPSTREAM_FIXTURE = ROOT / "tests/contracts/fixtures/valid/extraction-result-stale.json"
-
-
-def load_json(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def retrieval_validator() -> Draft202012Validator:
-    with RETRIEVAL_SCHEMA_PATH.open("r", encoding="utf-8") as handle:
-        return Draft202012Validator(json.load(handle))
-
-
-def assert_schema_valid(testcase: unittest.TestCase, payload: dict[str, Any]) -> None:
-    errors = sorted(
-        retrieval_validator().iter_errors(payload),
-        key=lambda error: (".".join(str(part) for part in error.path), error.message),
-    )
-    testcase.assertEqual(
-        [],
-        [f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}" for error in errors],
-    )
+PARTIAL_PDF_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note-partial.pdf"
 
 
 class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
@@ -57,7 +31,7 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_retrieval_package_from_extraction_result(extraction_result)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "ready")
         self.assertEqual(result["retrieval_profile"]["chunking_mode"], "section")
         self.assertEqual(result["completeness"]["status"], "complete")
@@ -74,8 +48,8 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
         first = emit_retrieval_package_from_extraction_result(extraction_result)
         second = emit_retrieval_package_from_extraction_result(extraction_result)
 
-        assert_schema_valid(self, first)
-        assert_schema_valid(self, second)
+        assert_schema_valid(self, first, schema_name="retrieval-package.schema.json")
+        assert_schema_valid(self, second, schema_name="retrieval-package.schema.json")
         self.assertEqual(first["chunks"], second["chunks"])
         self.assertEqual([chunk["ordinal"] for chunk in first["chunks"]], [0, 1])
 
@@ -86,7 +60,7 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
             source_ref="src-unsupported",
         )
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "unsupported_route")
 
@@ -97,7 +71,7 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
             source_ref="src-missing",
         )
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "unsupported_route")
 
@@ -106,7 +80,7 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_retrieval_package_from_extraction_result(malformed)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "unsupported_route")
 
@@ -115,9 +89,24 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_retrieval_package_from_extraction_result(stale)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "stale_input")
+
+    @unittest.skipUnless(pdf_lane_runtime_available(), "bounded local PDF tooling is not available")
+    def test_partial_upstream_input_is_denied(self) -> None:
+        partial = emit_extraction_result_from_source_file(
+            PARTIAL_PDF_FIXTURE,
+            request_id="slice3-partial-001",
+            source_ref="src-partial",
+            media_type="application/pdf",
+        )
+
+        result = emit_retrieval_package_from_extraction_result(partial)
+
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
+        self.assertEqual(result["state"], "denied")
+        self.assertEqual(result["refusal"]["reason_class"], "unsupported_route")
 
     def test_output_remains_infrastructure_only(self) -> None:
         extraction_result = emit_extraction_result_from_source_file(
@@ -128,7 +117,7 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_retrieval_package_from_extraction_result(extraction_result)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertNotIn("ranking", result)
         self.assertNotIn("best_chunk", result)
         self.assertNotIn("recommendations", result)
@@ -151,14 +140,14 @@ class RetrievalPackageEmissionRuntimeTests(unittest.TestCase):
             )
 
         result = json.loads(output.getvalue())
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(exit_code, 0)
         self.assertEqual(result["state"], "ready")
 
     def test_invalid_json_text_is_denied(self) -> None:
         result = emit_retrieval_package_from_extraction_json_text("{")
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "unsupported_route")
 

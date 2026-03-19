@@ -6,9 +6,6 @@ import json
 import unittest
 from contextlib import redirect_stdout
 from pathlib import Path
-from typing import Any
-
-from jsonschema import Draft202012Validator
 
 from cortex_runtime.extraction_emission import (
     emit_extraction_result_from_intake_json_text,
@@ -16,52 +13,28 @@ from cortex_runtime.extraction_emission import (
     emit_extraction_result_from_source_file,
     main,
 )
+from tests.runtime.runtime_test_support import (
+    ROOT,
+    assert_schema_valid,
+    build_file_intake_payload,
+    load_json,
+)
 
-
-ROOT = Path(__file__).resolve().parents[2]
-EXTRACTION_SCHEMA_PATH = ROOT / "schemas/extraction-result.schema.json"
 VALID_INTAKE_FIXTURE = ROOT / "tests/contracts/fixtures/valid/intake-request-file-basic.json"
 INVALID_INTAKE_FIXTURE = ROOT / "tests/contracts/fixtures/invalid/intake-request-watcher-not-visible.json"
 SUPPORTED_SOURCE_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.md"
 UNSUPPORTED_SOURCE_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 
 
-def load_json(path: Path) -> Any:
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def extraction_validator() -> Draft202012Validator:
-    with EXTRACTION_SCHEMA_PATH.open("r", encoding="utf-8") as handle:
-        return Draft202012Validator(json.load(handle))
-
-
-def assert_schema_valid(testcase: unittest.TestCase, payload: dict[str, Any]) -> None:
-    errors = sorted(
-        extraction_validator().iter_errors(payload),
-        key=lambda error: (".".join(str(part) for part in error.path), error.message),
-    )
-    testcase.assertEqual(
-        [],
-        [f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}" for error in errors],
-    )
-
-
-def build_supported_intake_payload() -> dict[str, Any]:
-    payload = load_json(VALID_INTAKE_FIXTURE)
-    assert isinstance(payload, dict)
-    payload = copy.deepcopy(payload)
-    payload["sources"][0]["path"] = str(SUPPORTED_SOURCE_FIXTURE)
-    payload["sources"][0]["media_type"] = "text/markdown"
-    payload["requested_artifact"] = "extraction_result"
-    return payload
+def build_supported_intake_payload() -> dict[str, object]:
+    return build_file_intake_payload(SUPPORTED_SOURCE_FIXTURE, "text/markdown")
 
 
 class ExtractionEmissionRuntimeTests(unittest.TestCase):
     def test_supported_valid_intake_emits_ready_extraction_result(self) -> None:
         result = emit_extraction_result_from_intake_payload(build_supported_intake_payload())
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "ready")
         self.assertEqual(result["syntax_boundary"], "syntax_only")
         self.assertTrue(result["semantic_boundary_enforced"])
@@ -76,14 +49,14 @@ class ExtractionEmissionRuntimeTests(unittest.TestCase):
             source_ref="src-direct",
         )
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "ready")
         self.assertEqual(result["source_ref"], "src-direct")
 
     def test_output_remains_syntax_only_and_bounded(self) -> None:
         result = emit_extraction_result_from_intake_payload(build_supported_intake_payload())
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertNotIn("summary", result)
         self.assertNotIn("tags", result)
         self.assertNotIn("workflow_id", result)
@@ -98,7 +71,7 @@ class ExtractionEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_extraction_result_from_intake_payload(payload)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "unsupported_source_type")
 
@@ -108,7 +81,7 @@ class ExtractionEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_extraction_result_from_intake_payload(payload)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "unavailable")
         self.assertEqual(result["refusal"]["reason_class"], "dependency_unavailable")
 
@@ -117,14 +90,14 @@ class ExtractionEmissionRuntimeTests(unittest.TestCase):
 
         result = emit_extraction_result_from_intake_payload(payload)
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "ineligible_source")
 
     def test_malformed_intake_json_fails_closed(self) -> None:
         result = emit_extraction_result_from_intake_json_text("{")
 
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(result["state"], "denied")
         self.assertEqual(result["refusal"]["reason_class"], "ineligible_source")
 
@@ -143,7 +116,7 @@ class ExtractionEmissionRuntimeTests(unittest.TestCase):
             )
 
         result = json.loads(output.getvalue())
-        assert_schema_valid(self, result)
+        assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
         self.assertEqual(exit_code, 0)
         self.assertEqual(result["state"], "ready")
 

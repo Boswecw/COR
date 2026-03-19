@@ -23,6 +23,7 @@ Current status:
 - Runtime Slice 5 bounded local PDF source lane implemented for text-layer `.pdf` files only
 - Shared source-lane framework extracted for admitted-lane registration, failure posture, provenance, and service-status reporting
 - Runtime Slice 6 bounded local DOCX source lane implemented for local `.docx` files only
+- Runtime Slice 7 bounded local RTF source lane implemented for local `.rtf` files only
 
 Start here:
 
@@ -58,3 +59,8 @@ Runtime Slice 6:
 
 - emit a syntax-only extraction result from a bounded local DOCX source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.docx --request-id docx-001 --source-ref docx-local`
 - emit a retrieval package from the same bounded local DOCX lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.docx --request-id docx-001 --source-ref docx-local`
+
+Runtime Slice 7:
+
+- emit a syntax-only extraction result from a bounded local RTF source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.rtf --request-id rtf-001 --source-ref rtf-local`
+- emit a retrieval package from the same bounded local RTF lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.rtf --request-id rtf-001 --source-ref rtf-local`

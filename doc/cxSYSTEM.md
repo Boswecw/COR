@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.4 (2026-03-19) - Aligned to current constitutional and runtime repo state
+**Document version:** 1.5 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,7 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
-It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, and Runtime Slices 1 through 6.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, and Runtime Slices 1 through 7.
 
 Assembly contract:
 
@@ -83,6 +83,7 @@ The currently implemented executable runtime surfaces are:
 - Slice 4 - service-status truth
 - Slice 5 - bounded local PDF source lane
 - Slice 6 - bounded local DOCX source lane
+- Slice 7 - bounded local RTF source lane
 
 The currently admitted source lanes remain narrow:
 
@@ -90,6 +91,7 @@ The currently admitted source lanes remain narrow:
 - local `.txt`
 - local text-layer `.pdf`
 - local `.docx`
+- local `.rtf`
 
 This is the current bounded baseline, not a promise of broader source or control-surface expansion.
 
@@ -210,6 +212,8 @@ That lane admits text-layer `.pdf` files, remains text-only and non-OCR, allows 
 The extraction runtime now also uses a shared source-lane framework for lane admission, shared provenance metadata, shared failure posture, and admitted-lane reporting.
 Runtime Slice 6 adds one bounded local DOCX lane only.
 That lane admits local `.docx` packages, remains syntax-only, recovers headings only from explicit paragraph-style evidence, recovers simple lists and bounded table text only when deterministic, denies comments or tracked changes, and marks corrupt or unreadable packages unavailable.
+Runtime Slice 7 adds one bounded local RTF lane only.
+That lane admits local `.rtf` files, remains paragraph-only, supports basic escaped character recovery only as needed for honest plain-text extraction, denies annotation, review, field, media, and other rich destinations outside the lane, and marks corrupt or syntactically untrustworthy sources unavailable.
 
 ## Retrieval package
 
@@ -226,6 +230,7 @@ Runtime Slice 3 now emits one governed retrieval-package path from ready syntax-
 Chunking remains deterministic and syntax-derived, using section-bounded chunks when available and paragraph fallback only when no section structure exists.
 Ready PDF extraction results remain compatible with this path through the same paragraph-bounded fallback rather than any PDF-specific semantic shaping.
 Ready DOCX extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists.
+Ready RTF extraction results remain compatible with the same path through paragraph-bounded chunking only.
 
 ## Service status
 
@@ -305,6 +310,7 @@ This section is grounded in:
 - `docs/contracts/extraction-result.md`
 - `docs/contracts/source-lane-docx.md`
 - `docs/contracts/source-lane-pdf.md`
+- `docs/contracts/source-lane-rtf.md`
 - `docs/contracts/retrieval-package.md`
 - `docs/contracts/handoff-envelope.md`
 - `docs/contracts/service-status.md`
@@ -418,6 +424,19 @@ It adds:
 - retrieval-package compatibility for ready DOCX extraction outputs through the existing deterministic section path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 7 delivered
+
+The seventh executable runtime slice is now present for one bounded local RTF source lane only.
+
+It adds:
+
+- a bounded local `.rtf` extraction path using an in-repo stdlib parser rather than external conversion tooling
+- paragraph-only recovery with basic escaped character support only as needed for honest plain-text extraction
+- explicit deny behavior for annotation, review, field, object, media, and other rich destinations outside the lane
+- explicit unavailable behavior for corrupt or syntactically untrustworthy RTF sources
+- retrieval-package compatibility for ready RTF extraction outputs through the existing deterministic paragraph path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Delivery order
 
 The current delivery order remains:
@@ -450,7 +469,7 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 6 now form the current bounded runtime baseline.
+Slices 1 through 7 now form the current bounded runtime baseline.
 No further implementation target is implied by this system reference alone.
 Any next step should be explicit, narrow, and anchored to the governing plan rather than inferred from momentum.
 

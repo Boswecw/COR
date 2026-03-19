@@ -1,10 +1,7 @@
 from __future__ import annotations
 
-import json
 import unittest
 from pathlib import Path
-
-from jsonschema import Draft202012Validator
 
 from cortex_runtime.extraction_emission import (
     admitted_source_lanes,
@@ -12,37 +9,7 @@ from cortex_runtime.extraction_emission import (
     pdf_lane_runtime_available,
 )
 from cortex_runtime.retrieval_package_emission import emit_retrieval_package_from_source_file
-
-
-ROOT = Path(__file__).resolve().parents[2]
-EXTRACTION_SCHEMA_PATH = ROOT / "schemas/extraction-result.schema.json"
-RETRIEVAL_SCHEMA_PATH = ROOT / "schemas/retrieval-package.schema.json"
-
-
-def extraction_validator() -> Draft202012Validator:
-    with EXTRACTION_SCHEMA_PATH.open("r", encoding="utf-8") as handle:
-        return Draft202012Validator(json.load(handle))
-
-
-def retrieval_validator() -> Draft202012Validator:
-    with RETRIEVAL_SCHEMA_PATH.open("r", encoding="utf-8") as handle:
-        return Draft202012Validator(json.load(handle))
-
-
-def assert_schema_valid(
-    testcase: unittest.TestCase,
-    payload: dict[str, object],
-    *,
-    validator: Draft202012Validator,
-) -> None:
-    errors = sorted(
-        validator.iter_errors(payload),
-        key=lambda error: (".".join(str(part) for part in error.path), error.message),
-    )
-    testcase.assertEqual(
-        [],
-        [f"{'.'.join(str(part) for part in error.path) or '<root>'}: {error.message}" for error in errors],
-    )
+from tests.runtime.runtime_test_support import ROOT, assert_schema_valid
 
 
 def ready_lane_cases() -> list[tuple[Path, str, str]]:
@@ -62,6 +29,11 @@ def ready_lane_cases() -> list[tuple[Path, str, str]]:
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             "docx_text",
         ),
+        (
+            ROOT / "tests/runtime/fixtures/sample-note.rtf",
+            "application/rtf",
+            "rtf_text",
+        ),
     ]
     if pdf_lane_runtime_available():
         cases.append(
@@ -76,13 +48,11 @@ def ready_lane_cases() -> list[tuple[Path, str, str]]:
 
 class SourceLaneFrameworkRuntimeTests(unittest.TestCase):
     def test_admitted_source_lanes_are_reported_from_shared_model(self) -> None:
-        expected = [
-            "local_file_markdown",
-            "local_file_plain_text",
-        ]
+        expected = ["local_file_markdown", "local_file_plain_text"]
         if pdf_lane_runtime_available():
             expected.append("local_file_pdf_text")
         expected.append("local_file_docx_text")
+        expected.append("local_file_rtf_text")
         self.assertEqual(admitted_source_lanes(), expected)
 
     def test_ready_lanes_emit_common_schema_shape(self) -> None:
@@ -94,7 +64,7 @@ class SourceLaneFrameworkRuntimeTests(unittest.TestCase):
                 media_type=media_type,
             )
 
-            assert_schema_valid(self, result, validator=extraction_validator())
+            assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
             self.assertEqual(result["state"], "ready")
             self.assertEqual(result["syntax_boundary"], "syntax_only")
             self.assertTrue(result["semantic_boundary_enforced"])
@@ -115,13 +85,55 @@ class SourceLaneFrameworkRuntimeTests(unittest.TestCase):
                 media_type=media_type,
             )
 
-            assert_schema_valid(self, result, validator=retrieval_validator())
+            assert_schema_valid(self, result, schema_name="retrieval-package.schema.json")
             self.assertEqual(result["state"], "ready")
             self.assertTrue(result["non_canonical"])
             self.assertTrue(result["non_semantic_default"])
             self.assertNotIn("ranking", result)
             self.assertNotIn("best_chunk", result)
             self.assertNotIn("recommendations", result)
+
+    def test_media_type_mismatch_is_denied_for_each_ready_lane(self) -> None:
+        for index, (fixture, _media_type, _expected_lane) in enumerate(ready_lane_cases()):
+            result = emit_extraction_result_from_source_file(
+                fixture,
+                request_id=f"lane-mismatch-{index}",
+                source_ref=f"lane-mismatch-{index}",
+                media_type="application/octet-stream",
+            )
+
+            assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
+            self.assertEqual(result["state"], "denied")
+            self.assertEqual(result["refusal"]["reason_class"], "unsupported_source_type")
+
+    def test_unreadable_paths_fail_closed_across_admitted_suffixes(self) -> None:
+        suffixes = [".md", ".txt", ".docx", ".rtf"]
+        if pdf_lane_runtime_available():
+            suffixes.append(".pdf")
+
+        for index, suffix in enumerate(suffixes):
+            result = emit_extraction_result_from_source_file(
+                ROOT / "tests/runtime/fixtures" / f"not-present-{index}{suffix}",
+                request_id=f"lane-missing-{index}",
+                source_ref=f"lane-missing-{index}",
+            )
+
+            assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
+            self.assertEqual(result["state"], "unavailable")
+            self.assertEqual(result["refusal"]["reason_class"], "dependency_unavailable")
+
+    def test_non_pdf_ready_lanes_never_emit_partial_success(self) -> None:
+        for index, (fixture, media_type, expected_lane) in enumerate(ready_lane_cases()):
+            result = emit_extraction_result_from_source_file(
+                fixture,
+                request_id=f"lane-partial-{index}",
+                source_ref=f"lane-partial-{index}",
+                media_type=media_type,
+            )
+
+            assert_schema_valid(self, result, schema_name="extraction-result.schema.json")
+            if expected_lane != "pdf_text":
+                self.assertNotEqual(result["state"], "partial_success")
 
 
 if __name__ == "__main__":

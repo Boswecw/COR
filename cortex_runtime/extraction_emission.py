@@ -15,6 +15,7 @@ from xml.etree import ElementTree as ET
 from jsonschema import Draft202012Validator
 
 from cortex_runtime.intake_validation import validate_intake_payload
+from cortex_runtime.rtf_lane import RtfDeniedError, RtfUnavailableError, extract_rtf_paragraphs
 from cortex_runtime.source_lanes import (
     DOCX_TEXT_LANE,
     MARKDOWN_LANE,
@@ -22,6 +23,7 @@ from cortex_runtime.source_lanes import (
     PDF_TEXT_LANE,
     PDF_TO_TEXT_COMMAND,
     PLAIN_TEXT_LANE,
+    RTF_TEXT_LANE,
     SourceLaneSpec,
     admitted_source_lanes as _admitted_source_lanes,
     configured_supported_media_types,
@@ -35,13 +37,14 @@ from cortex_runtime.source_lanes import (
 ROOT = Path(__file__).resolve().parent.parent
 EXTRACTION_SCHEMA_PATH = ROOT / "schemas/extraction-result.schema.json"
 EXTRACTION_SCHEMA_REF = "schemas/extraction-result.schema.json"
-EXTRACTOR_VERSION = "slice6.syntax_only.1"
+EXTRACTOR_VERSION = "slice7.syntax_only.1"
 SUPPORTED_SUFFIXES = configured_supported_suffixes()
 SUPPORTED_MEDIA_TYPES = configured_supported_media_types()
 SOURCE_LANE_IDS = {
     MARKDOWN_LANE.suffix: MARKDOWN_LANE.lane_id,
     PLAIN_TEXT_LANE.suffix: PLAIN_TEXT_LANE.lane_id,
     PDF_TEXT_LANE.suffix: PDF_TEXT_LANE.lane_id,
+    RTF_TEXT_LANE.suffix: RTF_TEXT_LANE.lane_id,
     DOCX_TEXT_LANE.suffix: DOCX_TEXT_LANE.lane_id,
 }
 WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
@@ -178,6 +181,96 @@ def _build_failure_result(
     }
 
 
+def _emit_failure_result(
+    *,
+    request_id: str,
+    source_ref: str,
+    state: str,
+    reason_class: str,
+    summary: str,
+    source_hash: str | None = None,
+    source_modified_at: str | None = None,
+    byte_count: int | None = None,
+) -> dict[str, Any]:
+    return _validate_or_fallback(
+        _build_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state=state,
+            reason_class=reason_class,
+            summary=summary,
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        ),
+        request_id=request_id,
+        source_ref=source_ref,
+    )
+
+
+def _build_success_result(
+    *,
+    request_id: str,
+    source_ref: str,
+    state: str,
+    completeness_status: str,
+    completeness_summary: str,
+    source_hash: str,
+    source_modified_at: str,
+    byte_count: int,
+    structures: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "artifact_id": _artifact_id(request_id, source_ref),
+        "request_id": request_id,
+        "source_ref": source_ref,
+        "state": state,
+        "syntax_boundary": "syntax_only",
+        "semantic_boundary_enforced": True,
+        "provenance": {
+            "source_hash": source_hash,
+            "extractor_version": EXTRACTOR_VERSION,
+            "source_modified_at": source_modified_at,
+            "byte_count": byte_count,
+        },
+        "completeness": {
+            "status": completeness_status,
+            "operator_visible_summary": completeness_summary,
+        },
+        "structures": structures,
+        "extracted_at": _utc_now(),
+    }
+
+
+def _emit_success_result(
+    *,
+    request_id: str,
+    source_ref: str,
+    state: str,
+    completeness_status: str,
+    completeness_summary: str,
+    source_hash: str,
+    source_modified_at: str,
+    byte_count: int,
+    structures: dict[str, Any],
+) -> dict[str, Any]:
+    return _validate_or_fallback(
+        _build_success_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state=state,
+            completeness_status=completeness_status,
+            completeness_summary=completeness_summary,
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+            structures=structures,
+        ),
+        request_id=request_id,
+        source_ref=source_ref,
+    )
+
+
 def _metadata_fields(source_path: Path, lane: SourceLaneSpec) -> dict[str, str]:
     return {
         "file_name": source_path.name,
@@ -294,6 +387,31 @@ def _build_text_structures(
         structures["sections"] = _build_sections_from_heading_positions(blocks, heading_positions)
 
     return structures
+
+
+def _build_paragraph_only_structures(
+    paragraphs: list[str],
+    source_path: Path,
+    *,
+    lane: SourceLaneSpec,
+) -> dict[str, Any]:
+    blocks: list[dict[str, Any]] = []
+    for index, paragraph_text in enumerate(paragraphs, start=1):
+        if len(paragraph_text) > 20000:
+            raise ValueError("literal content exceeds bounded extraction limits")
+        blocks.append(
+            {
+                "block_id": f"blk-{index}",
+                "block_kind": "paragraph",
+                "text": paragraph_text,
+            }
+        )
+
+    return {
+        "tables_detected": 0,
+        "metadata_fields": _metadata_fields(source_path, lane),
+        "content_blocks": blocks,
+    }
 
 
 def _pdf_command_failed_due_to_password(stderr: str) -> bool:
@@ -555,19 +673,15 @@ def _emit_pdf_extraction_result(
     byte_count: int,
 ) -> dict[str, Any]:
     if not pdf_lane_runtime_available():
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     pdfinfo_result = subprocess.run(
@@ -579,41 +693,7 @@ def _emit_pdf_extraction_result(
     )
     if pdfinfo_result.returncode != 0:
         if _pdf_command_failed_due_to_password(pdfinfo_result.stderr):
-            return _validate_or_fallback(
-                _build_failure_result(
-                    request_id=request_id,
-                    source_ref=source_ref,
-                    state="denied",
-                    reason_class="unsupported_source_type",
-                    summary="Extraction is denied because encrypted PDFs are outside the bounded local text-only PDF lane.",
-                    source_hash=source_hash,
-                    source_modified_at=source_modified_at,
-                    byte_count=byte_count,
-                ),
-                request_id=request_id,
-                source_ref=source_ref,
-            )
-
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because the PDF metadata could not be read through the bounded local PDF lane.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
-            request_id=request_id,
-            source_ref=source_ref,
-        )
-
-    pdfinfo = _parse_pdfinfo(pdfinfo_result.stdout)
-    encrypted = pdfinfo.get("Encrypted", "").lower().startswith("yes")
-    if encrypted:
-        return _validate_or_fallback(
-            _build_failure_result(
+            return _emit_failure_result(
                 request_id=request_id,
                 source_ref=source_ref,
                 state="denied",
@@ -622,9 +702,31 @@ def _emit_pdf_extraction_result(
                 source_hash=source_hash,
                 source_modified_at=source_modified_at,
                 byte_count=byte_count,
-            ),
+            )
+
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the PDF metadata could not be read through the bounded local PDF lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    pdfinfo = _parse_pdfinfo(pdfinfo_result.stdout)
+    encrypted = pdfinfo.get("Encrypted", "").lower().startswith("yes")
+    if encrypted:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because encrypted PDFs are outside the bounded local text-only PDF lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     try:
@@ -632,19 +734,15 @@ def _emit_pdf_extraction_result(
     except ValueError:
         page_count = 0
     if page_count <= 0:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because the bounded PDF lane could not establish a trustworthy page count.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the bounded PDF lane could not establish a trustworthy page count.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     pdftotext_result = subprocess.run(
@@ -656,34 +754,26 @@ def _emit_pdf_extraction_result(
     )
     if pdftotext_result.returncode != 0:
         if _pdf_command_failed_due_to_password(pdftotext_result.stderr):
-            return _validate_or_fallback(
-                _build_failure_result(
-                    request_id=request_id,
-                    source_ref=source_ref,
-                    state="denied",
-                    reason_class="unsupported_source_type",
-                    summary="Extraction is denied because encrypted PDFs are outside the bounded local text-only PDF lane.",
-                    source_hash=source_hash,
-                    source_modified_at=source_modified_at,
-                    byte_count=byte_count,
-                ),
+            return _emit_failure_result(
                 request_id=request_id,
                 source_ref=source_ref,
-            )
-
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because the PDF text layer could not be read through the bounded local PDF lane.",
+                state="denied",
+                reason_class="unsupported_source_type",
+                summary="Extraction is denied because encrypted PDFs are outside the bounded local text-only PDF lane.",
                 source_hash=source_hash,
                 source_modified_at=source_modified_at,
                 byte_count=byte_count,
-            ),
+            )
+
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the PDF text layer could not be read through the bounded local PDF lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     try:
@@ -693,35 +783,27 @@ def _emit_pdf_extraction_result(
             page_count,
         )
     except ValueError:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="denied",
-                reason_class="ineligible_source",
-                summary="Extraction is denied because the PDF exceeds the bounded literal extraction limits for this slice.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="denied",
+            reason_class="ineligible_source",
+            summary="Extraction is denied because the PDF exceeds the bounded literal extraction limits for this slice.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     if not structures["content_blocks"]:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="denied",
-                reason_class="unsupported_source_type",
-                summary="Extraction is denied because the PDF has no extractable text layer and OCR or image interpretation is not allowed.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because the PDF has no extractable text layer and OCR or image interpretation is not allowed.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     completeness_status = "complete"
@@ -734,30 +816,16 @@ def _emit_pdf_extraction_result(
             "Syntax-only PDF extraction completed for extractable pages, but one or more pages had no extractable text layer."
         )
 
-    candidate = {
-        "artifact_id": _artifact_id(request_id, source_ref),
-        "request_id": request_id,
-        "source_ref": source_ref,
-        "state": state,
-        "syntax_boundary": "syntax_only",
-        "semantic_boundary_enforced": True,
-        "provenance": {
-            "source_hash": source_hash,
-            "extractor_version": EXTRACTOR_VERSION,
-            "source_modified_at": source_modified_at,
-            "byte_count": byte_count,
-        },
-        "completeness": {
-            "status": completeness_status,
-            "operator_visible_summary": completeness_summary,
-        },
-        "structures": structures,
-        "extracted_at": _utc_now(),
-    }
-    return _validate_or_fallback(
-        candidate,
+    return _emit_success_result(
         request_id=request_id,
         source_ref=source_ref,
+        state=state,
+        completeness_status=completeness_status,
+        completeness_summary=completeness_summary,
+        source_hash=source_hash,
+        source_modified_at=source_modified_at,
+        byte_count=byte_count,
+        structures=structures,
     )
 
 
@@ -775,91 +843,61 @@ def _emit_docx_extraction_result(
             try:
                 structures = _build_docx_structures(docx_archive, source_path)
             except PermissionError:
-                return _validate_or_fallback(
-                    _build_failure_result(
-                        request_id=request_id,
-                        source_ref=source_ref,
-                        state="denied",
-                        reason_class="unsupported_source_type",
-                        summary="Extraction is denied because DOCX review markup, comments, or tracked changes are outside the bounded DOCX lane.",
-                        source_hash=source_hash,
-                        source_modified_at=source_modified_at,
-                        byte_count=byte_count,
-                    ),
+                return _emit_failure_result(
                     request_id=request_id,
                     source_ref=source_ref,
+                    state="denied",
+                    reason_class="unsupported_source_type",
+                    summary="Extraction is denied because DOCX review markup, comments, or tracked changes are outside the bounded DOCX lane.",
+                    source_hash=source_hash,
+                    source_modified_at=source_modified_at,
+                    byte_count=byte_count,
                 )
             except ValueError:
-                return _validate_or_fallback(
-                    _build_failure_result(
-                        request_id=request_id,
-                        source_ref=source_ref,
-                        state="denied",
-                        reason_class="ineligible_source",
-                        summary="Extraction is denied because the DOCX structure exceeds the bounded deterministic recovery limits for this slice.",
-                        source_hash=source_hash,
-                        source_modified_at=source_modified_at,
-                        byte_count=byte_count,
-                    ),
+                return _emit_failure_result(
                     request_id=request_id,
                     source_ref=source_ref,
+                    state="denied",
+                    reason_class="ineligible_source",
+                    summary="Extraction is denied because the DOCX structure exceeds the bounded deterministic recovery limits for this slice.",
+                    source_hash=source_hash,
+                    source_modified_at=source_modified_at,
+                    byte_count=byte_count,
                 )
     except (OSError, KeyError, zipfile.BadZipFile, ET.ParseError):
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because the DOCX package could not be read through the bounded local DOCX lane.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the DOCX package could not be read through the bounded local DOCX lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     if not structures["content_blocks"]:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="denied",
-                reason_class="unsupported_source_type",
-                summary="Extraction is denied because the DOCX package has no bounded extractable text structures.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because the DOCX package has no bounded extractable text structures.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
-    candidate = {
-        "artifact_id": _artifact_id(request_id, source_ref),
-        "request_id": request_id,
-        "source_ref": source_ref,
-        "state": "ready",
-        "syntax_boundary": "syntax_only",
-        "semantic_boundary_enforced": True,
-        "provenance": {
-            "source_hash": source_hash,
-            "extractor_version": EXTRACTOR_VERSION,
-            "source_modified_at": source_modified_at,
-            "byte_count": byte_count,
-        },
-        "completeness": {
-            "status": "complete",
-            "operator_visible_summary": "Syntax-only extraction completed for a bounded local DOCX source.",
-        },
-        "structures": structures,
-        "extracted_at": _utc_now(),
-    }
-    return _validate_or_fallback(
-        candidate,
+    return _emit_success_result(
         request_id=request_id,
         source_ref=source_ref,
+        state="ready",
+        completeness_status="complete",
+        completeness_summary="Syntax-only extraction completed for a bounded local DOCX source.",
+        source_hash=source_hash,
+        source_modified_at=source_modified_at,
+        byte_count=byte_count,
+        structures=structures,
     )
 
 
@@ -877,19 +915,15 @@ def _emit_text_extraction_result(
     try:
         text = raw_bytes.decode("utf-8")
     except UnicodeDecodeError:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="denied",
-                reason_class="unsupported_source_type",
-                summary="Extraction is denied because only UTF-8 text-like input is supported in this bounded text lane.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because only UTF-8 text-like input is supported in this bounded text lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     try:
@@ -900,46 +934,101 @@ def _emit_text_extraction_result(
             markdown_headings_allowed=lane.lane_id == MARKDOWN_LANE.lane_id,
         )
     except ValueError:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="denied",
-                reason_class="ineligible_source",
-                summary="Extraction is denied because the source exceeds the bounded literal extraction limits for this slice.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="denied",
+            reason_class="ineligible_source",
+            summary="Extraction is denied because the source exceeds the bounded literal extraction limits for this slice.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
-    ready_result = {
-        "artifact_id": _artifact_id(request_id, source_ref),
-        "request_id": request_id,
-        "source_ref": source_ref,
-        "state": "ready",
-        "syntax_boundary": "syntax_only",
-        "semantic_boundary_enforced": True,
-        "provenance": {
-            "source_hash": source_hash,
-            "extractor_version": EXTRACTOR_VERSION,
-            "source_modified_at": source_modified_at,
-            "byte_count": byte_count,
-        },
-        "completeness": {
-            "status": "complete",
-            "operator_visible_summary": "Syntax-only extraction completed for a bounded local text source.",
-        },
-        "structures": structures,
-        "extracted_at": _utc_now(),
-    }
-
-    return _validate_or_fallback(
-        ready_result,
+    return _emit_success_result(
         request_id=request_id,
         source_ref=source_ref,
+        state="ready",
+        completeness_status="complete",
+        completeness_summary="Syntax-only extraction completed for a bounded local text source.",
+        source_hash=source_hash,
+        source_modified_at=source_modified_at,
+        byte_count=byte_count,
+        structures=structures,
+    )
+
+
+def _emit_rtf_extraction_result(
+    source_path: Path,
+    raw_bytes: bytes,
+    *,
+    request_id: str,
+    source_ref: str,
+    source_hash: str,
+    source_modified_at: str,
+    byte_count: int,
+) -> dict[str, Any]:
+    try:
+        paragraphs = extract_rtf_paragraphs(raw_bytes)
+    except RtfDeniedError:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because this RTF source uses annotation, review, field, media, or other rich destinations outside the bounded paragraph-only RTF lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+    except RtfUnavailableError:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the RTF source could not be parsed safely enough to trust bounded paragraph recovery.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    if not paragraphs:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because the RTF source has no bounded extractable paragraph text.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    try:
+        structures = _build_paragraph_only_structures(paragraphs, source_path, lane=RTF_TEXT_LANE)
+    except ValueError:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="denied",
+            reason_class="ineligible_source",
+            summary="Extraction is denied because the RTF source exceeds the bounded literal extraction limits for this slice.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    return _emit_success_result(
+        request_id=request_id,
+        source_ref=source_ref,
+        state="ready",
+        completeness_status="complete",
+        completeness_summary="Syntax-only extraction completed for a bounded local RTF source.",
+        source_hash=source_hash,
+        source_modified_at=source_modified_at,
+        byte_count=byte_count,
+        structures=structures,
     )
 
 
@@ -957,16 +1046,12 @@ def emit_extraction_result_from_source_file(
         raw_bytes = path.read_bytes()
         file_stat = path.stat()
     except OSError:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state="unavailable",
-                reason_class="dependency_unavailable",
-                summary="Extraction is unavailable because the source file could not be read.",
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the source file could not be read.",
         )
 
     source_hash = _source_hash(raw_bytes)
@@ -975,20 +1060,16 @@ def emit_extraction_result_from_source_file(
 
     lane_decision = lane_eligibility_for_path(path, media_type=media_type)
     if not lane_decision.admitted:
-        return _validate_or_fallback(
-            _build_failure_result(
-                request_id=request_id,
-                source_ref=source_ref,
-                state=lane_decision.failure_state or "denied",
-                reason_class=lane_decision.reason_class or "unsupported_source_type",
-                summary=lane_decision.operator_visible_summary
-                or "Extraction is denied because the source is outside the bounded source-lane framework.",
-                source_hash=source_hash,
-                source_modified_at=source_modified_at,
-                byte_count=byte_count,
-            ),
+        return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
+            state=lane_decision.failure_state or "denied",
+            reason_class=lane_decision.reason_class or "unsupported_source_type",
+            summary=lane_decision.operator_visible_summary
+            or "Extraction is denied because the source is outside the bounded source-lane framework.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
         )
 
     lane = lane_decision.lane
@@ -998,6 +1079,17 @@ def emit_extraction_result_from_source_file(
     if lane.lane_id == PDF_TEXT_LANE.lane_id:
         return _emit_pdf_extraction_result(
             path,
+            request_id=request_id,
+            source_ref=source_ref,
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    if lane.lane_id == RTF_TEXT_LANE.lane_id:
+        return _emit_rtf_extraction_result(
+            path,
+            raw_bytes,
             request_id=request_id,
             source_ref=source_ref,
             source_hash=source_hash,
@@ -1151,7 +1243,7 @@ def emit_extraction_result_from_intake_file(path: str | Path) -> dict[str, Any]:
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Emit a bounded Cortex extraction-result from intake JSON or a direct local text, PDF, or DOCX source."
+        description="Emit a bounded Cortex extraction-result from intake JSON or a direct local text, PDF, DOCX, or RTF source."
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -1160,7 +1252,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     group.add_argument(
         "--source-path",
-        help="Path to a bounded local text-like, PDF, or DOCX source file for direct extraction emission.",
+        help="Path to a bounded local text-like, PDF, DOCX, or RTF source file for direct extraction emission.",
     )
     parser.add_argument(
         "--request-id",

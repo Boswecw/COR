@@ -93,9 +93,10 @@ Current runtime progression:
 4. **Runtime Slice 4 — service-status truth path**
 5. **Runtime Slice 5 — bounded PDF source lane**
 6. **Runtime Slice 6 — bounded DOCX source lane**
+7. **Runtime Slice 7 — bounded RTF source lane**
 
 This order matters.
-Slices 1 through 6 are now implemented in bounded form.
+Slices 1 through 7 are now implemented in bounded form.
 
 Do not broaden source ecosystems before the narrow runtime path is stable across these slices.
 
@@ -149,6 +150,15 @@ Its posture remains:
 - explicit degraded completeness posture where appropriate
 - fail closed on unreadable, encrypted, scanned, or unsupported PDFs
 
+Paragraph-only `.rtf` is now admitted in a bounded authoring-text lane.
+
+Its posture remains:
+
+- paragraph-only recovery
+- no headings, lists, or tables in v1
+- no annotation or review semantics
+- fail closed on corrupt, untrustworthy, or out-of-lane rich destinations
+
 ### Tier 3 — specialized governed lane
 
 - Scrivener projects
@@ -174,7 +184,6 @@ Cortex should **not** own:
 
 ### Tier 4 — later only if justified
 
-- `.rtf`
 - `.odt`
 - `.html`
 - `.epub`

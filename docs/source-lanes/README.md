@@ -17,6 +17,7 @@ Current admitted lanes:
 - local plain-text files
 - local text-layer PDF files
 - local DOCX files
+- local RTF files
 
 Lane-specific rules remain in `docs/contracts/source-lane-*.md`.
 Shared lane rules live in this directory so future lane admission does not become a series of one-off branches.
