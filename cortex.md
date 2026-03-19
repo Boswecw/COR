@@ -94,9 +94,10 @@ Current runtime progression:
 5. **Runtime Slice 5 — bounded PDF source lane**
 6. **Runtime Slice 6 — bounded DOCX source lane**
 7. **Runtime Slice 7 — bounded RTF source lane**
+8. **Runtime Slice 8 — bounded ODT source lane**
 
 This order matters.
-Slices 1 through 7 are now implemented in bounded form.
+Slices 1 through 8 are now implemented in bounded form.
 
 Do not broaden source ecosystems before the narrow runtime path is stable across these slices.
 
@@ -130,6 +131,7 @@ These fit Cortex’s syntax-first posture best.
 - `.md`
 - `.txt`
 - `.docx`
+- `.odt`
 
 Why:
 
@@ -184,7 +186,6 @@ Cortex should **not** own:
 
 ### Tier 4 — later only if justified
 
-- `.odt`
 - `.html`
 - `.epub`
 

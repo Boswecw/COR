@@ -2,10 +2,10 @@
 
 ## Status
 
-Draft only.
+Historical draft.
 
-This document does not admit ODT yet.
-It records the draft posture the repo would require if ODT becomes the next implemented lane.
+ODT is now admitted through `docs/contracts/source-lane-odt.md` and `DECISIONS/0011-odt-lane-admission.md`.
+This file remains as the pre-admission selection artifact.
 
 ## Authority model
 

@@ -24,8 +24,9 @@ Current status:
 - Shared source-lane framework extracted for admitted-lane registration, failure posture, provenance, and service-status reporting
 - Runtime Slice 6 bounded local DOCX source lane implemented for local `.docx` files only
 - Runtime Slice 7 bounded local RTF source lane implemented for local `.rtf` files only
+- Runtime Slice 8 bounded local ODT source lane implemented for local `.odt` files only
 - Post-Slice-7 hardening pass completed for contract symmetry, ugly-case lane coverage, operator-surface consistency, and future lane-admission governance
-- Formal next-lane evaluation completed; ODT selected as the next candidate target for future admission work, with HTML and EPUB deferred and Scrivener kept on a special project-source track
+- Formal next-lane evaluation completed and executed through ODT admission, with HTML and EPUB still deferred and Scrivener kept on a special project-source track
 
 Start here:
 
@@ -69,9 +70,15 @@ Runtime Slice 7:
 - emit a syntax-only extraction result from a bounded local RTF source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.rtf --request-id rtf-001 --source-ref rtf-local`
 - emit a retrieval package from the same bounded local RTF lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.rtf --request-id rtf-001 --source-ref rtf-local`
 
+Runtime Slice 8:
+
+- emit a syntax-only extraction result from a bounded local ODT source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.odt --request-id odt-001 --source-ref odt-local --media-type application/vnd.oasis.opendocument.text`
+- emit a retrieval package from the same bounded local ODT lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.odt --request-id odt-001 --source-ref odt-local --media-type application/vnd.oasis.opendocument.text`
+
 Admission governance:
 
 - audit current lane symmetry before expanding admitted surfaces: `docs/source-lanes/contract-symmetry-audit.md`
 - evaluate future lanes through the reusable governance checklist: `docs/source-lanes/lane-admission-playbook.md`
 - compare next-lane candidates explicitly before implementation: `docs/source-lanes/next-lane-candidate-matrix.md`
-- review the current ODT candidate posture draft: `docs/source-lanes/odt-admission-draft.md`
+- review the admitted ODT lane contract: `docs/contracts/source-lane-odt.md`
+- review the ODT admission ADR: `DECISIONS/0011-odt-lane-admission.md`

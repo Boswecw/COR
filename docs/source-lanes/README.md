@@ -18,6 +18,7 @@ Current admitted lanes:
 - local text-layer PDF files
 - local DOCX files
 - local RTF files
+- local ODT files
 
 Lane-specific rules remain in `docs/contracts/source-lane-*.md`.
 Shared lane rules live in this directory so future lane admission does not become a series of one-off branches.
@@ -30,4 +31,4 @@ Governance references in this directory:
 - `lane-admission-playbook.md`
 - `contract-symmetry-audit.md`
 - `next-lane-candidate-matrix.md`
-- `odt-admission-draft.md`
+- `odt-admission-draft.md` (historical)

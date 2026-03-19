@@ -84,6 +84,7 @@ Completed:
 5. **Runtime Slice 5 — bounded PDF source lane**
 6. **Runtime Slice 6 — bounded DOCX source lane**
 7. **Runtime Slice 7 — bounded RTF source lane**
+8. **Runtime Slice 8 — bounded ODT source lane**
 
 Current runtime posture remains narrow:
 
@@ -94,6 +95,7 @@ Current runtime posture remains narrow:
 - bounded local PDF lane exists for text-layer PDFs only
 - bounded local DOCX lane exists for local `.docx` files only
 - bounded local RTF lane exists for local `.rtf` files only
+- bounded local ODT lane exists for local `.odt` files only
 - shared source-lane framework now governs admitted-lane registration, failure posture, provenance, and service-status reporting
 - supported source paths are currently narrow and governed
 - no semantic authority has been added
@@ -107,7 +109,7 @@ Do not change the completed delivery order without explicit governing-plan updat
 
 Unless the user explicitly redirects the task, the active next step is:
 
-**No default runtime expansion target is implied past Runtime Slice 7 without an explicit user request anchored to v2.1.**
+**No default runtime expansion target is implied past Runtime Slice 8 without an explicit user request anchored to v2.1.**
 
 This means:
 
@@ -153,6 +155,7 @@ Current strong/near-term source posture:
 - text-based `.pdf` as a bounded/degraded lane
 - `.docx` as an admitted bounded local lane
 - `.rtf` as an admitted bounded local paragraph-only lane
+- `.odt` as an admitted bounded local structured-authoring lane
 - Scrivener only as a specialized read-only project-source lane if admitted later
 
 Do not add multiple new source families in one pass unless the task explicitly requires it and the implementation remains constitutionally narrow.

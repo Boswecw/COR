@@ -161,7 +161,8 @@
               "slice4_service_status_truth",
               "slice5_pdf_source_lane",
               "slice6_docx_source_lane",
-              "slice7_rtf_source_lane"
+              "slice7_rtf_source_lane",
+              "slice8_odt_source_lane"
             ]
           }
         },
@@ -175,7 +176,8 @@
               "local_file_plain_text",
               "local_file_pdf_text",
               "local_file_docx_text",
-              "local_file_rtf_text"
+              "local_file_rtf_text",
+              "local_file_odt_text"
             ]
           }
         },

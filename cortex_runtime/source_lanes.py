@@ -38,6 +38,10 @@ def docx_lane_runtime_available() -> bool:
     return True
 
 
+def odt_lane_runtime_available() -> bool:
+    return True
+
+
 MARKDOWN_LANE = SourceLaneSpec(
     lane_id="local_file_markdown",
     metadata_id="markdown_text",
@@ -85,12 +89,23 @@ DOCX_TEXT_LANE = SourceLaneSpec(
     runtime_slice_label="bounded DOCX source lane",
 )
 
+ODT_TEXT_LANE = SourceLaneSpec(
+    lane_id="local_file_odt_text",
+    metadata_id="odt_text",
+    suffix=".odt",
+    media_types=("application/vnd.oasis.opendocument.text",),
+    operator_label="local ODT files",
+    runtime_slice_id="slice8_odt_source_lane",
+    runtime_slice_label="bounded ODT source lane",
+)
+
 ALL_SOURCE_LANES = (
     MARKDOWN_LANE,
     PLAIN_TEXT_LANE,
     PDF_TEXT_LANE,
     DOCX_TEXT_LANE,
     RTF_TEXT_LANE,
+    ODT_TEXT_LANE,
 )
 
 SOURCE_LANE_LABELS = {lane.lane_id: lane.operator_label for lane in ALL_SOURCE_LANES}
@@ -152,6 +167,8 @@ def source_lane_slice_available(slice_id: str) -> bool:
         return pdf_lane_runtime_available()
     if lane.lane_id == DOCX_TEXT_LANE.lane_id:
         return docx_lane_runtime_available()
+    if lane.lane_id == ODT_TEXT_LANE.lane_id:
+        return odt_lane_runtime_available()
     return True
 
 

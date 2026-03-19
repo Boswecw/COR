@@ -44,6 +44,8 @@ Runtime Slice 6 adds one bounded local DOCX lane only.
 That lane admits local `.docx` packages, remains syntax-only, recovers headings only from explicit paragraph-style evidence, recovers simple lists and bounded table text only when deterministic, denies comments or tracked changes, and marks corrupt or unreadable packages unavailable.
 Runtime Slice 7 adds one bounded local RTF lane only.
 That lane admits local `.rtf` files, remains paragraph-only, supports basic escaped character recovery only as needed for honest plain-text extraction, denies annotation, review, field, media, and other rich destinations outside the lane, and marks corrupt or syntactically untrustworthy sources unavailable.
+Runtime Slice 8 adds one bounded local ODT lane only.
+That lane admits local `.odt` packages, remains syntax-only, recovers headings only from explicit `text:h` structure, recovers simple lists only from explicit `text:list` structure, recovers bounded table text only when row and cell order are deterministic, denies annotations, tracked changes, and embedded object/media structures, and marks corrupt or structurally untrustworthy packages unavailable.
 The text baseline is now documented explicitly alongside the richer lanes rather than remaining only an implicit runtime truth surface.
 
 ## Retrieval package
@@ -62,6 +64,7 @@ Chunking remains deterministic and syntax-derived, using section-bounded chunks 
 Ready PDF extraction results remain compatible with this path through the same paragraph-bounded fallback rather than any PDF-specific semantic shaping.
 Ready DOCX extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists.
 Ready RTF extraction results remain compatible with the same path through paragraph-bounded chunking only.
+Ready ODT extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists and paragraph-bounded fallback otherwise.
 
 ## Service status
 
@@ -142,6 +145,7 @@ This section is grounded in:
 - `docs/contracts/extraction-result.md`
 - `docs/contracts/source-lane-text.md`
 - `docs/contracts/source-lane-docx.md`
+- `docs/contracts/source-lane-odt.md`
 - `docs/contracts/source-lane-pdf.md`
 - `docs/contracts/source-lane-rtf.md`
 - `docs/contracts/retrieval-package.md`

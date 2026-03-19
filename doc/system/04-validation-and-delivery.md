@@ -116,6 +116,19 @@ It adds:
 - retrieval-package compatibility for ready RTF extraction outputs through the existing deterministic paragraph path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 8 delivered
+
+The eighth executable runtime slice is now present for one bounded local ODT source lane only.
+
+It adds:
+
+- a bounded local `.odt` extraction path using zip/XML package parsing only
+- deterministic recovery of paragraphs, explicit headings, simple lists, and bounded table text
+- explicit deny behavior for annotations, tracked changes, embedded objects, and other out-of-lane package structures
+- explicit unavailable behavior for corrupt, unreadable, or missing-content ODT packages
+- retrieval-package compatibility for ready ODT extraction outputs through the existing deterministic section path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Post-slice-7 hardening delivered
 
 The current hardening pass adds:
@@ -136,6 +149,7 @@ The current governance phase adds:
 - a draft ODT admission posture without admitting or implementing the lane yet
 
 This phase does not add runtime behavior, schema changes, or a new admitted lane.
+That selection has now been executed through Runtime Slice 8.
 
 ## Delivery order
 
@@ -169,11 +183,10 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 7 now form the current bounded runtime baseline.
+Slices 1 through 8 now form the current bounded runtime baseline.
 This baseline has also been hardened for contract symmetry, operator consistency, and future lane-admission governance.
-The next lane has now been selected by governance only, not by implementation.
 No further implementation target is implied by this system reference alone.
-Any future ODT work must still be explicit, narrow, and anchored to the governing plan rather than inferred from selection momentum alone.
+Any future lane beyond ODT must still be explicit, narrow, and anchored to the governing plan rather than inferred from implementation momentum alone.
 
 This assembled system doc is therefore a control reference, not a product or roadmap document.
 

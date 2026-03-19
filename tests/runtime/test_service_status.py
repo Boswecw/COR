@@ -32,6 +32,7 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
             "slice4_service_status_truth",
             "slice6_docx_source_lane",
             "slice7_rtf_source_lane",
+            "slice8_odt_source_lane",
         ]
         expected_lanes = [
             "local_file_markdown",
@@ -39,9 +40,10 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         ]
         if pdf_lane_runtime_available():
             expected_slices.insert(4, "slice5_pdf_source_lane")
-            expected_lanes.append("local_file_pdf_text")
+        expected_lanes.append("local_file_pdf_text")
         expected_lanes.append("local_file_docx_text")
         expected_lanes.append("local_file_rtf_text")
+        expected_lanes.append("local_file_odt_text")
         self.assertEqual(
             result["runtime_surface_summary"]["implemented_slices"],
             expected_slices,

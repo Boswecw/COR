@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.7 (2026-03-19) - Aligned to current constitutional and runtime repo state
+**Document version:** 1.8 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,7 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
-It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 7, the post-Slice-7 hardening and lane-admission-governance pass, and the formal next-lane evaluation phase.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 8, the post-Slice-7 hardening and lane-admission-governance pass, the formal next-lane evaluation phase, and bounded ODT lane delivery.
 
 Assembly contract:
 
@@ -215,6 +215,8 @@ Runtime Slice 6 adds one bounded local DOCX lane only.
 That lane admits local `.docx` packages, remains syntax-only, recovers headings only from explicit paragraph-style evidence, recovers simple lists and bounded table text only when deterministic, denies comments or tracked changes, and marks corrupt or unreadable packages unavailable.
 Runtime Slice 7 adds one bounded local RTF lane only.
 That lane admits local `.rtf` files, remains paragraph-only, supports basic escaped character recovery only as needed for honest plain-text extraction, denies annotation, review, field, media, and other rich destinations outside the lane, and marks corrupt or syntactically untrustworthy sources unavailable.
+Runtime Slice 8 adds one bounded local ODT lane only.
+That lane admits local `.odt` packages, remains syntax-only, recovers headings only from explicit `text:h` structure, recovers simple lists only from explicit `text:list` structure, recovers bounded table text only when row and cell order are deterministic, denies annotations, tracked changes, and embedded object/media structures, and marks corrupt or structurally untrustworthy packages unavailable.
 The text baseline is now documented explicitly alongside the richer lanes rather than remaining only an implicit runtime truth surface.
 
 ## Retrieval package
@@ -233,6 +235,7 @@ Chunking remains deterministic and syntax-derived, using section-bounded chunks 
 Ready PDF extraction results remain compatible with this path through the same paragraph-bounded fallback rather than any PDF-specific semantic shaping.
 Ready DOCX extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists.
 Ready RTF extraction results remain compatible with the same path through paragraph-bounded chunking only.
+Ready ODT extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists and paragraph-bounded fallback otherwise.
 
 ## Service status
 
@@ -313,6 +316,7 @@ This section is grounded in:
 - `docs/contracts/extraction-result.md`
 - `docs/contracts/source-lane-text.md`
 - `docs/contracts/source-lane-docx.md`
+- `docs/contracts/source-lane-odt.md`
 - `docs/contracts/source-lane-pdf.md`
 - `docs/contracts/source-lane-rtf.md`
 - `docs/contracts/retrieval-package.md`
@@ -443,6 +447,19 @@ It adds:
 - retrieval-package compatibility for ready RTF extraction outputs through the existing deterministic paragraph path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 8 delivered
+
+The eighth executable runtime slice is now present for one bounded local ODT source lane only.
+
+It adds:
+
+- a bounded local `.odt` extraction path using zip/XML package parsing only
+- deterministic recovery of paragraphs, explicit headings, simple lists, and bounded table text
+- explicit deny behavior for annotations, tracked changes, embedded objects, and other out-of-lane package structures
+- explicit unavailable behavior for corrupt, unreadable, or missing-content ODT packages
+- retrieval-package compatibility for ready ODT extraction outputs through the existing deterministic section path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Post-slice-7 hardening delivered
 
 The current hardening pass adds:
@@ -463,6 +480,7 @@ The current governance phase adds:
 - a draft ODT admission posture without admitting or implementing the lane yet
 
 This phase does not add runtime behavior, schema changes, or a new admitted lane.
+That selection has now been executed through Runtime Slice 8.
 
 ## Delivery order
 
@@ -496,11 +514,10 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 7 now form the current bounded runtime baseline.
+Slices 1 through 8 now form the current bounded runtime baseline.
 This baseline has also been hardened for contract symmetry, operator consistency, and future lane-admission governance.
-The next lane has now been selected by governance only, not by implementation.
 No further implementation target is implied by this system reference alone.
-Any future ODT work must still be explicit, narrow, and anchored to the governing plan rather than inferred from selection momentum alone.
+Any future lane beyond ODT must still be explicit, narrow, and anchored to the governing plan rather than inferred from implementation momentum alone.
 
 This assembled system doc is therefore a control reference, not a product or roadmap document.
 

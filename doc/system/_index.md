@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.7 (2026-03-19) - Aligned to current constitutional and runtime repo state
+**Document version:** 1.8 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,7 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
-It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 7, the post-Slice-7 hardening and lane-admission-governance pass, and the formal next-lane evaluation phase.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 8, the post-Slice-7 hardening and lane-admission-governance pass, the formal next-lane evaluation phase, and bounded ODT lane delivery.
 
 Assembly contract:
 

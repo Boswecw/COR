@@ -15,10 +15,12 @@ from xml.etree import ElementTree as ET
 from jsonschema import Draft202012Validator
 
 from cortex_runtime.intake_validation import validate_intake_payload
+from cortex_runtime.odt_lane import OdtDeniedError, OdtUnavailableError, extract_odt_surface
 from cortex_runtime.rtf_lane import RtfDeniedError, RtfUnavailableError, extract_rtf_paragraphs
 from cortex_runtime.source_lanes import (
     DOCX_TEXT_LANE,
     MARKDOWN_LANE,
+    ODT_TEXT_LANE,
     PDF_INFO_COMMAND,
     PDF_TEXT_LANE,
     PDF_TO_TEXT_COMMAND,
@@ -37,7 +39,7 @@ from cortex_runtime.source_lanes import (
 ROOT = Path(__file__).resolve().parent.parent
 EXTRACTION_SCHEMA_PATH = ROOT / "schemas/extraction-result.schema.json"
 EXTRACTION_SCHEMA_REF = "schemas/extraction-result.schema.json"
-EXTRACTOR_VERSION = "slice7.syntax_only.1"
+EXTRACTOR_VERSION = "slice8.syntax_only.1"
 SUPPORTED_SUFFIXES = configured_supported_suffixes()
 SUPPORTED_MEDIA_TYPES = configured_supported_media_types()
 SOURCE_LANE_IDS = {
@@ -46,6 +48,7 @@ SOURCE_LANE_IDS = {
     PDF_TEXT_LANE.suffix: PDF_TEXT_LANE.lane_id,
     RTF_TEXT_LANE.suffix: RTF_TEXT_LANE.lane_id,
     DOCX_TEXT_LANE.suffix: DOCX_TEXT_LANE.lane_id,
+    ODT_TEXT_LANE.suffix: ODT_TEXT_LANE.lane_id,
 }
 WORD_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 WORD_TAG = f"{{{WORD_NS}}}"
@@ -412,6 +415,46 @@ def _build_paragraph_only_structures(
         "metadata_fields": _metadata_fields(source_path, lane),
         "content_blocks": blocks,
     }
+
+
+def _build_odt_structures(odt_surface: dict[str, Any], source_path: Path) -> dict[str, Any]:
+    blocks: list[dict[str, Any]] = []
+    heading_positions: list[tuple[int, int, str]] = []
+    block_counter = 0
+
+    for raw_block in odt_surface.get("blocks", []):
+        if not isinstance(raw_block, dict):
+            raise ValueError("ODT block surface is malformed")
+        block_kind = raw_block.get("block_kind")
+        text = raw_block.get("text")
+        if block_kind not in {"heading", "paragraph", "list", "table"} or not isinstance(text, str) or not text:
+            raise ValueError("ODT block surface is malformed")
+        if len(text) > 20000:
+            raise ValueError("literal content exceeds bounded extraction limits")
+
+        block_counter += 1
+        blocks.append(
+            {
+                "block_id": f"blk-{block_counter}",
+                "block_kind": block_kind,
+                "text": text,
+            }
+        )
+
+        if block_kind == "heading":
+            level = raw_block.get("level")
+            if not isinstance(level, int) or level < 1 or level > 8:
+                raise ValueError("ODT heading level is malformed")
+            heading_positions.append((len(blocks) - 1, level, text))
+
+    structures: dict[str, Any] = {
+        "tables_detected": int(odt_surface.get("tables_detected", 0)),
+        "metadata_fields": _metadata_fields(source_path, ODT_TEXT_LANE),
+        "content_blocks": blocks,
+    }
+    if heading_positions:
+        structures["sections"] = _build_sections_from_heading_positions(blocks, heading_positions)
+    return structures
 
 
 def _pdf_command_failed_due_to_password(stderr: str) -> bool:
@@ -1044,6 +1087,90 @@ def _emit_rtf_extraction_result(
     )
 
 
+def _emit_odt_extraction_result(
+    source_path: Path,
+    *,
+    request_id: str,
+    source_ref: str,
+    source_hash: str,
+    source_modified_at: str,
+    byte_count: int,
+) -> dict[str, Any]:
+    try:
+        with zipfile.ZipFile(source_path, "r") as odt_archive:
+            try:
+                odt_surface = extract_odt_surface(odt_archive)
+                structures = _build_odt_structures(odt_surface, source_path)
+            except OdtDeniedError:
+                return _emit_failure_result(
+                    request_id=request_id,
+                    source_ref=source_ref,
+                    state="denied",
+                    reason_class="unsupported_source_type",
+                    summary="Extraction is denied because ODT annotations, tracked changes, embedded objects, or other out-of-lane package structures are outside the bounded ODT lane.",
+                    source_hash=source_hash,
+                    source_modified_at=source_modified_at,
+                    byte_count=byte_count,
+                )
+            except OdtUnavailableError:
+                return _emit_failure_result(
+                    request_id=request_id,
+                    source_ref=source_ref,
+                    state="unavailable",
+                    reason_class="dependency_unavailable",
+                    summary="Extraction is unavailable because the ODT package could not be read safely enough to trust bounded extraction.",
+                    source_hash=source_hash,
+                    source_modified_at=source_modified_at,
+                    byte_count=byte_count,
+                )
+            except ValueError:
+                return _emit_failure_result(
+                    request_id=request_id,
+                    source_ref=source_ref,
+                    state="denied",
+                    reason_class="ineligible_source",
+                    summary="Extraction is denied because the ODT structure exceeds the bounded deterministic recovery limits for this slice.",
+                    source_hash=source_hash,
+                    source_modified_at=source_modified_at,
+                    byte_count=byte_count,
+                )
+    except (OSError, zipfile.BadZipFile):
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="unavailable",
+            reason_class="dependency_unavailable",
+            summary="Extraction is unavailable because the ODT package could not be opened through the bounded local ODT lane.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    if not structures["content_blocks"]:
+        return _emit_failure_result(
+            request_id=request_id,
+            source_ref=source_ref,
+            state="denied",
+            reason_class="unsupported_source_type",
+            summary="Extraction is denied because the ODT package has no bounded extractable text structures.",
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    return _emit_success_result(
+        request_id=request_id,
+        source_ref=source_ref,
+        state="ready",
+        completeness_status="complete",
+        completeness_summary="Syntax-only extraction completed for a bounded local ODT source.",
+        source_hash=source_hash,
+        source_modified_at=source_modified_at,
+        byte_count=byte_count,
+        structures=structures,
+    )
+
+
 def emit_extraction_result_from_source_file(
     source_path: str | Path,
     *,
@@ -1111,6 +1238,16 @@ def emit_extraction_result_from_source_file(
 
     if lane.lane_id == DOCX_TEXT_LANE.lane_id:
         return _emit_docx_extraction_result(
+            path,
+            request_id=request_id,
+            source_ref=source_ref,
+            source_hash=source_hash,
+            source_modified_at=source_modified_at,
+            byte_count=byte_count,
+        )
+
+    if lane.lane_id == ODT_TEXT_LANE.lane_id:
+        return _emit_odt_extraction_result(
             path,
             request_id=request_id,
             source_ref=source_ref,
@@ -1255,7 +1392,7 @@ def emit_extraction_result_from_intake_file(path: str | Path) -> dict[str, Any]:
 
 def _build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Emit a bounded Cortex extraction-result from intake JSON or a direct local text, PDF, DOCX, or RTF source."
+        description="Emit a bounded Cortex extraction-result from intake JSON or a direct local text, PDF, DOCX, RTF, or ODT source."
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -1264,7 +1401,7 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     group.add_argument(
         "--source-path",
-        help="Path to a bounded local text-like, PDF, DOCX, or RTF source file for direct extraction emission.",
+        help="Path to a bounded local text-like, PDF, DOCX, RTF, or ODT source file for direct extraction emission.",
     )
     parser.add_argument(
         "--request-id",
