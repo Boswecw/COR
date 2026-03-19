@@ -16,7 +16,8 @@
       "slice5_pdf_source_lane",
       "slice6_docx_source_lane",
       "slice7_rtf_source_lane",
-      "slice8_odt_source_lane"
+      "slice8_odt_source_lane",
+      "slice9_epub_source_lane"
     ],
     "admitted_source_lanes": [
       "local_file_markdown",
@@ -24,7 +25,8 @@
       "local_file_pdf_text",
       "local_file_docx_text",
       "local_file_rtf_text",
-      "local_file_odt_text"
+      "local_file_odt_text",
+      "local_file_epub_text"
     ],
     "bounded_runtime_only": true
   },

@@ -4,7 +4,7 @@
   "state": "ready",
   "readiness_summary": {
     "readiness_class": "ready",
-    "summary": "Cortex is ready for bounded intake, extraction, retrieval-package, service-status, PDF, DOCX, RTF, and ODT runtime surfaces."
+    "summary": "Cortex is ready for bounded intake, extraction, retrieval-package, service-status, PDF, DOCX, RTF, ODT, and EPUB runtime surfaces."
   },
   "runtime_surface_summary": {
     "implemented_slices": [
@@ -15,7 +15,8 @@
       "slice5_pdf_source_lane",
       "slice6_docx_source_lane",
       "slice7_rtf_source_lane",
-      "slice8_odt_source_lane"
+      "slice8_odt_source_lane",
+      "slice9_epub_source_lane"
     ],
     "admitted_source_lanes": [
       "local_file_markdown",
@@ -23,7 +24,8 @@
       "local_file_pdf_text",
       "local_file_docx_text",
       "local_file_rtf_text",
-      "local_file_odt_text"
+      "local_file_odt_text",
+      "local_file_epub_text"
     ],
     "bounded_runtime_only": true
   },
@@ -31,7 +33,7 @@
     "active_watch_scope_count": 0,
     "contract_scoped_only": true
   },
-  "operator_visible_message": "Cortex is ready for bounded intake, extraction, retrieval-package, and service-status runtime paths on local Markdown, plain-text, text-layer PDF, DOCX, RTF, and ODT files.",
+  "operator_visible_message": "Cortex is ready for bounded intake, extraction, retrieval-package, and service-status runtime paths on local Markdown, plain-text, text-layer PDF, DOCX, RTF, ODT, and EPUB files.",
   "details_redacted": true,
   "last_updated_at": "2026-03-19T12:24:00Z"
 }

@@ -129,6 +129,20 @@ It adds:
 - retrieval-package compatibility for ready ODT extraction outputs through the existing deterministic section path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 9 delivered
+
+The ninth executable runtime slice is now present for one bounded local EPUB source lane only.
+
+It adds:
+
+- a bounded local `.epub` extraction path using zip/XML package parsing only
+- explicit package authority recovery through EPUB mimetype, container, package document, manifest, and spine truth
+- deterministic recovery of paragraphs, explicit headings, simple lists, and bounded table text from admitted XHTML spine members
+- explicit deny behavior for active, scripted, media, and other out-of-lane EPUB content structures
+- explicit unavailable behavior for corrupt, unreadable, missing-authority, malformed-XML, or manifest/spine-broken EPUB packages
+- retrieval-package compatibility for ready EPUB extraction outputs through the existing deterministic section path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Post-slice-7 hardening delivered
 
 The current hardening pass adds:
@@ -150,6 +164,28 @@ The current governance phase adds:
 
 This phase does not add runtime behavior, schema changes, or a new admitted lane.
 That selection has now been executed through Runtime Slice 8.
+
+## Post-slice-8 governance selection delivered
+
+The current governance phase adds:
+
+- a fresh post-ODT candidate comparison across HTML, EPUB, and special-track Scrivener
+- an explicit selection of EPUB as the next planning target only
+- a selection ADR recording why HTML remains deferred and why Scrivener remains special-track
+- a draft EPUB admission note for planning only
+
+That governance selection has now been executed through Runtime Slice 9.
+
+## Post-slice-9 governance selection delivered
+
+The current governance phase adds:
+
+- a fresh post-EPUB candidate comparison across HTML and special-track Scrivener
+- an explicit selection of Scrivener as the next planning target only
+- a selection ADR recording why HTML remains deferred and why Scrivener must be treated as a special-track project-source opening rather than routine lane expansion
+- a draft Scrivener admission note for planning only
+
+This phase does not add runtime behavior, schema changes, or a new admitted lane.
 
 ## Delivery order
 
@@ -183,10 +219,13 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 8 now form the current bounded runtime baseline.
+Slices 1 through 9 now form the current bounded runtime baseline.
 This baseline has also been hardened for contract symmetry, operator consistency, and future lane-admission governance.
-No further implementation target is implied by this system reference alone.
-Any future lane beyond ODT must still be explicit, narrow, and anchored to the governing plan rather than inferred from implementation momentum alone.
+EPUB is now admitted as a bounded local source lane.
+Scrivener is now the next governance-selected planning target through an explicit special-track project-source path.
+HTML remains deferred.
+No further implementation target is implied by this system reference alone beyond that planning authorization.
+Any future lane work must still be explicit, narrow, and anchored to the governing plan rather than inferred from planning momentum alone.
 
 This assembled system doc is therefore a control reference, not a product or roadmap document.
 

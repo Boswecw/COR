@@ -95,9 +95,10 @@ Current runtime progression:
 6. **Runtime Slice 6 — bounded DOCX source lane**
 7. **Runtime Slice 7 — bounded RTF source lane**
 8. **Runtime Slice 8 — bounded ODT source lane**
+9. **Runtime Slice 9 — bounded EPUB source lane**
 
 This order matters.
-Slices 1 through 8 are now implemented in bounded form.
+Slices 1 through 9 are now implemented in bounded form.
 
 Do not broaden source ecosystems before the narrow runtime path is stable across these slices.
 
@@ -161,6 +162,16 @@ Its posture remains:
 - no annotation or review semantics
 - fail closed on corrupt, untrustworthy, or out-of-lane rich destinations
 
+Bounded `.epub` is now admitted in a syntax-only composite package lane.
+
+Its posture remains:
+
+- package authority only through the EPUB mimetype, container, package document, manifest, and spine
+- XHTML spine members only
+- no browser or ebook-reader behavior
+- no active-content, navigation, or media interpretation semantics
+- fail closed on broken package truth or out-of-lane structures
+
 ### Tier 3 — specialized governed lane
 
 - Scrivener projects
@@ -187,7 +198,6 @@ Cortex should **not** own:
 ### Tier 4 — later only if justified
 
 - `.html`
-- `.epub`
 
 These should enter only if there is a clear operational reason and a bounded contract path.
 

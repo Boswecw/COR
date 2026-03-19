@@ -48,6 +48,8 @@ The currently implemented executable runtime surfaces are:
 - Slice 5 - bounded local PDF source lane
 - Slice 6 - bounded local DOCX source lane
 - Slice 7 - bounded local RTF source lane
+- Slice 8 - bounded local ODT source lane
+- Slice 9 - bounded local EPUB source lane
 
 The currently admitted source lanes remain narrow:
 
@@ -56,6 +58,8 @@ The currently admitted source lanes remain narrow:
 - local text-layer `.pdf`
 - local `.docx`
 - local `.rtf`
+- local `.odt`
+- local `.epub`
 
 This is the current bounded baseline, not a promise of broader source or control-surface expansion.
 

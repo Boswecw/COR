@@ -42,6 +42,10 @@ def odt_lane_runtime_available() -> bool:
     return True
 
 
+def epub_lane_runtime_available() -> bool:
+    return True
+
+
 MARKDOWN_LANE = SourceLaneSpec(
     lane_id="local_file_markdown",
     metadata_id="markdown_text",
@@ -99,6 +103,16 @@ ODT_TEXT_LANE = SourceLaneSpec(
     runtime_slice_label="bounded ODT source lane",
 )
 
+EPUB_TEXT_LANE = SourceLaneSpec(
+    lane_id="local_file_epub_text",
+    metadata_id="epub_text",
+    suffix=".epub",
+    media_types=("application/epub+zip",),
+    operator_label="local EPUB files",
+    runtime_slice_id="slice9_epub_source_lane",
+    runtime_slice_label="bounded EPUB source lane",
+)
+
 ALL_SOURCE_LANES = (
     MARKDOWN_LANE,
     PLAIN_TEXT_LANE,
@@ -106,6 +120,7 @@ ALL_SOURCE_LANES = (
     DOCX_TEXT_LANE,
     RTF_TEXT_LANE,
     ODT_TEXT_LANE,
+    EPUB_TEXT_LANE,
 )
 
 SOURCE_LANE_LABELS = {lane.lane_id: lane.operator_label for lane in ALL_SOURCE_LANES}
@@ -169,6 +184,8 @@ def source_lane_slice_available(slice_id: str) -> bool:
         return docx_lane_runtime_available()
     if lane.lane_id == ODT_TEXT_LANE.lane_id:
         return odt_lane_runtime_available()
+    if lane.lane_id == EPUB_TEXT_LANE.lane_id:
+        return epub_lane_runtime_available()
     return True
 
 

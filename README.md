@@ -25,8 +25,10 @@ Current status:
 - Runtime Slice 6 bounded local DOCX source lane implemented for local `.docx` files only
 - Runtime Slice 7 bounded local RTF source lane implemented for local `.rtf` files only
 - Runtime Slice 8 bounded local ODT source lane implemented for local `.odt` files only
+- Runtime Slice 9 bounded local EPUB source lane implemented for local `.epub` files only
 - Post-Slice-7 hardening pass completed for contract symmetry, ugly-case lane coverage, operator-surface consistency, and future lane-admission governance
-- Formal next-lane evaluation completed and executed through ODT admission, with HTML and EPUB still deferred and Scrivener kept on a special project-source track
+- Post-Slice-8 governance selection executed through Slice 9; EPUB is now admitted
+- Post-Slice-9 governance selection completed; Scrivener is now the next planning target on a special-track project-source path, and HTML remains deferred
 
 Start here:
 
@@ -75,10 +77,23 @@ Runtime Slice 8:
 - emit a syntax-only extraction result from a bounded local ODT source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.odt --request-id odt-001 --source-ref odt-local --media-type application/vnd.oasis.opendocument.text`
 - emit a retrieval package from the same bounded local ODT lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.odt --request-id odt-001 --source-ref odt-local --media-type application/vnd.oasis.opendocument.text`
 
+Runtime Slice 9:
+
+- emit a syntax-only extraction result from a bounded local EPUB source: `python -m cortex_runtime.extraction_emission --source-path tests/runtime/fixtures/sample-note.epub --request-id epub-001 --source-ref epub-local --media-type application/epub+zip`
+- emit a retrieval package from the same bounded local EPUB lane: `python -m cortex_runtime.retrieval_package_emission --source-path tests/runtime/fixtures/sample-note.epub --request-id epub-001 --source-ref epub-local --media-type application/epub+zip`
+
 Admission governance:
 
 - audit current lane symmetry before expanding admitted surfaces: `docs/source-lanes/contract-symmetry-audit.md`
 - evaluate future lanes through the reusable governance checklist: `docs/source-lanes/lane-admission-playbook.md`
 - compare next-lane candidates explicitly before implementation: `docs/source-lanes/next-lane-candidate-matrix.md`
+- review the historical post-Slice-8 candidate comparison: `docs/source-lanes/next-lane-candidate-matrix-v2.md`
+- review the post-Slice-9 candidate comparison: `docs/source-lanes/next-lane-candidate-matrix-v3.md`
 - review the admitted ODT lane contract: `docs/contracts/source-lane-odt.md`
 - review the ODT admission ADR: `DECISIONS/0011-odt-lane-admission.md`
+- review the admitted EPUB lane contract: `docs/contracts/source-lane-epub.md`
+- review the EPUB admission ADR: `DECISIONS/0013-epub-lane-admission.md`
+- review the historical EPUB planning draft: `docs/contracts/source-lane-epub-draft.md`
+- review the post-Slice-8 selection ADR: `DECISIONS/0012-next-lane-selection-after-slice8.md`
+- review the Scrivener special-track planning draft: `docs/contracts/source-lane-scrivener-draft.md`
+- review the post-Slice-9 selection ADR: `DECISIONS/0014-next-lane-selection-after-slice9.md`

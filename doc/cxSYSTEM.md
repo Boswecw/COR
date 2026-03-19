@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.8 (2026-03-19) - Aligned to current constitutional and runtime repo state
+**Document version:** 1.10 (2026-03-19) - Aligned to current constitutional and runtime repo state
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,7 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
-It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 8, the post-Slice-7 hardening and lane-admission-governance pass, the formal next-lane evaluation phase, and bounded ODT lane delivery.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 9, the post-Slice-7 hardening and lane-admission-governance pass, bounded ODT lane delivery, bounded EPUB lane delivery, the post-Slice-8 governance execution, and the post-Slice-9 governance selection.
 
 Assembly contract:
 
@@ -84,6 +84,8 @@ The currently implemented executable runtime surfaces are:
 - Slice 5 - bounded local PDF source lane
 - Slice 6 - bounded local DOCX source lane
 - Slice 7 - bounded local RTF source lane
+- Slice 8 - bounded local ODT source lane
+- Slice 9 - bounded local EPUB source lane
 
 The currently admitted source lanes remain narrow:
 
@@ -92,6 +94,8 @@ The currently admitted source lanes remain narrow:
 - local text-layer `.pdf`
 - local `.docx`
 - local `.rtf`
+- local `.odt`
+- local `.epub`
 
 This is the current bounded baseline, not a promise of broader source or control-surface expansion.
 
@@ -217,6 +221,8 @@ Runtime Slice 7 adds one bounded local RTF lane only.
 That lane admits local `.rtf` files, remains paragraph-only, supports basic escaped character recovery only as needed for honest plain-text extraction, denies annotation, review, field, media, and other rich destinations outside the lane, and marks corrupt or syntactically untrustworthy sources unavailable.
 Runtime Slice 8 adds one bounded local ODT lane only.
 That lane admits local `.odt` packages, remains syntax-only, recovers headings only from explicit `text:h` structure, recovers simple lists only from explicit `text:list` structure, recovers bounded table text only when row and cell order are deterministic, denies annotations, tracked changes, and embedded object/media structures, and marks corrupt or structurally untrustworthy packages unavailable.
+Runtime Slice 9 adds one bounded local EPUB lane only.
+That lane admits local `.epub` packages, remains syntax-only, establishes package truth through EPUB mimetype, container, manifest, and spine authority, recovers headings only from explicit XHTML heading structure, recovers simple lists and bounded table text only when deterministic, denies active content, navigation documents in the admitted reading path, and media-bearing content structures, and marks corrupt or structurally untrustworthy packages unavailable.
 The text baseline is now documented explicitly alongside the richer lanes rather than remaining only an implicit runtime truth surface.
 
 ## Retrieval package
@@ -236,6 +242,7 @@ Ready PDF extraction results remain compatible with this path through the same p
 Ready DOCX extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists.
 Ready RTF extraction results remain compatible with the same path through paragraph-bounded chunking only.
 Ready ODT extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists and paragraph-bounded fallback otherwise.
+Ready EPUB extraction results remain compatible with the same path through section-bounded chunking when explicit heading structure exists and paragraph-bounded fallback otherwise.
 
 ## Service status
 
@@ -317,6 +324,7 @@ This section is grounded in:
 - `docs/contracts/source-lane-text.md`
 - `docs/contracts/source-lane-docx.md`
 - `docs/contracts/source-lane-odt.md`
+- `docs/contracts/source-lane-epub.md`
 - `docs/contracts/source-lane-pdf.md`
 - `docs/contracts/source-lane-rtf.md`
 - `docs/contracts/retrieval-package.md`
@@ -460,6 +468,20 @@ It adds:
 - retrieval-package compatibility for ready ODT extraction outputs through the existing deterministic section path
 - focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
 
+## Runtime slice 9 delivered
+
+The ninth executable runtime slice is now present for one bounded local EPUB source lane only.
+
+It adds:
+
+- a bounded local `.epub` extraction path using zip/XML package parsing only
+- explicit package authority recovery through EPUB mimetype, container, package document, manifest, and spine truth
+- deterministic recovery of paragraphs, explicit headings, simple lists, and bounded table text from admitted XHTML spine members
+- explicit deny behavior for active, scripted, media, and other out-of-lane EPUB content structures
+- explicit unavailable behavior for corrupt, unreadable, missing-authority, malformed-XML, or manifest/spine-broken EPUB packages
+- retrieval-package compatibility for ready EPUB extraction outputs through the existing deterministic section path
+- focused runtime tests for ready, denied, unavailable, deterministic, retrieval-compatible, and cross-lane invariant behavior
+
 ## Post-slice-7 hardening delivered
 
 The current hardening pass adds:
@@ -481,6 +503,28 @@ The current governance phase adds:
 
 This phase does not add runtime behavior, schema changes, or a new admitted lane.
 That selection has now been executed through Runtime Slice 8.
+
+## Post-slice-8 governance selection delivered
+
+The current governance phase adds:
+
+- a fresh post-ODT candidate comparison across HTML, EPUB, and special-track Scrivener
+- an explicit selection of EPUB as the next planning target only
+- a selection ADR recording why HTML remains deferred and why Scrivener remains special-track
+- a draft EPUB admission note for planning only
+
+That governance selection has now been executed through Runtime Slice 9.
+
+## Post-slice-9 governance selection delivered
+
+The current governance phase adds:
+
+- a fresh post-EPUB candidate comparison across HTML and special-track Scrivener
+- an explicit selection of Scrivener as the next planning target only
+- a selection ADR recording why HTML remains deferred and why Scrivener must be treated as a special-track project-source opening rather than routine lane expansion
+- a draft Scrivener admission note for planning only
+
+This phase does not add runtime behavior, schema changes, or a new admitted lane.
 
 ## Delivery order
 
@@ -514,10 +558,13 @@ The current remediation pass adds:
 
 The repo is currently strongest where constitutional claims are backed by schemas, invalid fixtures, and validator guard checks.
 
-Slices 1 through 8 now form the current bounded runtime baseline.
+Slices 1 through 9 now form the current bounded runtime baseline.
 This baseline has also been hardened for contract symmetry, operator consistency, and future lane-admission governance.
-No further implementation target is implied by this system reference alone.
-Any future lane beyond ODT must still be explicit, narrow, and anchored to the governing plan rather than inferred from implementation momentum alone.
+EPUB is now admitted as a bounded local source lane.
+Scrivener is now the next governance-selected planning target through an explicit special-track project-source path.
+HTML remains deferred.
+No further implementation target is implied by this system reference alone beyond that planning authorization.
+Any future lane work must still be explicit, narrow, and anchored to the governing plan rather than inferred from planning momentum alone.
 
 This assembled system doc is therefore a control reference, not a product or roadmap document.
 

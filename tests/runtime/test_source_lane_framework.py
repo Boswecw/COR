@@ -39,6 +39,11 @@ def ready_lane_cases() -> list[tuple[Path, str, str]]:
             "odt_text",
         ),
         (
+            ROOT / "tests/runtime/fixtures/sample-note.epub",
+            "application/epub+zip",
+            "epub_text",
+        ),
+        (
             ROOT / "tests/runtime/fixtures/sample-note.rtf",
             "application/rtf",
             "rtf_text",
@@ -63,6 +68,7 @@ class SourceLaneFrameworkRuntimeTests(unittest.TestCase):
         expected.append("local_file_docx_text")
         expected.append("local_file_rtf_text")
         expected.append("local_file_odt_text")
+        expected.append("local_file_epub_text")
         self.assertEqual(admitted_source_lanes(), expected)
 
     def test_ready_lanes_emit_common_schema_shape(self) -> None:
@@ -134,7 +140,7 @@ class SourceLaneFrameworkRuntimeTests(unittest.TestCase):
             self.assertEqual(result["refusal"]["reason_class"], "unsupported_source_type")
 
     def test_unreadable_paths_fail_closed_across_admitted_suffixes(self) -> None:
-        suffixes = [".md", ".txt", ".docx", ".rtf", ".odt"]
+        suffixes = [".md", ".txt", ".docx", ".rtf", ".odt", ".epub"]
         if pdf_lane_runtime_available():
             suffixes.append(".pdf")
 

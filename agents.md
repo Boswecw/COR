@@ -85,6 +85,7 @@ Completed:
 6. **Runtime Slice 6 — bounded DOCX source lane**
 7. **Runtime Slice 7 — bounded RTF source lane**
 8. **Runtime Slice 8 — bounded ODT source lane**
+9. **Runtime Slice 9 — bounded EPUB source lane**
 
 Current runtime posture remains narrow:
 
@@ -96,6 +97,7 @@ Current runtime posture remains narrow:
 - bounded local DOCX lane exists for local `.docx` files only
 - bounded local RTF lane exists for local `.rtf` files only
 - bounded local ODT lane exists for local `.odt` files only
+- bounded local EPUB lane exists for local `.epub` files only
 - shared source-lane framework now governs admitted-lane registration, failure posture, provenance, and service-status reporting
 - supported source paths are currently narrow and governed
 - no semantic authority has been added
@@ -109,7 +111,7 @@ Do not change the completed delivery order without explicit governing-plan updat
 
 Unless the user explicitly redirects the task, the active next step is:
 
-**No default runtime expansion target is implied past Runtime Slice 8 without an explicit user request anchored to v2.1.**
+**No default runtime expansion target is implied past Runtime Slice 9 without an explicit user request anchored to v2.1.**
 
 This means:
 
