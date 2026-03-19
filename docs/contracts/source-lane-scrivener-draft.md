@@ -15,6 +15,13 @@ This draft therefore treats Scrivener as a special-track bounded local project-s
 
 It does not authorize implementation by itself.
 
+If governance later authorizes a bounded first build slice, Stage 1 should start from:
+
+- `docs/contracts/scrivener-authority-recon-status-draft.md`
+- `docs/source-lanes/scrivener/authority-recon-slice-plan.md`
+
+Those artifacts are conditional build inputs only.
+
 ## 1. Lane identity
 
 Provisional lane name:

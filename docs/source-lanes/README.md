@@ -32,6 +32,7 @@ Governance references in this directory:
 - `lane-admission-playbook.md`
 - `contract-symmetry-audit.md`
 - `scrivener/` (phase-0 evidence packet)
+- `scrivener/authority-recon-slice-plan.md` (conditional build packet, still blocked)
 - `../fixtures/scrivener/` (canonical fixture intake packet)
 - `next-lane-candidate-matrix.md` (historical, pre-ODT)
 - `next-lane-candidate-matrix-v2.md` (historical, pre-Slice-9)
@@ -40,3 +41,4 @@ Governance references in this directory:
 - `../contracts/source-lane-epub.md`
 - `../contracts/source-lane-epub-draft.md` (historical)
 - `../contracts/source-lane-scrivener-draft.md`
+- `../contracts/scrivener-authority-recon-status-draft.md`

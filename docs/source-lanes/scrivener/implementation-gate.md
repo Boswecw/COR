@@ -43,6 +43,14 @@ Until the gate is cleared, do not:
 
 Do not draft a Scrivener admission ADR yet.
 
+Conditional build preparation may proceed only as documentation.
+
+Build-ready but non-authorizing artifacts may include:
+
+- `docs/cortex_scrivener_conditional_build_plan_v_1.md`
+- `docs/contracts/scrivener-authority-recon-status-draft.md`
+- `docs/source-lanes/scrivener/authority-recon-slice-plan.md`
+
 The repo first needs fixture-backed proof of:
 
 - structural authority sufficiency
