@@ -35,6 +35,9 @@ The valid fallback states are:
 
 The invalid fallback is silent reuse with implied readiness.
 
+Phase 1 does not use a separate `invalidation_triggered` wire state.
+Invalidation is expressed through explicit stale posture plus invalidation policy and operator-visible messaging.
+
 ## Phase 1 minimum
 
 Phase 1 contracts and schemas must encode:

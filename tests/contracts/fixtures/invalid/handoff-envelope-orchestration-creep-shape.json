@@ -1,0 +1,28 @@
+{
+  "handoff_id": "handoff-006",
+  "source_service_id": "cortex",
+  "destination_surface_class": "consuming_application",
+  "destination_surface_id": "authorforge",
+  "artifact_ref": "pkg-005",
+  "artifact_class": "retrieval_package",
+  "transfer_state": "ready_for_transfer",
+  "reverse_signal": "accepted",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-006",
+    "source_hash": "sha256:pkg005",
+    "checked_at": "2026-03-19T11:10:00Z",
+    "operator_visible_summary": "Integrity verifies."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "Freshness verifies."
+  },
+  "workflow_id": "wf-001",
+  "retry_count": 2,
+  "queue_name": "handoff-main",
+  "dispatch_plan": "fan-out",
+  "operator_visible_message": "This shape should fail because it introduces orchestration semantics.",
+  "last_updated_at": "2026-03-19T11:10:00Z"
+}

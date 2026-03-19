@@ -1,0 +1,22 @@
+{
+  "handoff_id": "handoff-004",
+  "source_service_id": "cortex",
+  "destination_surface_class": "neuronforge_local",
+  "destination_surface_id": "nf-default",
+  "artifact_ref": "pkg-003",
+  "artifact_class": "retrieval_package",
+  "transfer_state": "ready_for_transfer",
+  "reverse_signal": "accepted",
+  "integrity": {
+    "status": "verified",
+    "checked_at": "2026-03-19T11:06:00Z",
+    "operator_visible_summary": "Integrity context is incomplete and should fail validation."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "Freshness appears valid."
+  },
+  "operator_visible_message": "This handoff should fail because integrity context is missing.",
+  "last_updated_at": "2026-03-19T11:06:00Z"
+}

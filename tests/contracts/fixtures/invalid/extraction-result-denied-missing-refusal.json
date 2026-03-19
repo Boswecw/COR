@@ -1,0 +1,17 @@
+{
+  "artifact_id": "extract-007",
+  "request_id": "intake-011",
+  "source_ref": "src-011",
+  "state": "denied",
+  "syntax_boundary": "syntax_only",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:denied007",
+    "extractor_version": "phase1.0"
+  },
+  "completeness": {
+    "status": "failed",
+    "operator_visible_summary": "This should fail because denied requires a refusal object."
+  },
+  "extracted_at": "2026-03-19T12:37:00Z"
+}

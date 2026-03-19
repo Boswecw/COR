@@ -1,0 +1,25 @@
+{
+  "handoff_id": "handoff-002",
+  "source_service_id": "cortex",
+  "destination_surface_class": "consuming_application",
+  "destination_surface_id": "authorforge",
+  "artifact_ref": "pkg-002",
+  "artifact_class": "retrieval_package",
+  "transfer_state": "stale",
+  "reverse_signal": "stale",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-002",
+    "source_hash": "sha256:pkg002",
+    "checked_at": "2026-03-19T11:02:00Z",
+    "operator_visible_summary": "Integrity still verifies, but freshness no longer does."
+  },
+  "freshness": {
+    "state": "stale",
+    "basis": "ttl",
+    "operator_visible_summary": "The handoff artifact exceeded its freshness window."
+  },
+  "details_redacted": true,
+  "operator_visible_message": "Cortex handoff is stale and cannot be treated as ready for transfer.",
+  "last_updated_at": "2026-03-19T11:02:00Z"
+}

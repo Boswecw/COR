@@ -1,0 +1,20 @@
+{
+  "service_id": "cortex",
+  "service_class": "file_intelligence",
+  "state": "denied",
+  "denied_state": {
+    "state": "denied",
+    "reason_class": "operator_disabled",
+    "scope": "service",
+    "remediable": true,
+    "operator_visible_summary": "Cortex intake is operator-disabled for the current bounded profile.",
+    "last_updated_at": "2026-03-19T12:20:00Z"
+  },
+  "readiness_summary": {
+    "readiness_class": "not_ready",
+    "summary": "Cortex is not ready because the service is explicitly disabled for this bounded action."
+  },
+  "operator_visible_message": "Cortex is denied for the requested service action.",
+  "details_redacted": true,
+  "last_updated_at": "2026-03-19T12:20:00Z"
+}

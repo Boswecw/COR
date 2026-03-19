@@ -1,0 +1,44 @@
+{
+  "package_id": "pkg-004",
+  "request_id": "intake-003",
+  "source_refs": [
+    "src-003"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "stale",
+  "freshness": {
+    "state": "stale",
+    "asserted_at": "2026-03-19T12:26:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:stale004",
+    "operator_visible_summary": "The package is stale because the source dependency marker changed."
+  },
+  "invalidation": {
+    "policy": "source_change",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk-004",
+      "source_ref": "src-003",
+      "structure_kind": "paragraph",
+      "text": "This retrieval package remains readable but is explicitly stale.",
+      "ordinal": 0
+    }
+  ],
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "The package content is complete, but freshness can no longer be asserted."
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "details_redacted": true,
+  "created_at": "2026-03-19T12:26:00Z"
+}

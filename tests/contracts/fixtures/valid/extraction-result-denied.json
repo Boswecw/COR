@@ -1,0 +1,23 @@
+{
+  "artifact_id": "extract-005",
+  "request_id": "intake-009",
+  "source_ref": "src-009",
+  "state": "denied",
+  "syntax_boundary": "syntax_only",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:denied005",
+    "extractor_version": "phase1.0",
+    "source_modified_at": "2026-03-19T12:34:00Z",
+    "byte_count": 2048
+  },
+  "completeness": {
+    "status": "failed",
+    "operator_visible_summary": "Extraction was denied before structure capture could complete."
+  },
+  "refusal": {
+    "reason_class": "semantic_request_not_allowed",
+    "operator_visible_summary": "Cortex refused a semantic request instead of approximating it."
+  },
+  "extracted_at": "2026-03-19T12:35:00Z"
+}

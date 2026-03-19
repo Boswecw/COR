@@ -1,0 +1,33 @@
+{
+  "diagnostic_id": "diag-001",
+  "surface_id": "cortex-service-status",
+  "surface_class": "service_status",
+  "scope_ref": "service:cortex",
+  "state": "degraded",
+  "degraded_subtype": "freshness_unknown",
+  "freshness_summary": {
+    "state": "unknown",
+    "operator_visible_summary": "Freshness cannot be asserted for one or more current artifacts."
+  },
+  "integrity_summary": {
+    "status": "verified",
+    "reason_code": "verified",
+    "operator_visible_summary": "No integrity failure is currently reported."
+  },
+  "completeness_summary": {
+    "status": "incomplete",
+    "reason_code": "extraction_incomplete",
+    "operator_visible_summary": "One or more recent extractions are incomplete."
+  },
+  "provenance_summary": {
+    "source_count": 2,
+    "operator_visible_summary": "Two bounded sources contribute to the current degraded view; raw paths remain redacted."
+  },
+  "allowed_controls": [
+    "inspect_reason_codes",
+    "invalidate_artifact"
+  ],
+  "details_redacted": true,
+  "operator_visible_message": "Embedded diagnostics remain redacted and bounded to operational truth.",
+  "last_updated_at": "2026-03-19T12:10:00Z"
+}

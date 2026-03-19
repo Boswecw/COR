@@ -1,0 +1,15 @@
+{
+  "diagnostic_id": "diag-003",
+  "surface_id": "cortex-service-status",
+  "surface_class": "service_status",
+  "scope_ref": "service:cortex",
+  "state": "degraded",
+  "degraded_subtype": "freshness_unknown",
+  "allowed_controls": [
+    "inspect_reason_codes"
+  ],
+  "details_redacted": true,
+  "raw_content_preview": "This should fail because embedded diagnostics must not expose raw content.",
+  "operator_visible_message": "An invalid diagnostics shape attempts to expose raw content.",
+  "last_updated_at": "2026-03-19T12:13:00Z"
+}

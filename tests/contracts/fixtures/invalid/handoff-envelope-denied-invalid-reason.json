@@ -1,0 +1,30 @@
+{
+  "handoff_id": "handoff-007",
+  "source_service_id": "cortex",
+  "destination_surface_class": "fa_local",
+  "destination_surface_id": "fa-review",
+  "artifact_ref": "extract-002",
+  "artifact_class": "extraction_result",
+  "transfer_state": "denied",
+  "reverse_signal": "rejected_reason_code",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-007",
+    "source_hash": "sha256:extract002",
+    "checked_at": "2026-03-19T11:12:00Z",
+    "operator_visible_summary": "Integrity verifies."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "Freshness verifies."
+  },
+  "denial": {
+    "reason_class": "retry_exhausted",
+    "scope": "transfer",
+    "remediable": false,
+    "operator_visible_summary": "This should fail because retry language is not part of the denial taxonomy."
+  },
+  "operator_visible_message": "This denied handoff should fail because the denial taxonomy is invalid.",
+  "last_updated_at": "2026-03-19T11:12:00Z"
+}

@@ -1,0 +1,31 @@
+{
+  "handoff_id": "handoff-003",
+  "source_service_id": "cortex",
+  "destination_surface_class": "fa_local",
+  "destination_surface_id": "fa-review",
+  "artifact_ref": "extract-001",
+  "artifact_class": "extraction_result",
+  "transfer_state": "denied",
+  "reverse_signal": "rejected_reason_code",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-003",
+    "source_hash": "sha256:extract001",
+    "checked_at": "2026-03-19T11:04:00Z",
+    "operator_visible_summary": "Integrity is verified, but transfer is not admitted."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "The artifact is fresh, but the transfer contract is denied."
+  },
+  "denial": {
+    "reason_class": "unsupported_destination",
+    "scope": "destination",
+    "remediable": true,
+    "operator_visible_summary": "The requested destination surface is not admitted for this handoff."
+  },
+  "details_redacted": true,
+  "operator_visible_message": "Cortex denied the handoff because the destination surface is unsupported.",
+  "last_updated_at": "2026-03-19T11:04:00Z"
+}

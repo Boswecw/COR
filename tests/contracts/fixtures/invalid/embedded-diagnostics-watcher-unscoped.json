@@ -1,0 +1,18 @@
+{
+  "diagnostic_id": "diag-005",
+  "surface_id": "watcher-surface-002",
+  "surface_class": "watcher_status",
+  "scope_ref": "watch_scope:contract-002",
+  "state": "ready",
+  "watcher_summary": {
+    "active_watch_scope_count": 2,
+    "contract_scoped_only": false,
+    "operator_visible_summary": "This should fail because watcher diagnostics must remain contract-scoped only."
+  },
+  "allowed_controls": [
+    "disable_watcher"
+  ],
+  "details_redacted": true,
+  "operator_visible_message": "This should fail because watcher diagnostics are not contract-scoped.",
+  "last_updated_at": "2026-03-19T12:15:00Z"
+}

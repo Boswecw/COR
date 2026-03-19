@@ -1,0 +1,386 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/embedded-diagnostics.schema.json",
+  "title": "Cortex Embedded Diagnostics",
+  "description": "Strict bounded embedded diagnostics surface for Cortex-owned operational truth.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "diagnostic_id",
+    "surface_id",
+    "surface_class",
+    "scope_ref",
+    "state",
+    "details_redacted",
+    "operator_visible_message",
+    "last_updated_at"
+  ],
+  "properties": {
+    "diagnostic_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "surface_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "surface_class": {
+      "type": "string",
+      "enum": [
+        "service_status",
+        "artifact_status",
+        "watcher_status"
+      ]
+    },
+    "scope_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "degraded",
+        "unavailable",
+        "denied",
+        "stale",
+        "partial_success"
+      ]
+    },
+    "degraded_subtype": {
+      "type": "string",
+      "enum": [
+        "degraded",
+        "extraction_incomplete",
+        "integrity_failed",
+        "re_prep_required",
+        "dependency_unavailable",
+        "observation_contract_missing",
+        "freshness_unknown"
+      ]
+    },
+    "denial_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_class",
+        "scope",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "contract_invalid",
+            "privacy_scope_violation",
+            "integrity_failed",
+            "dependency_unavailable",
+            "operator_disabled"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "service",
+            "artifact",
+            "watch_scope",
+            "contract"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "freshness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "watcher_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "active_watch_scope_count",
+        "contract_scoped_only",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "active_watch_scope_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contract_scoped_only": {
+          "type": "boolean",
+          "const": true
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "integrity_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason_code",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "failed",
+            "unknown"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "integrity_failed",
+            "source_changed",
+            "unknown"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "completeness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reason_code",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete",
+            "failed",
+            "unknown"
+          ]
+        },
+        "reason_code": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "extraction_incomplete",
+            "missing_required_structure",
+            "dependency_unavailable",
+            "unknown"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "provenance_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_count",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "source_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "allowed_controls": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "re_run_extraction",
+          "invalidate_artifact",
+          "disable_watcher",
+          "inspect_reason_codes"
+        ]
+      }
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "const": true
+    },
+    "operator_visible_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "last_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "degraded"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "degraded_subtype"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "denied"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "denial_summary"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state": {
+            "const": "stale"
+          }
+        },
+        "required": [
+          "state"
+        ]
+      },
+      "then": {
+        "required": [
+          "freshness_summary"
+        ],
+        "properties": {
+          "freshness_summary": {
+            "properties": {
+              "state": {
+                "const": "stale"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "surface_class": {
+            "const": "watcher_status"
+          }
+        },
+        "required": [
+          "surface_class"
+        ]
+      },
+      "then": {
+        "required": [
+          "watcher_summary"
+        ]
+      }
+    },
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "raw_content_preview"
+            ]
+          },
+          {
+            "required": [
+              "full_text_preview"
+            ]
+          },
+          {
+            "required": [
+              "full_text_search"
+            ]
+          },
+          {
+            "required": [
+              "full_text_browse"
+            ]
+          },
+          {
+            "required": [
+              "content_browser"
+            ]
+          },
+          {
+            "required": [
+              "raw_artifact_dump"
+            ]
+          },
+          {
+            "required": [
+              "unbounded_artifact_dump"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

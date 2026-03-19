@@ -1,0 +1,13 @@
+{
+  "diagnostic_id": "diag-004",
+  "surface_id": "cortex-service-status",
+  "surface_class": "service_status",
+  "scope_ref": "service:cortex",
+  "state": "ready",
+  "allowed_controls": [
+    "inspect_reason_codes"
+  ],
+  "details_redacted": false,
+  "operator_visible_message": "This should fail because embedded diagnostics must remain redacted by default.",
+  "last_updated_at": "2026-03-19T12:14:00Z"
+}

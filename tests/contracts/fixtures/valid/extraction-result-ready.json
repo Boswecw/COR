@@ -1,0 +1,45 @@
+{
+  "artifact_id": "extract-003",
+  "request_id": "intake-007",
+  "source_ref": "src-007",
+  "state": "ready",
+  "syntax_boundary": "syntax_only",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:ready003",
+    "extractor_version": "phase1.0",
+    "source_modified_at": "2026-03-19T12:30:00Z",
+    "byte_count": 8192
+  },
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "Structure capture completed successfully."
+  },
+  "structures": {
+    "sections": [
+      {
+        "section_id": "sec-3",
+        "heading": "Overview",
+        "level": 1,
+        "block_count": 2
+      }
+    ],
+    "tables_detected": 0,
+    "metadata_fields": {
+      "title": "Overview"
+    },
+    "content_blocks": [
+      {
+        "block_id": "blk-3",
+        "block_kind": "heading",
+        "text": "Overview"
+      },
+      {
+        "block_id": "blk-4",
+        "block_kind": "paragraph",
+        "text": "This extraction result is syntax-only and complete."
+      }
+    ]
+  },
+  "extracted_at": "2026-03-19T12:31:00Z"
+}

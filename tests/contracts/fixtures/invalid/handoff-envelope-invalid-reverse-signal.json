@@ -1,0 +1,24 @@
+{
+  "handoff_id": "handoff-005",
+  "source_service_id": "cortex",
+  "destination_surface_class": "neuronforge_local",
+  "destination_surface_id": "nf-default",
+  "artifact_ref": "pkg-004",
+  "artifact_class": "retrieval_package",
+  "transfer_state": "ready_for_transfer",
+  "reverse_signal": "queued_for_retry",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-005",
+    "source_hash": "sha256:pkg004",
+    "checked_at": "2026-03-19T11:08:00Z",
+    "operator_visible_summary": "Integrity verifies."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "Freshness verifies."
+  },
+  "operator_visible_message": "This handoff should fail because the reverse signal is not constitutionally allowed.",
+  "last_updated_at": "2026-03-19T11:08:00Z"
+}

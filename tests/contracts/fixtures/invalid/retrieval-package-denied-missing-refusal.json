@@ -1,0 +1,30 @@
+{
+  "package_id": "pkg-007",
+  "request_id": "intake-006",
+  "source_refs": [
+    "src-006"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "denied",
+  "freshness": {
+    "state": "unknown",
+    "asserted_at": "2026-03-19T12:29:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:denied007",
+    "operator_visible_summary": "Freshness cannot be asserted because packaging was denied."
+  },
+  "invalidation": {
+    "policy": "compound",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "created_at": "2026-03-19T12:29:00Z"
+}

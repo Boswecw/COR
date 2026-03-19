@@ -1,0 +1,24 @@
+{
+  "handoff_id": "handoff-001",
+  "source_service_id": "cortex",
+  "destination_surface_class": "neuronforge_local",
+  "destination_surface_id": "nf-default",
+  "artifact_ref": "pkg-001",
+  "artifact_class": "retrieval_package",
+  "transfer_state": "ready_for_transfer",
+  "integrity": {
+    "status": "verified",
+    "context_ref": "integrity-check-001",
+    "source_hash": "sha256:pkg001",
+    "checked_at": "2026-03-19T11:00:00Z",
+    "operator_visible_summary": "Integrity verified against the current package hash."
+  },
+  "freshness": {
+    "state": "fresh",
+    "basis": "source_hash",
+    "operator_visible_summary": "Transfer artifact freshness is backed by the current source hash."
+  },
+  "details_redacted": true,
+  "operator_visible_message": "Cortex handoff is ready for bounded transfer.",
+  "last_updated_at": "2026-03-19T11:00:00Z"
+}

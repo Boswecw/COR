@@ -1,0 +1,26 @@
+{
+  "artifact_id": "extract-006",
+  "request_id": "intake-010",
+  "source_ref": "src-010",
+  "state": "stale",
+  "syntax_boundary": "syntax_only",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:stale006",
+    "extractor_version": "phase1.0"
+  },
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "This should fail because stale requires a freshness object."
+  },
+  "structures": {
+    "content_blocks": [
+      {
+        "block_id": "blk-6",
+        "block_kind": "paragraph",
+        "text": "This should fail because freshness is missing."
+      }
+    ]
+  },
+  "extracted_at": "2026-03-19T12:36:00Z"
+}

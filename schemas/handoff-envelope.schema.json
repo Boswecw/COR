@@ -1,0 +1,493 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/handoff-envelope.schema.json",
+  "title": "Cortex Handoff Envelope",
+  "description": "Strict bounded transfer-truth envelope for Cortex handoff without orchestration semantics.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "handoff_id",
+    "source_service_id",
+    "destination_surface_class",
+    "destination_surface_id",
+    "artifact_ref",
+    "artifact_class",
+    "transfer_state",
+    "integrity",
+    "freshness",
+    "operator_visible_message",
+    "last_updated_at"
+  ],
+  "properties": {
+    "handoff_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "source_service_id": {
+      "type": "string",
+      "const": "cortex"
+    },
+    "destination_surface_class": {
+      "type": "string",
+      "enum": [
+        "consuming_application",
+        "neuronforge_local",
+        "fa_local"
+      ]
+    },
+    "destination_surface_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "artifact_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "artifact_class": {
+      "type": "string",
+      "enum": [
+        "retrieval_package",
+        "extraction_result"
+      ]
+    },
+    "transfer_state": {
+      "type": "string",
+      "enum": [
+        "ready_for_transfer",
+        "denied",
+        "stale",
+        "integrity_failed",
+        "re_prep_required"
+      ]
+    },
+    "reverse_signal": {
+      "type": "string",
+      "enum": [
+        "accepted",
+        "rejected_reason_code",
+        "re_prep_required",
+        "stale",
+        "integrity_failed"
+      ]
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "context_ref",
+        "source_hash",
+        "checked_at",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "verified",
+            "failed"
+          ]
+        },
+        "context_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "source_hash": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "checked_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "basis",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "fresh",
+            "stale",
+            "unknown"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "source_hash",
+            "ttl",
+            "manual_review"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "denial": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_class",
+        "scope",
+        "remediable",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "contract_invalid",
+            "unsupported_destination",
+            "privacy_scope_violation",
+            "missing_required_structure"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "transfer",
+            "destination",
+            "artifact",
+            "contract"
+          ]
+        },
+        "remediable": {
+          "type": "boolean"
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "re_prep_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reason_class",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "reason_class": {
+          "type": "string",
+          "enum": [
+            "missing_required_structure",
+            "freshness_revalidation_required",
+            "profile_mismatch"
+          ]
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "default": true
+    },
+    "operator_visible_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "last_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "transfer_state": {
+            "const": "ready_for_transfer"
+          }
+        },
+        "required": [
+          "transfer_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reverse_signal": {
+            "const": "accepted"
+          },
+          "integrity": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "freshness": {
+            "properties": {
+              "state": {
+                "const": "fresh"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "denial"
+              ]
+            },
+            {
+              "required": [
+                "re_prep_context"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "transfer_state": {
+            "const": "stale"
+          }
+        },
+        "required": [
+          "transfer_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reverse_signal": {
+            "const": "stale"
+          },
+          "integrity": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "freshness": {
+            "properties": {
+              "state": {
+                "const": "stale"
+              }
+            },
+            "required": [
+              "state"
+            ]
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "denial"
+              ]
+            },
+            {
+              "required": [
+                "re_prep_context"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "transfer_state": {
+            "const": "denied"
+          }
+        },
+        "required": [
+          "transfer_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "denial"
+        ],
+        "properties": {
+          "reverse_signal": {
+            "const": "rejected_reason_code"
+          },
+          "integrity": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "re_prep_context"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "transfer_state": {
+            "const": "integrity_failed"
+          }
+        },
+        "required": [
+          "transfer_state"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reverse_signal": {
+            "const": "integrity_failed"
+          },
+          "integrity": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "denial"
+              ]
+            },
+            {
+              "required": [
+                "re_prep_context"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "transfer_state": {
+            "const": "re_prep_required"
+          }
+        },
+        "required": [
+          "transfer_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "re_prep_context"
+        ],
+        "properties": {
+          "reverse_signal": {
+            "const": "re_prep_required"
+          },
+          "integrity": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "not": {
+          "required": [
+            "denial"
+          ]
+        }
+      }
+    },
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "retry_count"
+            ]
+          },
+          {
+            "required": [
+              "retry_policy"
+            ]
+          },
+          {
+            "required": [
+              "workflow_id"
+            ]
+          },
+          {
+            "required": [
+              "queue_name"
+            ]
+          },
+          {
+            "required": [
+              "executor"
+            ]
+          },
+          {
+            "required": [
+              "dispatch_plan"
+            ]
+          },
+          {
+            "required": [
+              "orchestration_state"
+            ]
+          },
+          {
+            "required": [
+              "agent_assignment"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@ The minimal bounded reverse-signaling vocabulary is:
 ## Rule
 
 Reverse signaling exists to report bounded handoff outcome, not to create downstream workflow control.
+It is optional and appears only when a bounded downstream disposition exists.
 
 ## Required posture
 
@@ -27,6 +28,24 @@ Any reverse signal must remain:
 - reason-coded when rejected
 - attributable to a source and target surface
 - free of hidden retry or workflow semantics
+
+Forward transfer truth must remain valid without a reverse signal.
+
+Schema alignment:
+
+- `schemas/handoff-envelope.schema.json`
+- `docs/contracts/handoff-envelope.md`
+
+Disallowed examples include:
+
+- `retry_count`
+- `retry_policy`
+- `workflow_id`
+- `queue_name`
+- `executor`
+- `dispatch_plan`
+- `orchestration_state`
+- `agent_assignment`
 
 ## Anti-drift rule
 

@@ -1,0 +1,42 @@
+{
+  "artifact_id": "extract-004",
+  "request_id": "intake-008",
+  "source_ref": "src-008",
+  "state": "stale",
+  "syntax_boundary": "syntax_only",
+  "semantic_boundary_enforced": true,
+  "provenance": {
+    "source_hash": "sha256:stale004",
+    "extractor_version": "phase1.0",
+    "source_modified_at": "2026-03-19T12:32:00Z",
+    "byte_count": 4096
+  },
+  "freshness": {
+    "state": "stale",
+    "basis": "source_modified_at",
+    "operator_visible_summary": "The source changed after extraction, so freshness can no longer be asserted."
+  },
+  "completeness": {
+    "status": "complete",
+    "operator_visible_summary": "The captured structure is complete, but the artifact is stale."
+  },
+  "structures": {
+    "sections": [
+      {
+        "section_id": "sec-4",
+        "heading": "Current State",
+        "level": 1,
+        "block_count": 1
+      }
+    ],
+    "tables_detected": 0,
+    "content_blocks": [
+      {
+        "block_id": "blk-5",
+        "block_kind": "paragraph",
+        "text": "This extraction result remains structurally complete but stale."
+      }
+    ]
+  },
+  "extracted_at": "2026-03-19T12:33:00Z"
+}

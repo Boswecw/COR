@@ -1,0 +1,44 @@
+{
+  "package_id": "pkg-003",
+  "request_id": "intake-002",
+  "source_refs": [
+    "src-002"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "partial_success",
+  "freshness": {
+    "state": "fresh",
+    "asserted_at": "2026-03-19T12:25:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:partial003",
+    "operator_visible_summary": "Fresh against the current source hash."
+  },
+  "invalidation": {
+    "policy": "compound",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "chunks": [
+    {
+      "chunk_id": "chunk-003",
+      "source_ref": "src-002",
+      "structure_kind": "paragraph",
+      "text": "This retrieval package is bounded but incomplete.",
+      "ordinal": 0
+    }
+  ],
+  "completeness": {
+    "status": "incomplete",
+    "operator_visible_summary": "One expected structure could not be packaged."
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "details_redacted": true,
+  "created_at": "2026-03-19T12:25:00Z"
+}

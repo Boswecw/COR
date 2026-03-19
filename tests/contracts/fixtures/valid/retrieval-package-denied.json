@@ -1,0 +1,35 @@
+{
+  "package_id": "pkg-005",
+  "request_id": "intake-004",
+  "source_refs": [
+    "src-004"
+  ],
+  "retrieval_profile": {
+    "profile_id": "default-hybrid",
+    "chunking_mode": "hybrid",
+    "max_chunk_chars": 1200,
+    "overlap_chars": 120
+  },
+  "state": "denied",
+  "freshness": {
+    "state": "unknown",
+    "asserted_at": "2026-03-19T12:27:00Z",
+    "ttl_seconds": 3600,
+    "source_dependency_marker": "sha256:denied005",
+    "operator_visible_summary": "Freshness cannot be asserted because packaging was denied."
+  },
+  "invalidation": {
+    "policy": "compound",
+    "stale_if_source_changes": true,
+    "stale_if_profile_changes": true,
+    "manual_invalidation_allowed": true
+  },
+  "refusal": {
+    "reason_class": "privacy_scope_violation",
+    "operator_visible_summary": "The retrieval package was denied because the request crossed a privacy boundary."
+  },
+  "non_canonical": true,
+  "non_semantic_default": true,
+  "details_redacted": true,
+  "created_at": "2026-03-19T12:27:00Z"
+}
