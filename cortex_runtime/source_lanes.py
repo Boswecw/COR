@@ -34,6 +34,61 @@ def pdf_lane_runtime_available() -> bool:
     return shutil.which(PDF_INFO_COMMAND) is not None and shutil.which(PDF_TO_TEXT_COMMAND) is not None
 
 
+@dataclass(frozen=True)
+class PdfLaneProbeResult:
+    """Structured host admission probe result for the bounded local PDF lane.
+
+    Reports per-tool availability so downstream consumers can distinguish
+    which tooling is missing and make an honest admission decision.
+    Does not attempt extraction or open any file.
+    """
+
+    admitted: bool
+    pdfinfo_present: bool
+    pdftotext_present: bool
+    operator_summary: str
+
+
+def probe_pdf_lane_admission() -> PdfLaneProbeResult:
+    """Return a structured truth probe for bounded local PDF lane host admission.
+
+    Checks for the presence of each required tool separately so that
+    callers can distinguish which tool is absent. Does not invoke any
+    tool or read any file — tool presence only.
+    """
+    pdfinfo_present = shutil.which(PDF_INFO_COMMAND) is not None
+    pdftotext_present = shutil.which(PDF_TO_TEXT_COMMAND) is not None
+    admitted = pdfinfo_present and pdftotext_present
+
+    if admitted:
+        summary = (
+            "Bounded local PDF text tooling (pdfinfo, pdftotext) is present on this host. "
+            "The PDF lane is runtime-admissible."
+        )
+    elif not pdfinfo_present and not pdftotext_present:
+        summary = (
+            "Extraction is unavailable because bounded local PDF text tooling "
+            "(pdfinfo, pdftotext) is not present on this host."
+        )
+    elif not pdfinfo_present:
+        summary = (
+            "Extraction is unavailable because the bounded PDF metadata tool "
+            "(pdfinfo) is not present on this host."
+        )
+    else:
+        summary = (
+            "Extraction is unavailable because the bounded PDF text-extraction tool "
+            "(pdftotext) is not present on this host."
+        )
+
+    return PdfLaneProbeResult(
+        admitted=admitted,
+        pdfinfo_present=pdfinfo_present,
+        pdftotext_present=pdftotext_present,
+        operator_summary=summary,
+    )
+
+
 def docx_lane_runtime_available() -> bool:
     return True
 
@@ -241,13 +296,20 @@ def lane_eligibility_for_path(
         )
 
     if lane.runtime_slice_id is not None and not source_lane_slice_available(lane.runtime_slice_id):
+        # For the PDF lane, use the structured probe to surface per-tool specificity.
+        if lane.lane_id == PDF_TEXT_LANE.lane_id:
+            eligibility_summary = probe_pdf_lane_admission().operator_summary
+        else:
+            eligibility_summary = (
+                lane.dependency_summary
+                or "Extraction is unavailable because the bounded source lane is not currently available."
+            )
         return LaneEligibilityDecision(
             admitted=False,
             lane=lane,
             failure_state="unavailable",
             reason_class="dependency_unavailable",
-            operator_visible_summary=lane.dependency_summary
-            or "Extraction is unavailable because the bounded source lane is not currently available.",
+            operator_visible_summary=eligibility_summary,
         )
 
     return LaneEligibilityDecision(admitted=True, lane=lane)

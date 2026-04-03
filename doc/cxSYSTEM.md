@@ -1,6 +1,6 @@
 # Cortex - System Documentation
 
-**Document version:** 1.12 (2026-03-19) - Aligned to current constitutional and runtime repo state
+**Document version:** 1.14 (2026-03-20) - Type-checking hygiene pass
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
@@ -10,7 +10,7 @@
 | **Output** | `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
-It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 9, the post-Slice-7 hardening and lane-admission-governance pass, bounded ODT lane delivery, bounded EPUB lane delivery, the post-Slice-8 governance execution, the post-Slice-9 governance selection, the bounded special-track Scrivener Stage 1 authority-recon runtime slice, the current Scrivener Stage 2 planning-control packet, and the explicit Stage 2 implementation-remains-blocked decision.
+It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 9, the post-Slice-7 hardening and lane-admission-governance pass, bounded ODT lane delivery, bounded EPUB lane delivery, the post-Slice-8 governance execution, the post-Slice-9 governance selection, the bounded special-track Scrivener Stage 1 authority-recon runtime slice, the current Scrivener Stage 2 planning-control packet, the explicit Stage 2 implementation-remains-blocked decision, the PDF lane admission hardening and structured probe pass, and the mypy type-checking hygiene pass.
 
 Assembly contract:
 
@@ -30,7 +30,7 @@ Assembly contract:
 bash doc/system/BUILD.sh
 ```
 
-*Last updated: 2026-03-19*
+*Last updated: 2026-03-20*
 
 ---
 
@@ -217,6 +217,11 @@ Empty text-like sources are now denied rather than treated as empty success outp
 
 Runtime Slice 5 adds one bounded local PDF lane only.
 That lane admits text-layer `.pdf` files, remains text-only and non-OCR, allows `ready` only for trustworthy extractable text, allows `partial_success` only when some pages lack extractable text, denies encrypted or text-layer-free PDFs, and marks corrupt or unreadable PDFs unavailable.
+The PDF lane has since been hardened for admission truth.
+It now exposes a structured host admission probe (`probe_pdf_lane_admission()`) that reports per-tool presence of `pdfinfo` and `pdftotext` separately so downstream consumers can distinguish which tool is absent.
+The lane eligibility path now uses probe-derived summaries rather than a static dependency message when tools are missing.
+The extraction path now distinguishes malformed or corrupt PDFs (detected via `pdfinfo` or `pdftotext` stderr structural-error patterns) from generic tool invocation failures, giving each a specific operator-visible summary.
+No OCR path or external service fallback exists or is implied at any failure state.
 
 The extraction runtime now also uses a shared source-lane framework for lane admission, shared provenance metadata, shared failure posture, and admitted-lane reporting.
 Runtime Slice 6 adds one bounded local DOCX lane only.
@@ -553,6 +558,24 @@ The current post-Stage-1 governance phase adds:
 This phase opens Stage 2 planning only.
 It does not add runtime behavior, extraction authority, schema changes, or lane admission.
 
+## PDF lane admission hardening delivered
+
+The current hardening pass strengthens the PDF lane for honest downstream admission by AuthorForge or equivalent consumers.
+
+It adds:
+
+- a structured host admission probe (`probe_pdf_lane_admission()`) that reports `pdfinfo` and `pdftotext` presence separately so consumers can distinguish which tool is missing rather than receiving a boolean only
+- updated lane eligibility truth so the tools-missing message is derived from the probe rather than a static string, giving per-tool specificity in the operator-visible summary
+- a malformed-PDF detection helper (`_pdf_stderr_indicates_malformed()`) that matches unambiguous file-structure error patterns from `pdfinfo` and `pdftotext` stderr and gates a "malformed or corrupt" summary distinct from generic tool invocation failure
+- per-tool-specific summaries across all PDF failure paths so operators can distinguish `pdfinfo` absent, `pdftotext` absent, both absent, malformed PDF, and tool invocation failure without collapsing them into a single vague message
+- a `PdfLaneMockedAdmissionTests` class that runs on any host without requiring PDF tools: proves tools-missing emits `unavailable`, proves per-tool summary specificity, proves no subprocess is invoked when tools are absent, and proves no OCR or unexpected subprocess fires during extraction failure
+- a `PdfLaneAdmissionProbeTests` class that proves the probe accurately reports each combination of tool presence and that the probe itself never invokes any tool
+- a `PdfLaneRuntimeMalformedTests` class that proves a corrupt PDF produces a summary explicitly naming "malformed" or "corrupt" rather than a generic failure message
+- an updated `docs/contracts/source-lane-pdf.md` with admission-readiness status, runtime dependency table, probe usage example, and a complete denial/unavailability taxonomy table mapping every failure condition to its state, reason_class, and summary content
+
+This pass does not add OCR, cloud services, new format support, or AuthorForge integration.
+The PDF lane remains bounded to local text-layer extraction only.
+
 ## Scrivener Stage 2 implementation-remains-blocked decision
 
 The current governance response adds:
@@ -562,6 +585,20 @@ The current governance response adds:
 - explicit preservation of fail-closed posture until compatibility, mapping, boundary, degraded-truth, and dependency evidence are materially broader
 
 This phase does not add runtime behavior, extraction authority, schema changes, or lane admission.
+
+## Type-checking hygiene pass delivered
+
+The current pass resolves mypy errors across the runtime and test surfaces without changing runtime behavior.
+
+It adds:
+
+- `mypy.ini` at repo root with `[mypy-jsonschema.*] ignore_missing_imports = true` as a project-level override
+- `# type: ignore[import-untyped]` on every `from jsonschema import Draft202012Validator` line across `cortex_runtime/` and `tests/runtime/` so the suppression is source-of-truth regardless of how the mypy extension discovers config
+- an `isinstance(uuid, str)` guard at the top of the `direct_missing_targets` loop in `scrivener_authority_recon.py` so mypy can narrow the dict key from `str | None` to `str` before the `Path /` operator and `list.append` calls
+- corrected return type on `build_supported_intake_payload` in `test_extraction_emission.py` from `dict[str, object]` to `dict[str, Any]` so nested subscript operations type-check
+- corrected return type on local `load_json` in `test_intake_validation.py` from `object` to `Any` so indexed assignment on the returned payload type-checks
+
+This pass does not change runtime behavior, schemas, contracts, or extraction logic.
 
 ## Delivery order
 
@@ -598,6 +635,7 @@ The repo is currently strongest where constitutional claims are backed by schema
 Slices 1 through 9 plus the special-track Scrivener Stage 1 authority-recon slice now form the current bounded runtime baseline.
 This baseline has also been hardened for contract symmetry, operator consistency, and future lane-admission governance.
 EPUB is now admitted as a bounded local source lane.
+The PDF lane has been hardened for admission truth with a structured host admission probe, per-tool unavailability distinction, malformed-PDF detection, and explicit no-OCR test coverage.
 Scrivener remains a special-track project-source opening rather than an admitted source lane.
 Only the bounded Stage 1 authority-recon runtime slice is implemented.
 The current Scrivener Stage 2 packet is planning and control only.

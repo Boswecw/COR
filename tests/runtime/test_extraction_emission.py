@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import copy
 import unittest
+from typing import Any
 
 from cortex_runtime.extraction_emission import (
     emit_extraction_result_from_intake_json_text,
@@ -24,7 +25,7 @@ EMPTY_TEXT_FIXTURE = ROOT / "tests/runtime/fixtures/sample-empty.txt"
 UNSUPPORTED_SOURCE_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 
 
-def build_supported_intake_payload() -> dict[str, object]:
+def build_supported_intake_payload() -> dict[str, Any]:
     return build_file_intake_payload(SUPPORTED_SOURCE_FIXTURE, "text/markdown")
 
 

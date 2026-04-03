@@ -4,6 +4,7 @@ import copy
 import json
 import unittest
 from pathlib import Path
+from typing import Any
 
 from cortex_runtime.intake_validation import (
     main,
@@ -20,7 +21,7 @@ INVALID_INTAKE_FIXTURE = ROOT / "tests/contracts/fixtures/invalid/intake-request
 ORCHESTRATION_INTAKE_FIXTURE = ROOT / "tests/contracts/fixtures/invalid/intake-request-orchestration-field.json"
 
 
-def load_json(path: Path) -> object:
+def load_json(path: Path) -> Any:
     with path.open("r", encoding="utf-8") as handle:
         return json.load(handle)
 

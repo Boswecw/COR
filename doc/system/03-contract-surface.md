@@ -38,6 +38,11 @@ Empty text-like sources are now denied rather than treated as empty success outp
 
 Runtime Slice 5 adds one bounded local PDF lane only.
 That lane admits text-layer `.pdf` files, remains text-only and non-OCR, allows `ready` only for trustworthy extractable text, allows `partial_success` only when some pages lack extractable text, denies encrypted or text-layer-free PDFs, and marks corrupt or unreadable PDFs unavailable.
+The PDF lane has since been hardened for admission truth.
+It now exposes a structured host admission probe (`probe_pdf_lane_admission()`) that reports per-tool presence of `pdfinfo` and `pdftotext` separately so downstream consumers can distinguish which tool is absent.
+The lane eligibility path now uses probe-derived summaries rather than a static dependency message when tools are missing.
+The extraction path now distinguishes malformed or corrupt PDFs (detected via `pdfinfo` or `pdftotext` stderr structural-error patterns) from generic tool invocation failures, giving each a specific operator-visible summary.
+No OCR path or external service fallback exists or is implied at any failure state.
 
 The extraction runtime now also uses a shared source-lane framework for lane admission, shared provenance metadata, shared failure posture, and admitted-lane reporting.
 Runtime Slice 6 adds one bounded local DOCX lane only.

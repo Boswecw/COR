@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.py$\")",
+      "Bash(pdfinfo /home/charlie/Forge/ecosystem/cortex/tests/runtime/fixtures/sample-note-corrupt.pdf)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(pdfinfo /home/charlie/Forge/ecosystem/cortex/tests/runtime/fixtures/sample-note-encrypted.pdf)",
+      "Bash(python -m pytest tests/runtime/test_pdf_lane.py -v)",
+      "Bash(python3 -m pytest tests/runtime/test_pdf_lane.py -v)",
+      "Bash(find /home/charlie/Forge/ecosystem/cortex -maxdepth 3 -name *.toml -o -name *.cfg)",
+      "Bash(python3 -m unittest discover -s tests/runtime -p 'test_pdf_lane.py' -t . -v)",
+      "Bash(python3 -m unittest discover -s tests/runtime -p 'test_*.py' -t .)",
+      "Bash(python3 -m unittest discover -s tests/runtime -p 'test_*.py' -t . -v)",
+      "Bash(bash doc/system/BUILD.sh)",
+      "Bash(pip show:*)",
+      "Bash(python3 -c \"import jsonschema; print\\(jsonschema.__version__\\)\")",
+      "Bash(python3 -m mypy cortex_runtime/ tests/runtime/ scripts/)",
+      "Bash(python3 -m pip show mypy)",
+      "Bash(mypy cortex_runtime/ tests/runtime/ scripts/)",
+      "Bash(head -5 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/cortex_runtime/intake_validation.py)",
+      "Bash(head -3 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/cortex_runtime/retrieval_package_emission.py)",
+      "Bash(head -3 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/cortex_runtime/scrivener_authority_recon.py)",
+      "Bash(head -3 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/cortex_runtime/service_status.py)",
+      "Bash(head -3 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/scripts/validate_schemas.py)",
+      "Bash(head -3 grep -n \"jsonschema\\\\|import-untyped\" /home/charlie/Forge/ecosystem/cortex/tests/runtime/runtime_test_support.py)"
+    ]
+  }
+}

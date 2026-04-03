@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -425,6 +425,8 @@ def emit_scrivener_authority_recon_from_source_file(
 
     direct_missing_targets: list[str] = []
     for uuid, item in item_by_uuid.items():
+        if not isinstance(uuid, str):
+            continue
         if item.get("Type") != "Text":
             continue
         data_dir = data_root / uuid

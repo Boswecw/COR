@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree as ET
 
-from jsonschema import Draft202012Validator
+from jsonschema import Draft202012Validator  # type: ignore[import-untyped]
 
 from cortex_runtime.epub_lane import EpubDeniedError, EpubUnavailableError, extract_epub_surface
 from cortex_runtime.intake_validation import validate_intake_payload
@@ -35,6 +35,7 @@ from cortex_runtime.source_lanes import (
     docx_lane_runtime_available as _docx_lane_runtime_available,
     lane_eligibility_for_path,
     pdf_lane_runtime_available as _pdf_lane_runtime_available,
+    probe_pdf_lane_admission as _probe_pdf_lane_admission,
 )
 
 
@@ -505,6 +506,25 @@ def _pdf_command_failed_due_to_password(stderr: str) -> bool:
     return "incorrect password" in lowered or ("password" in lowered and "error" in lowered)
 
 
+def _pdf_stderr_indicates_malformed(stderr: str) -> bool:
+    """Return True when PDF tool stderr indicates a malformed or corrupt PDF structure.
+
+    Matches only patterns unambiguously produced by file-structure errors —
+    not generic tool failures, permission issues, or resource errors.
+    """
+    lowered = stderr.lower()
+    return any(
+        phrase in lowered
+        for phrase in (
+            "syntax error",
+            "syntax warning",
+            "couldn't read xref",
+            "invalid xref",
+            "damaged",
+        )
+    )
+
+
 def _parse_pdfinfo(output: str) -> dict[str, str]:
     parsed: dict[str, str] = {}
     for line in output.splitlines():
@@ -759,12 +779,13 @@ def _emit_pdf_extraction_result(
     byte_count: int,
 ) -> dict[str, Any]:
     if not pdf_lane_runtime_available():
+        probe = _probe_pdf_lane_admission()
         return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
             state="unavailable",
             reason_class="dependency_unavailable",
-            summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
+            summary=probe.operator_summary,
             source_hash=source_hash,
             source_modified_at=source_modified_at,
             byte_count=byte_count,
@@ -790,12 +811,24 @@ def _emit_pdf_extraction_result(
                 byte_count=byte_count,
             )
 
+        if _pdf_stderr_indicates_malformed(pdfinfo_result.stderr):
+            return _emit_failure_result(
+                request_id=request_id,
+                source_ref=source_ref,
+                state="unavailable",
+                reason_class="dependency_unavailable",
+                summary="Extraction is unavailable because the PDF file is malformed or corrupt and cannot be read through the bounded local PDF lane.",
+                source_hash=source_hash,
+                source_modified_at=source_modified_at,
+                byte_count=byte_count,
+            )
+
         return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
             state="unavailable",
             reason_class="dependency_unavailable",
-            summary="Extraction is unavailable because the PDF metadata could not be read through the bounded local PDF lane.",
+            summary="Extraction is unavailable because the bounded PDF metadata tool (pdfinfo) failed on this file.",
             source_hash=source_hash,
             source_modified_at=source_modified_at,
             byte_count=byte_count,
@@ -851,12 +884,24 @@ def _emit_pdf_extraction_result(
                 byte_count=byte_count,
             )
 
+        if _pdf_stderr_indicates_malformed(pdftotext_result.stderr):
+            return _emit_failure_result(
+                request_id=request_id,
+                source_ref=source_ref,
+                state="unavailable",
+                reason_class="dependency_unavailable",
+                summary="Extraction is unavailable because the PDF text layer is malformed or corrupt and cannot be read through the bounded local PDF lane.",
+                source_hash=source_hash,
+                source_modified_at=source_modified_at,
+                byte_count=byte_count,
+            )
+
         return _emit_failure_result(
             request_id=request_id,
             source_ref=source_ref,
             state="unavailable",
             reason_class="dependency_unavailable",
-            summary="Extraction is unavailable because the PDF text layer could not be read through the bounded local PDF lane.",
+            summary="Extraction is unavailable because the bounded PDF text-extraction tool (pdftotext) failed on this file.",
             source_hash=source_hash,
             source_modified_at=source_modified_at,
             byte_count=byte_count,
