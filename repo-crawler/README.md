@@ -1,26 +1,24 @@
-# Slice 12 — Worm Reference Audit Bin
+# Slice 23 — Worm Pyproject Manifest Adapter
 
-Date and Time: 2026-04-22 12:50 AM America/New_York
+Date and Time: 2026-04-22 03:49 AM America/New_York
 
 ## Slice boundary
 
-This is the next implementation slice after the Worm contract smoke loader.
+This is the next Worm implementation slice.
 
-It adds a second Rust code path:
-- `cargo run --bin worm_reference_audit`
+It adds bounded `pyproject.toml` extraction so Worm can understand Python repo-root dependency references.
 
 ## What this slice does
 
-This slice performs a bounded referential audit across the governed Worm example surfaces:
-- loads issue catalogs
-- loads evidence bundles
-- loads Centipede handoffs
-- verifies bundle references in handoffs exist
-- verifies finding class / reason code pairs resolve against loaded issue catalogs
+- adds `parse_pyproject_manifest`
+- adds `cargo run --bin worm_pyproject_adapter_smoke`
+- updates `worm_run_repo_surface` to include `pyproject.toml`
 
-## What this slice does not do
+## Current pyproject support
 
-- live crawl behavior
-- repo graph walking
-- live Centipede integration
-- mutation of any repo data
+- `[project.dependencies]`
+- `[project.optional-dependencies.*]`
+- `[tool.poetry.dependencies]`
+- `[tool.poetry.group.<name>.dependencies]`
+
+Only git or GitHub-style references are emitted.
