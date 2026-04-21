@@ -1,25 +1,30 @@
-# Slice 27 — Worm Pyproject UV Sources Adapter
+# Slice 28 — Worm Repo Surface Summary Evidence
 
-Date and Time: 2026-04-22 04:31 AM America/New_York
+Date and Time: 2026-04-22 04:40 AM America/New_York
 
 ## Why this slice
 
-I checked the current Cortex repo for `workflow_call`, `action.yml`, and extra workflow surfaces through GitHub search and got no hits.
-So the next bounded hardening move is to deepen an already-supported surface: `pyproject.toml`.
+Your last run showed why total edge count is a weak proof surface.
+The UV parser smoke passed, but the total repo-surface edge count changed because the temp `pyproject.toml` itself was replaced.
 
-This slice adds support for:
-
-- `[tool.uv.sources]`
-- git-backed uv source entries inside `pyproject.toml`
+That means we need per-surface attribution, not just total counts.
 
 ## What this slice does
 
-- extends `parse_pyproject_manifest`
-- adds `cargo run --bin worm_pyproject_uv_sources_smoke`
+- updates `worm_run_repo_surface`
+- writes `surface_summary.json`
+- adds `cargo run --bin worm_repo_surface_summary_smoke`
 
-## Current posture
+## Summary evidence produced
 
-- only extracts git-backed uv sources
-- no lockfile solving
-- no index resolution
-- no network calls
+- `adapterEdgeCounts`
+- `sourceArtifactEdgeCounts`
+- `edgesBeforeResolution`
+- `resolutions`
+
+## Why this matters
+
+This gives Centipede and later self-healing wiring a stable evidence surface for:
+- what Worm actually inspected
+- which adapter emitted which edges
+- whether a total-count swing came from parser behavior or fixture drift

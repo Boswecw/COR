@@ -1,4 +1,5 @@
 
+use std::collections::BTreeMap;
 use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -9,6 +10,16 @@ use repo_crawler::{
     worm_centipede_handoff_builder,
     worm_resolution_pipeline,
 };
+use serde_json::{json, Value};
+
+#[derive(Default)]
+struct SurfaceSummary {
+    files_processed: Vec<String>,
+    adapter_edge_counts: BTreeMap<String, usize>,
+    source_artifact_edge_counts: BTreeMap<String, usize>,
+    total_edges_before_resolution: usize,
+    total_resolutions: usize,
+}
 
 fn maybe_read(path: &Path) -> Result<Option<String>, String> {
     if !path.exists() {
@@ -20,11 +31,40 @@ fn maybe_read(path: &Path) -> Result<Option<String>, String> {
         .map_err(|e| format!("failed to read {}: {}", path.display(), e))
 }
 
+fn accumulate_summary(summary: &mut SurfaceSummary, emission: &Value) {
+    let adapter_name = emission
+        .get("adapterName")
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_adapter")
+        .to_string();
+
+    let source_path = emission
+        .get("sourceArtifact")
+        .and_then(|v| v.get("path"))
+        .and_then(|v| v.as_str())
+        .unwrap_or("unknown_source")
+        .to_string();
+
+    let edge_count = emission
+        .get("emittedEdges")
+        .and_then(|v| v.as_array())
+        .map(|v| v.len())
+        .unwrap_or(0);
+
+    summary.files_processed.push(source_path.clone());
+    *summary.adapter_edge_counts.entry(adapter_name).or_insert(0) += edge_count;
+    *summary.source_artifact_edge_counts.entry(source_path).or_insert(0) += edge_count;
+    summary.total_edges_before_resolution += edge_count;
+}
+
 fn push_emission(
-    all_edges: &mut Vec<serde_json::Value>,
-    all_resolutions: &mut Vec<serde_json::Value>,
-    emission: &serde_json::Value,
+    all_edges: &mut Vec<Value>,
+    all_resolutions: &mut Vec<Value>,
+    summary: &mut SurfaceSummary,
+    emission: &Value,
 ) -> Result<(), String> {
+    accumulate_summary(summary, emission);
+
     if let Some(edges) = emission.get("emittedEdges").and_then(|v| v.as_array()) {
         for edge in edges {
             all_edges.push(edge.clone());
@@ -32,6 +72,8 @@ fn push_emission(
     }
 
     let resolutions = worm_resolution_pipeline::resolve_emitted_edges(emission)?;
+    summary.total_resolutions += resolutions.len();
+
     for resolution in resolutions {
         all_resolutions.push(resolution);
     }
@@ -39,7 +81,7 @@ fn push_emission(
     Ok(())
 }
 
-fn write_json(path: &Path, value: &serde_json::Value) -> Result<(), String> {
+fn write_json(path: &Path, value: &Value) -> Result<(), String> {
     let text = serde_json::to_string_pretty(value)
         .map_err(|e| format!("failed to serialize {}: {}", path.display(), e))?;
 
@@ -51,8 +93,9 @@ fn process_file(
     source_repo: &str,
     label: &str,
     path: &Path,
-    all_edges: &mut Vec<serde_json::Value>,
-    all_resolutions: &mut Vec<serde_json::Value>,
+    all_edges: &mut Vec<Value>,
+    all_resolutions: &mut Vec<Value>,
+    summary: &mut SurfaceSummary,
 ) -> Result<(), String> {
     let Some(text) = maybe_read(path)? else {
         println!("SKIP  {}", path.display());
@@ -98,9 +141,26 @@ fn process_file(
     };
 
     let emission = emission_result?;
-    push_emission(all_edges, all_resolutions, &emission)?;
+    push_emission(all_edges, all_resolutions, summary, &emission)?;
     println!("OK  read {}", path.display());
     Ok(())
+}
+
+fn build_summary_json(source_repo: &str, summary: &SurfaceSummary) -> Value {
+    json!({
+        "kind": "worm_repo_surface_summary",
+        "schemaVersion": 1,
+        "sourceRepo": source_repo,
+        "filesProcessed": summary.files_processed,
+        "adapterEdgeCounts": summary.adapter_edge_counts,
+        "sourceArtifactEdgeCounts": summary.source_artifact_edge_counts,
+        "totals": {
+            "edgesBeforeResolution": summary.total_edges_before_resolution,
+            "resolutions": summary.total_resolutions
+        },
+        "posture": "evidence_bound",
+        "timestamp": "2026-04-22T04:40:00-04:00"
+    })
 }
 
 fn main() {
@@ -122,6 +182,7 @@ fn main() {
 
     let mut all_edges = Vec::new();
     let mut all_resolutions = Vec::new();
+    let mut summary = SurfaceSummary::default();
 
     let surfaces = [
         (repo_root.join(".gitmodules"), ".gitmodules"),
@@ -139,6 +200,7 @@ fn main() {
             &path,
             &mut all_edges,
             &mut all_resolutions,
+            &mut summary,
         ) {
             eprintln!("FAIL  {}", err);
             std::process::exit(1);
@@ -181,6 +243,7 @@ fn main() {
                 &path,
                 &mut all_edges,
                 &mut all_resolutions,
+                &mut summary,
             ) {
                 eprintln!("FAIL  {}", err);
                 std::process::exit(1);
@@ -192,7 +255,7 @@ fn main() {
 
     let bundle = match worm_bundle_builder::build_bundle(
         source_repo,
-        "bundle-run-repo-surface-05",
+        "bundle-run-repo-surface-06",
         &all_edges,
         &all_resolutions,
     ) {
@@ -211,6 +274,8 @@ fn main() {
         }
     };
 
+    let summary_json = build_summary_json(source_repo, &summary);
+
     if let Err(err) = fs::create_dir_all(&out_dir) {
         eprintln!("FAIL  could not create {}: {}", out_dir.display(), err);
         std::process::exit(1);
@@ -218,6 +283,7 @@ fn main() {
 
     let bundle_path = out_dir.join("bundle.json");
     let handoff_path = out_dir.join("handoff.json");
+    let summary_path = out_dir.join("surface_summary.json");
 
     if let Err(err) = write_json(&bundle_path, &bundle) {
         eprintln!("FAIL  {}", err);
@@ -229,7 +295,13 @@ fn main() {
         std::process::exit(1);
     }
 
+    if let Err(err) = write_json(&summary_path, &summary_json) {
+        eprintln!("FAIL  {}", err);
+        std::process::exit(1);
+    }
+
     println!("OK  wrote {}", bundle_path.display());
     println!("OK  wrote {}", handoff_path.display());
+    println!("OK  wrote {}", summary_path.display());
     println!("Validated Worm repo surface run successfully.");
 }
