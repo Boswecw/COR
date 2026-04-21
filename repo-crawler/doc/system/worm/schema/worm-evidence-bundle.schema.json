@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormEvidenceBundle",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "bundleId",
+    "runId",
+    "lane",
+    "sourceRepo",
+    "sourceArtifacts",
+    "edges",
+    "findings",
+    "targetResolutions",
+    "timestamp"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_evidence_bundle"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "bundleId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lane": {
+      "const": "worm"
+    },
+    "sourceRepo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceArtifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifactSha256": {
+            "type": "string",
+            "minLength": 1
+          },
+          "adapterName": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "targetResolutions": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

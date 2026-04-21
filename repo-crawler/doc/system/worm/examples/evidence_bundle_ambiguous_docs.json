@@ -1,0 +1,79 @@
+{
+  "kind": "worm_evidence_bundle",
+  "schemaVersion": 1,
+  "bundleId": "bundle-002",
+  "runId": "worm-run-20260422-0005",
+  "lane": "worm",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifacts": [
+    {
+      "path": "docs/integrations.md",
+      "artifactSha256": "ghi789",
+      "adapterName": "docs_reference_parse"
+    }
+  ],
+  "edges": [
+    {
+      "kind": "worm_edge",
+      "schemaVersion": 1,
+      "edgeId": "edge-301",
+      "relationType": "docs_repo_reference",
+      "sourceRepo": "Boswecw/Cortex",
+      "sourceArtifact": {
+        "path": "docs/integrations.md",
+        "line": 22,
+        "artifactSha256": "ghi789"
+      },
+      "discoveryMethod": "docs_reference_parse",
+      "target": {
+        "rawReference": "shared-core",
+        "identityPosture": "ambiguous"
+      },
+      "crawlScope": "cross_repo",
+      "confidence": "low",
+      "posture": "ambiguous",
+      "timestamp": "2026-04-22T00:05:00-04:00"
+    }
+  ],
+  "findings": [
+    {
+      "kind": "worm_finding",
+      "schemaVersion": 1,
+      "findingId": "finding-202",
+      "findingClass": "ambiguous_target_identity",
+      "sourceRepo": "Boswecw/Cortex",
+      "sourceArtifact": {
+        "path": "docs/integrations.md",
+        "line": 22,
+        "artifactSha256": "ghi789"
+      },
+      "relatedEdgeIds": [
+        "edge-301"
+      ],
+      "target": {
+        "rawReference": "shared-core",
+        "identityPosture": "ambiguous"
+      },
+      "reasonCode": "multiple_target_candidates_match_reference",
+      "crawlScope": "cross_repo",
+      "confidence": "low",
+      "posture": "ambiguous",
+      "timestamp": "2026-04-22T00:05:00-04:00"
+    }
+  ],
+  "targetResolutions": [
+    {
+      "kind": "worm_target_resolution",
+      "schemaVersion": 1,
+      "resolutionId": "resolve-301",
+      "rawReference": "shared-core",
+      "resolutionPosture": "ambiguous",
+      "resolutionMethod": "owner_repo_direct",
+      "evidence": [
+        "multiple candidate repos in allowed set match raw reference"
+      ],
+      "timestamp": "2026-04-22T00:05:00-04:00"
+    }
+  ],
+  "timestamp": "2026-04-22T00:05:00-04:00"
+}

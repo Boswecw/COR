@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormCentipedeHandoff",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "handoffId",
+    "sourceLane",
+    "sourceRepo",
+    "runId",
+    "bundleIds",
+    "candidateIssueKeys",
+    "timestamp"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_centipede_handoff"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "handoffId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceLane": {
+      "const": "worm"
+    },
+    "sourceRepo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bundleIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "candidateIssueKeys": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "issueKey",
+          "findingClass",
+          "proposedWeightClass",
+          "confidence"
+        ],
+        "properties": {
+          "issueKey": {
+            "type": "string",
+            "minLength": 1
+          },
+          "findingClass": {
+            "type": "string",
+            "minLength": 1
+          },
+          "proposedWeightClass": {
+            "type": "string",
+            "enum": [
+              "supporting",
+              "strong",
+              "blocking"
+            ]
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "unassessable"
+            ]
+          }
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

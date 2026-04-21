@@ -1,0 +1,20 @@
+{
+  "kind": "worm_centipede_handoff",
+  "schemaVersion": 1,
+  "handoffId": "handoff-001",
+  "sourceLane": "worm",
+  "sourceRepo": "Boswecw/Cortex",
+  "runId": "worm-run-20260422-0005",
+  "bundleIds": [
+    "bundle-001"
+  ],
+  "candidateIssueKeys": [
+    {
+      "issueKey": "Boswecw/Cortex::stale_submodule_pointer::edge-101",
+      "findingClass": "stale_submodule_pointer",
+      "proposedWeightClass": "strong",
+      "confidence": "medium"
+    }
+  ],
+  "timestamp": "2026-04-22T00:20:00-04:00"
+}

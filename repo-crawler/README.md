@@ -1,33 +1,35 @@
-# Slice 08 — Worm Issue Classes Catalog
+# Slice 10 — Worm to Centipede Handoff Contract
 
-Date and Time: 2026-04-21 11:50 PM America/New_York
+Date and Time: 2026-04-22 12:20 AM America/New_York
 
 ## Slice boundary
 
-This is the **WRM-06** slice from the Worm plan.
+This is the **WRM-08** slice from the Worm plan.
 
-This slice locks Worm's bounded issue catalog:
-- issue classes
-- reason code registry
-- severity posture
-- example findings
+This slice locks the Worm to Centipede handoff envelope:
+- handoff identity
+- source lane identity
+- evidence bundle references
+- weighted-input posture
+- proposal-ready summary surface
 - lightweight validation
 
 ## Why this slice comes now
 
-Worm should not emit loose narrative complaints.
-It should emit typed cross-repo issue classes with explicit reason codes and controlled posture.
+Worm is not the reconciler.
+Centipede is the weighted reconciliation surface.
+
+Before live integration, the handoff contract has to be explicit so Worm can feed Centipede without semantic drift or hidden assumptions.
 
 ## Included
 
-- `doc/system/worm/06_issue_classes_catalog.md`
-- `doc/system/worm/schema/worm-reason-code-catalog.schema.json`
-- `doc/system/worm/examples/issue_catalog_*.json`
-- `doc/system/worm/examples/finding_catalog_*.json`
-- `scripts/validate_worm_issue_catalog.py`
+- `doc/system/worm/08_centipede_handoff_contract.md`
+- `doc/system/worm/schema/worm-centipede-handoff.schema.json`
+- `doc/system/worm/examples/centipede_handoff_*.json`
+- `scripts/validate_worm_centipede_handoff.py`
 
 ## Not included
 
-- live issue detection logic
-- live graph walking logic
-- Centipede reconciliation code
+- live Centipede ingestion code
+- live weighting logic
+- live approval workflows
