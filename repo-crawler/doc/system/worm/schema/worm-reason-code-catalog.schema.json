@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormReasonCodeCatalog",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "issueClass",
+    "reasonCodes"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_reason_code_catalog"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "issueClass": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reasonCodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "severity",
+          "description"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

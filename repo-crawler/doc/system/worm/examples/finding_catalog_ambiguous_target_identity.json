@@ -1,0 +1,24 @@
+{
+  "kind": "worm_finding",
+  "schemaVersion": 1,
+  "findingId": "finding-202",
+  "findingClass": "ambiguous_target_identity",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": "docs/integrations.md",
+    "line": 22,
+    "artifactSha256": "ghi789"
+  },
+  "relatedEdgeIds": [
+    "edge-301"
+  ],
+  "target": {
+    "rawReference": "shared-core",
+    "identityPosture": "ambiguous"
+  },
+  "reasonCode": "multiple_target_candidates_match_reference",
+  "crawlScope": "cross_repo",
+  "confidence": "low",
+  "posture": "ambiguous",
+  "timestamp": "2026-04-21T23:50:00-04:00"
+}

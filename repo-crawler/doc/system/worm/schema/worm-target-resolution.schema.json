@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormTargetResolution",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "resolutionId",
+    "rawReference",
+    "resolutionPosture",
+    "resolutionMethod",
+    "timestamp"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_target_resolution"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "resolutionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rawReference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resolutionPosture": {
+      "type": "string",
+      "enum": [
+        "resolved",
+        "ambiguous",
+        "unresolved"
+      ]
+    },
+    "resolutionMethod": {
+      "type": "string",
+      "enum": [
+        "ssh_remote_parse",
+        "https_remote_parse",
+        "relative_path_inference",
+        "owner_repo_direct",
+        "manual_mapping",
+        "none"
+      ]
+    },
+    "canonicalIdentity": {
+      "type": "object",
+      "required": [
+        "host",
+        "owner",
+        "repo",
+        "display"
+      ],
+      "properties": {
+        "host": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}
