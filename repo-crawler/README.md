@@ -1,30 +1,25 @@
-# Slice 28 — Worm Repo Surface Summary Evidence
+# Slice 29 — Worm Nested Requirements Follow
 
-Date and Time: 2026-04-22 04:40 AM America/New_York
+Date and Time: 2026-04-22 04:47 AM America/New_York
 
 ## Why this slice
 
-Your last run showed why total edge count is a weak proof surface.
-The UV parser smoke passed, but the total repo-surface edge count changed because the temp `pyproject.toml` itself was replaced.
+The new summary output showed that requirements parsing is active and measurable.
 
-That means we need per-surface attribution, not just total counts.
+The next high-value Python hardening step is to follow nested requirements references in the runner instead of only skipping them inside each single-file parse.
 
 ## What this slice does
 
 - updates `worm_run_repo_surface`
-- writes `surface_summary.json`
-- adds `cargo run --bin worm_repo_surface_summary_smoke`
+- follows:
+  - `-r other-file.txt`
+  - `--requirement other-file.txt`
+- attributes nested files in `surface_summary.json`
+- adds `cargo run --bin worm_nested_requirements_smoke`
 
-## Summary evidence produced
+## Current posture
 
-- `adapterEdgeCounts`
-- `sourceArtifactEdgeCounts`
-- `edgesBeforeResolution`
-- `resolutions`
-
-## Why this matters
-
-This gives Centipede and later self-healing wiring a stable evidence surface for:
-- what Worm actually inspected
-- which adapter emitted which edges
-- whether a total-count swing came from parser behavior or fixture drift
+- bounded local file follow only
+- relative-path include resolution only
+- no network fetch
+- no pip constraint solving
