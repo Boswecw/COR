@@ -30,15 +30,36 @@ pub fn claim_next_queue_item(queue_dir: &Path, claimant: &str, claimed_at: &str)
 
     for item_path in item_paths {
         let item = read_json(&item_path)?;
-        let queue_item_id = required_string(&item, "queueItemId")?;
-        let claim_id = queue_item_id_to_claim_id(queue_item_id);
-        let claim_path = claims_dir.join(format!("{}.json", claim_id));
-        if claim_path.exists() {
+        if item_is_completed(&item) {
             continue;
         }
 
-        let claim = build_claim(&item, queue_item_id, claimant, claimed_at, &item_path)?;
+        let queue_item_id = required_string(&item, "queueItemId")?.to_string();
+        let claim_id = queue_item_id_to_claim_id(&queue_item_id);
+        let claim_path = claims_dir.join(format!("{}.json", claim_id));
+
+        let existing_claim = if claim_path.exists() {
+            Some(read_json(&claim_path)?)
+        } else {
+            None
+        };
+
+        if let Some(claim) = &existing_claim {
+            if claim_has_completion(claim) || claim_is_active(claim) {
+                continue;
+            }
+        }
+
+        let claim = build_claim(
+            &item,
+            &queue_item_id,
+            claimant,
+            claimed_at,
+            &item_path,
+            existing_claim.as_ref(),
+        )?;
         write_json(&claim_path, &claim)?;
+        update_queue_item_claimed_state(&item_path, &claim)?;
 
         let index_path = claims_dir.join("index.json");
         let index = build_claims_index(&claims_dir)?;
@@ -85,12 +106,33 @@ fn build_claim(
     claimant: &str,
     claimed_at: &str,
     item_path: &Path,
+    prior_claim: Option<&Value>,
 ) -> Result<Value, String> {
     let claim_id = queue_item_id_to_claim_id(queue_item_id);
+    let claim_attempt = prior_claim
+        .and_then(|value| value.get("claimAttempt"))
+        .and_then(Value::as_u64)
+        .unwrap_or(0)
+        + 1;
+
+    let mut claim_history = prior_claim
+        .and_then(|value| value.get("claimHistory"))
+        .and_then(Value::as_array)
+        .cloned()
+        .unwrap_or_default();
+
+    if let Some(existing) = prior_claim {
+        if claim_has_reclaim(existing) {
+            claim_history.push(build_claim_history_entry(existing)?);
+        }
+    }
+
     Ok(json!({
         "kind": "centipede_queue_claim",
         "schemaVersion": 1,
         "claimId": claim_id,
+        "claimAttempt": claim_attempt,
+        "claimHistory": claim_history,
         "queueItemId": queue_item_id,
         "queueItemPath": item_path.display().to_string(),
         "claimant": claimant,
@@ -106,6 +148,44 @@ fn build_claim(
             .cloned()
             .ok_or_else(|| "missing field: totals".to_string())?
     }))
+}
+
+fn build_claim_history_entry(existing_claim: &Value) -> Result<Value, String> {
+    Ok(json!({
+        "claimAttempt": existing_claim
+            .get("claimAttempt")
+            .and_then(Value::as_u64)
+            .unwrap_or(1),
+        "claimant": required_string(existing_claim, "claimant")?,
+        "claimedAt": required_string(existing_claim, "claimedAt")?,
+        "reclaim": existing_claim
+            .get("reclaim")
+            .cloned()
+            .ok_or_else(|| "missing field: reclaim".to_string())?
+    }))
+}
+
+fn update_queue_item_claimed_state(item_path: &Path, claim: &Value) -> Result<(), String> {
+    let mut item = read_json(item_path)?;
+    let object = item
+        .as_object_mut()
+        .ok_or_else(|| format!("queue item is not an object: {}", item_path.display()))?;
+
+    object.insert(
+        "processingState".to_string(),
+        json!({
+            "status": "claimed",
+            "claimId": required_string(claim, "claimId")?,
+            "claimAttempt": claim
+                .get("claimAttempt")
+                .and_then(Value::as_u64)
+                .unwrap_or(1),
+            "claimant": required_string(claim, "claimant")?,
+            "claimedAt": required_string(claim, "claimedAt")?
+        }),
+    );
+
+    write_json(item_path, &item)
 }
 
 fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
@@ -131,6 +211,8 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "queueItemId": required_string(&value, "queueItemId")?,
             "claimant": required_string(&value, "claimant")?,
             "claimedAt": required_string(&value, "claimedAt")?,
+            "claimAttempt": value.get("claimAttempt").and_then(Value::as_u64).unwrap_or(1),
+            "state": claim_state(&value),
             "intakeKind": required_string(&value, "intakeKind")?,
             "sourceRepo": required_string(&value, "sourceRepo")?,
             "blocking": value
@@ -148,7 +230,10 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
         "items": items,
         "totals": {
             "claims": items.len(),
-            "blocking": items.iter().map(summary_blocking).sum::<u64>()
+            "blocking": items.iter().map(summary_blocking).sum::<u64>(),
+            "active": items.iter().filter(|item| summary_state(item) == "active").count(),
+            "completed": items.iter().filter(|item| summary_state(item) == "completed").count(),
+            "reclaimed": items.iter().filter(|item| summary_state(item) == "reclaimed").count()
         }
     }))
 }
@@ -173,6 +258,35 @@ fn extract_issue_keys(item: &Value) -> Result<Vec<String>, String> {
     Ok(keys)
 }
 
+fn item_is_completed(item: &Value) -> bool {
+    item.get("processingState")
+        .and_then(|value| value.get("status"))
+        .and_then(Value::as_str)
+        == Some("completed")
+}
+
+fn claim_state(claim: &Value) -> &'static str {
+    if claim_has_completion(claim) {
+        "completed"
+    } else if claim_has_reclaim(claim) {
+        "reclaimed"
+    } else {
+        "active"
+    }
+}
+
+fn claim_is_active(claim: &Value) -> bool {
+    !claim_has_completion(claim) && !claim_has_reclaim(claim)
+}
+
+fn claim_has_completion(claim: &Value) -> bool {
+    claim.get("completion").is_some()
+}
+
+fn claim_has_reclaim(claim: &Value) -> bool {
+    claim.get("reclaim").is_some()
+}
+
 fn queue_item_id_to_claim_id(queue_item_id: &str) -> String {
     let mut hasher = Sha256::new();
     hasher.update(queue_item_id.as_bytes());
@@ -183,6 +297,10 @@ fn queue_item_id_to_claim_id(queue_item_id: &str) -> String {
 
 fn summary_blocking(value: &Value) -> u64 {
     value.get("blocking").and_then(Value::as_u64).unwrap_or(0)
+}
+
+fn summary_state<'a>(value: &'a Value) -> &'a str {
+    value.get("state").and_then(Value::as_str).unwrap_or("unknown")
 }
 
 fn read_json(path: &Path) -> Result<Value, String> {
