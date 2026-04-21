@@ -1,35 +1,31 @@
-# Slice 02 — Svelte Probe Library Extraction
+# Slice 03 — Repo-Crawler Preflight TOML Unblock
 
 Date: 2026-04-21
 
-## Slice boundary
+## Why this slice exists
 
-This slice extracts the Bun/Svelte subprocess logic out of the smoke-test bin and into
-a reusable Rust module.
+Before I can safely package the actual pipeline-wiring tranche, the repo's library crate has to
+compile cleanly again.
 
-## Included in this slice
+The proof logs show a real blocker in the current repo state:
 
-- shared Rust module at `src/svelte_probe.rs`
-- thin CLI harness at `src/bin/svelte_probe_cli.rs`
-- second consumer bin at `src/bin/svelte_probe_self_check.rs` to prove reuse
+- `src/error.rs` references `toml::de::Error` and `toml::ser::Error`
+- `src/config.rs` uses `toml::from_str(...)` and `toml::to_string_pretty(...)`
+- `src/parser.rs` parses `toml::Value`
+- but Cargo resolves `toml` as missing in the active crate dependency graph
 
-## Design choice in this slice
+That means the next pipeline-wiring slice would be built on a broken preflight baseline.
 
-This slice does **not** assume an existing crate-level `src/lib.rs` contract, because the current
-repo state for that file was not provided here. To avoid clobbering unknown crate wiring, both bins
-import the shared module with:
+## What this slice does
 
-```rust
-#[path = "../svelte_probe.rs"]
-mod svelte_probe;
-```
+- adds a robust helper script that ensures `toml = "0.8.23"` exists under `[dependencies]`
+- avoids assuming single-line formatting in `Cargo.toml`
+- gives you exact apply and verify commands
 
-That still gives you one reusable source module now, without making a blind edit to `src/lib.rs`.
+## What this slice does not do
 
-## Not in this slice
+- it does not yet wire Svelte probing into the repo-crawler library pipeline
+- it does not edit your unknown live `src/lib.rs` or parser pipeline blindly
 
-- repo-crawler pipeline integration
-- crate-level `pub mod svelte_probe;` export via `src/lib.rs`
-- fixture suite for multiple failure cases
-
-Those should be the next repo-aware slice after this extraction proves clean.
+Once this preflight blocker is cleared and `cargo check` is green, the next slice can target
+actual pipeline wiring with much lower risk.
