@@ -5,3 +5,4 @@ target/
 
 context-bundle.md
 .repo-crawler/
+.worm/
