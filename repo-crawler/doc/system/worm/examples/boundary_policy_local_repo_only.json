@@ -1,0 +1,26 @@
+{
+  "kind": "worm_traversal_policy",
+  "schemaVersion": 1,
+  "policyId": "worm-policy-001",
+  "mode": "local_repo_only",
+  "maxDepth": 0,
+  "maxTargetsPerSourceRepo": 1,
+  "deterministicTraversal": true,
+  "cycleDetection": {
+    "enabled": true,
+    "identityKey": "normalized_repo"
+  },
+  "scopePolicy": {
+    "allowSameOrg": false,
+    "allowExternalReferences": false,
+    "requireExplicitAllowlistForExpansion": true
+  },
+  "repoAllowlist": [],
+  "repoDenylist": [],
+  "networkPolicy": {
+    "allowUnknownHosts": false,
+    "allowedHosts": []
+  },
+  "fallbackPosture": "blocked",
+  "notes": "Strict local-only mode. No cross-repo expansion."
+}

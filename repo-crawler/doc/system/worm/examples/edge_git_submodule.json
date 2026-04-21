@@ -1,0 +1,24 @@
+{
+  "kind": "worm_edge",
+  "schemaVersion": 1,
+  "edgeId": "edge-001",
+  "relationType": "git_submodule",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": ".gitmodules",
+    "line": 3,
+    "artifactSha256": "abc123"
+  },
+  "discoveryMethod": "gitmodules_parse",
+  "target": {
+    "rawReference": "../linked-repo",
+    "normalizedRepo": "Boswecw/linked-repo",
+    "targetPath": "",
+    "identityPosture": "resolved"
+  },
+  "crawlScope": "cross_repo",
+  "confidence": "high",
+  "posture": "evidence_bound",
+  "timestamp": "2026-04-21T22:45:00-04:00",
+  "notes": "Submodule entry discovered in .gitmodules"
+}

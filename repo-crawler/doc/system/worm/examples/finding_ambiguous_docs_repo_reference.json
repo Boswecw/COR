@@ -1,0 +1,25 @@
+{
+  "kind": "worm_finding",
+  "schemaVersion": 1,
+  "findingId": "finding-002",
+  "findingClass": "ambiguous_target_identity",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": "docs/integrations.md",
+    "line": 27,
+    "artifactSha256": "ghi789"
+  },
+  "relatedEdgeIds": [
+    "edge-003"
+  ],
+  "target": {
+    "rawReference": "See companion repo 'shared-core'",
+    "identityPosture": "ambiguous"
+  },
+  "reasonCode": "target_repo_identity_not_resolvable_from_source_reference",
+  "crawlScope": "cross_repo",
+  "confidence": "low",
+  "posture": "ambiguous",
+  "timestamp": "2026-04-21T22:45:00-04:00",
+  "notes": "Reference exists but the target repo cannot be resolved with certainty"
+}

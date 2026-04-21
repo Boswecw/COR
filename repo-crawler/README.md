@@ -1,31 +1,39 @@
-# Slice 03 — Repo-Crawler Preflight TOML Unblock
+# Slice 06 — Worm Discovery Adapter Contract
 
-Date: 2026-04-21
+Date and Time: 2026-04-21 11:20 PM America/New_York
 
-## Why this slice exists
+## Slice boundary
 
-Before I can safely package the actual pipeline-wiring tranche, the repo's library crate has to
-compile cleanly again.
+This is the **WRM-04** slice from the Worm plan.
 
-The proof logs show a real blocker in the current repo state:
+This slice locks the first discovery adapter contracts for Worm:
+- `gitmodules_parse`
+- `package_manifest_parse`
 
-- `src/error.rs` references `toml::de::Error` and `toml::ser::Error`
-- `src/config.rs` uses `toml::from_str(...)` and `toml::to_string_pretty(...)`
-- `src/parser.rs` parses `toml::Value`
-- but Cargo resolves `toml` as missing in the active crate dependency graph
+It defines:
+- adapter emission envelope
+- adapter names
+- required metadata
+- example emissions
+- lightweight validation
 
-That means the next pipeline-wiring slice would be built on a broken preflight baseline.
+## Why this slice comes now
 
-## What this slice does
+Before live traversal code is added, Worm needs stable adapter contracts so that:
+- each discovery source emits structured edges
+- downstream systems can distinguish source adapter provenance
+- adapters remain bounded and testable
 
-- adds a robust helper script that ensures `toml = "0.8.23"` exists under `[dependencies]`
-- avoids assuming single-line formatting in `Cargo.toml`
-- gives you exact apply and verify commands
+## Included
 
-## What this slice does not do
+- `doc/system/worm/04_discovery_adapters.md`
+- `doc/system/worm/schema/worm-adapter-emission.schema.json`
+- `doc/system/worm/examples/adapter_emit_*.json`
+- `scripts/validate_worm_discovery_adapters.py`
 
-- it does not yet wire Svelte probing into the repo-crawler library pipeline
-- it does not edit your unknown live `src/lib.rs` or parser pipeline blindly
+## Not included
 
-Once this preflight blocker is cleared and `cargo check` is green, the next slice can target
-actual pipeline wiring with much lower risk.
+- live adapter implementation code
+- file parsing logic
+- target normalization code
+- Centipede handoff code

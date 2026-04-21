@@ -1,0 +1,23 @@
+{
+  "kind": "worm_edge",
+  "schemaVersion": 1,
+  "edgeId": "edge-002",
+  "relationType": "dependency_repo_reference",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": "package.json",
+    "line": 14,
+    "artifactSha256": "def456"
+  },
+  "discoveryMethod": "package_manifest_parse",
+  "target": {
+    "rawReference": "git+ssh://git@github.com/Boswecw/shared-lib.git",
+    "normalizedRepo": "Boswecw/shared-lib",
+    "targetPath": "",
+    "identityPosture": "resolved"
+  },
+  "crawlScope": "cross_repo",
+  "confidence": "medium",
+  "posture": "evidence_bound",
+  "timestamp": "2026-04-21T22:45:00-04:00"
+}

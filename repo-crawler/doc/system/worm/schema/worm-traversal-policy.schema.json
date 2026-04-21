@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormTraversalPolicy",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "policyId",
+    "mode",
+    "maxDepth",
+    "maxTargetsPerSourceRepo",
+    "deterministicTraversal",
+    "cycleDetection",
+    "scopePolicy",
+    "networkPolicy",
+    "fallbackPosture"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_traversal_policy"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "policyId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "local_repo_only",
+        "same_org_governed",
+        "governed_external_reference"
+      ]
+    },
+    "maxDepth": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "maxTargetsPerSourceRepo": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "deterministicTraversal": {
+      "type": "boolean"
+    },
+    "cycleDetection": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "identityKey"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "identityKey": {
+          "type": "string",
+          "enum": [
+            "normalized_repo",
+            "raw_reference"
+          ]
+        }
+      }
+    },
+    "scopePolicy": {
+      "type": "object",
+      "required": [
+        "allowSameOrg",
+        "allowExternalReferences",
+        "requireExplicitAllowlistForExpansion"
+      ],
+      "properties": {
+        "allowSameOrg": {
+          "type": "boolean"
+        },
+        "allowExternalReferences": {
+          "type": "boolean"
+        },
+        "requireExplicitAllowlistForExpansion": {
+          "type": "boolean"
+        }
+      }
+    },
+    "repoAllowlist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "repoDenylist": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "networkPolicy": {
+      "type": "object",
+      "required": [
+        "allowUnknownHosts",
+        "allowedHosts"
+      ],
+      "properties": {
+        "allowUnknownHosts": {
+          "type": "boolean"
+        },
+        "allowedHosts": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "fallbackPosture": {
+      "type": "string",
+      "enum": [
+        "blocked",
+        "ambiguous",
+        "unresolved"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}
