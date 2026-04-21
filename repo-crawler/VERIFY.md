@@ -5,11 +5,11 @@ Run these commands exactly after applying the slice.
 ```bash
 cd ~/Forge/ecosystem/local-systems/cortex/repo-crawler || exit 1
 
-cargo run --bin worm_contract_smoke
+cargo run --bin worm_reference_audit
 ```
 
 ## Success should look like
 
-The output should end with something like:
+The output should end with:
 
-`Validated Worm contract example sets successfully.`
+`Validated Worm cross-reference audit successfully.`

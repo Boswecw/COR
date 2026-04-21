@@ -1,32 +1,26 @@
-# Slice 11 — Worm Contract Loader Scaffold
+# Slice 12 — Worm Reference Audit Bin
 
-Date and Time: 2026-04-22 12:35 AM America/New_York
+Date and Time: 2026-04-22 12:50 AM America/New_York
 
 ## Slice boundary
 
-This is the **WRM-09** slice.
+This is the next implementation slice after the Worm contract smoke loader.
 
-This is the first code-oriented Worm slice.
-It adds a minimal Rust loader/smoke path that reads the governed Worm JSON example surfaces already added in prior slices.
+It adds a second Rust code path:
+- `cargo run --bin worm_reference_audit`
 
 ## What this slice does
 
-- adds a small shared Rust helper for Worm contract example loading
-- adds a smoke binary:
-  - `cargo run --bin worm_contract_smoke`
-- validates presence and basic shape of Worm example files
+This slice performs a bounded referential audit across the governed Worm example surfaces:
+- loads issue catalogs
+- loads evidence bundles
+- loads Centipede handoffs
+- verifies bundle references in handoffs exist
+- verifies finding class / reason code pairs resolve against loaded issue catalogs
 
-## Why this slice comes now
+## What this slice does not do
 
-The contract set is now broad enough that Worm needs a minimal code foothold.
-This slice stays low-risk:
-- no live crawl behavior
-- no traversal logic
-- no Centipede integration
-- no mutation of existing repo-crawler flow
-
-## Included
-
-- `src/worm_contracts.rs`
-- `src/bin/worm_contract_smoke.rs`
-- `doc/system/worm/09_contract_loader_scaffold.md`
+- live crawl behavior
+- repo graph walking
+- live Centipede integration
+- mutation of any repo data
