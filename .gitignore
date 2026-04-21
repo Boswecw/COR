@@ -1,5 +1,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+target/
 
 context-bundle.md
+.repo-crawler/
