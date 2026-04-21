@@ -6,14 +6,31 @@ publish = false
 
 [dependencies]
 clap = { version = "4.5.60", features = ["derive"] }
+
+# core crawling / infra
 ignore = "0.4.25"
 notify = "6.1.1"
 rusqlite = "0.32.1"
+sha2 = "0.10.9"
+
+# serialization / config
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 serde_yaml = "0.9.34"
-sha2 = "0.10.9"
 toml = "0.8.23"
+toml_edit = "0.25"
+
+# error handling
+anyhow = "1"
+thiserror = "2"
+
+# rust workspace truth
+cargo_metadata = "0.23"
+
+# subprocess orchestration
+tokio = { version = "1.52.1", features = ["macros", "process", "rt-multi-thread", "time"] }
+
+# structural parsing layer
 tree-sitter = "0.24.7"
 tree-sitter-javascript = "0.23"
 tree-sitter-python = "0.23"
