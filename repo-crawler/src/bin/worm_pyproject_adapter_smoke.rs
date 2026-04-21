@@ -1,6 +1,5 @@
 
-    #[path = "../worm_adapter_extractors.rs"]
-    mod worm_adapter_extractors;
+    use repo_crawler::worm_adapter_extractors;
 
     fn main() {
         println!("Worm pyproject adapter smoke");

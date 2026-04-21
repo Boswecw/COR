@@ -1,24 +1,25 @@
-# Slice 23 — Worm Pyproject Manifest Adapter
+# Slice 27 — Worm Pyproject UV Sources Adapter
 
-Date and Time: 2026-04-22 03:49 AM America/New_York
+Date and Time: 2026-04-22 04:31 AM America/New_York
 
-## Slice boundary
+## Why this slice
 
-This is the next Worm implementation slice.
+I checked the current Cortex repo for `workflow_call`, `action.yml`, and extra workflow surfaces through GitHub search and got no hits.
+So the next bounded hardening move is to deepen an already-supported surface: `pyproject.toml`.
 
-It adds bounded `pyproject.toml` extraction so Worm can understand Python repo-root dependency references.
+This slice adds support for:
+
+- `[tool.uv.sources]`
+- git-backed uv source entries inside `pyproject.toml`
 
 ## What this slice does
 
-- adds `parse_pyproject_manifest`
-- adds `cargo run --bin worm_pyproject_adapter_smoke`
-- updates `worm_run_repo_surface` to include `pyproject.toml`
+- extends `parse_pyproject_manifest`
+- adds `cargo run --bin worm_pyproject_uv_sources_smoke`
 
-## Current pyproject support
+## Current posture
 
-- `[project.dependencies]`
-- `[project.optional-dependencies.*]`
-- `[tool.poetry.dependencies]`
-- `[tool.poetry.group.<name>.dependencies]`
-
-Only git or GitHub-style references are emitted.
+- only extracts git-backed uv sources
+- no lockfile solving
+- no index resolution
+- no network calls

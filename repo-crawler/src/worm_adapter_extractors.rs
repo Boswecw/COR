@@ -25,7 +25,7 @@ fn edge(
         "crawlScope": "cross_repo",
         "confidence": "medium",
         "posture": "evidence_bound",
-        "timestamp": "2026-04-22T03:49:00-04:00"
+        "timestamp": "2026-04-22T04:31:00-04:00"
     })
 }
 
@@ -68,7 +68,7 @@ pub fn parse_gitmodules(source_repo: &str, source_path: &str, text: &str) -> Val
         "emittedEdges": edges,
         "skippedReferences": [],
         "posture": "evidence_bound",
-        "timestamp": "2026-04-22T03:49:00-04:00"
+        "timestamp": "2026-04-22T04:31:00-04:00"
     })
 }
 
@@ -135,7 +135,7 @@ pub fn parse_package_manifest(source_repo: &str, source_path: &str, text: &str) 
         "emittedEdges": edges,
         "skippedReferences": skipped,
         "posture": "evidence_bound",
-        "timestamp": "2026-04-22T03:49:00-04:00"
+        "timestamp": "2026-04-22T04:31:00-04:00"
     }))
 }
 
@@ -215,7 +215,7 @@ pub fn parse_cargo_manifest(source_repo: &str, source_path: &str, text: &str) ->
         "emittedEdges": edges,
         "skippedReferences": [],
         "posture": "evidence_bound",
-        "timestamp": "2026-04-22T03:49:00-04:00"
+        "timestamp": "2026-04-22T04:31:00-04:00"
     }))
 }
 
@@ -286,60 +286,77 @@ pub fn parse_pyproject_manifest(source_repo: &str, source_path: &str, text: &str
 
     if let Some(tool) = root.get("tool").and_then(|v| v.as_table()) {
         if let Some(poetry) = tool.get("poetry").and_then(|v| v.as_table()) {
-            for section in ["dependencies", "group"] {
-                if section == "dependencies" {
-                    if let Some(deps) = poetry.get("dependencies").and_then(|v| v.as_table()) {
-                        for (_name, value) in deps {
-                            if let Some(raw) = value.as_str() {
+            if let Some(deps) = poetry.get("dependencies").and_then(|v| v.as_table()) {
+                for (_name, value) in deps {
+                    if let Some(raw) = value.as_str() {
+                        maybe_push_pyproject_dep_string(
+                            source_repo,
+                            source_path,
+                            raw,
+                            "pyproject_poetry_parse",
+                            &mut edges,
+                        );
+                    } else if let Some(dep_table) = value.as_table() {
+                        if let Some(git_raw) = dep_table.get("git").and_then(|v| v.as_str()) {
+                            maybe_push_pyproject_dep_string(
+                                source_repo,
+                                source_path,
+                                git_raw,
+                                "pyproject_poetry_git_parse",
+                                &mut edges,
+                            );
+                        }
+                    }
+                }
+            }
+
+            if let Some(groups) = poetry.get("group").and_then(|v| v.as_table()) {
+                for (_group_name, group_value) in groups {
+                    let Some(group_table) = group_value.as_table() else {
+                        continue;
+                    };
+                    let Some(deps) = group_table.get("dependencies").and_then(|v| v.as_table()) else {
+                        continue;
+                    };
+                    for (_name, value) in deps {
+                        if let Some(raw) = value.as_str() {
+                            maybe_push_pyproject_dep_string(
+                                source_repo,
+                                source_path,
+                                raw,
+                                "pyproject_poetry_group_parse",
+                                &mut edges,
+                            );
+                        } else if let Some(dep_table) = value.as_table() {
+                            if let Some(git_raw) = dep_table.get("git").and_then(|v| v.as_str()) {
                                 maybe_push_pyproject_dep_string(
                                     source_repo,
                                     source_path,
-                                    raw,
-                                    "pyproject_poetry_parse",
+                                    git_raw,
+                                    "pyproject_poetry_group_git_parse",
                                     &mut edges,
                                 );
-                            } else if let Some(dep_table) = value.as_table() {
-                                if let Some(git_raw) = dep_table.get("git").and_then(|v| v.as_str()) {
-                                    maybe_push_pyproject_dep_string(
-                                        source_repo,
-                                        source_path,
-                                        git_raw,
-                                        "pyproject_poetry_git_parse",
-                                        &mut edges,
-                                    );
-                                }
                             }
                         }
                     }
-                } else if let Some(groups) = poetry.get("group").and_then(|v| v.as_table()) {
-                    for (_group_name, group_value) in groups {
-                        let Some(group_table) = group_value.as_table() else {
-                            continue;
-                        };
-                        let Some(deps) = group_table.get("dependencies").and_then(|v| v.as_table()) else {
-                            continue;
-                        };
-                        for (_name, value) in deps {
-                            if let Some(raw) = value.as_str() {
-                                maybe_push_pyproject_dep_string(
-                                    source_repo,
-                                    source_path,
-                                    raw,
-                                    "pyproject_poetry_group_parse",
-                                    &mut edges,
-                                );
-                            } else if let Some(dep_table) = value.as_table() {
-                                if let Some(git_raw) = dep_table.get("git").and_then(|v| v.as_str()) {
-                                    maybe_push_pyproject_dep_string(
-                                        source_repo,
-                                        source_path,
-                                        git_raw,
-                                        "pyproject_poetry_group_git_parse",
-                                        &mut edges,
-                                    );
-                                }
-                            }
-                        }
+                }
+            }
+        }
+
+        if let Some(uv) = tool.get("uv").and_then(|v| v.as_table()) {
+            if let Some(sources) = uv.get("sources").and_then(|v| v.as_table()) {
+                for (_name, source_value) in sources {
+                    let Some(source_table) = source_value.as_table() else {
+                        continue;
+                    };
+                    if let Some(git_raw) = source_table.get("git").and_then(|v| v.as_str()) {
+                        maybe_push_pyproject_dep_string(
+                            source_repo,
+                            source_path,
+                            git_raw,
+                            "pyproject_uv_sources_parse",
+                            &mut edges,
+                        );
                     }
                 }
             }
@@ -357,6 +374,124 @@ pub fn parse_pyproject_manifest(source_repo: &str, source_path: &str, text: &str
         "emittedEdges": edges,
         "skippedReferences": [],
         "posture": "evidence_bound",
-        "timestamp": "2026-04-22T03:49:00-04:00"
+        "timestamp": "2026-04-22T04:31:00-04:00"
+    }))
+}
+
+pub fn parse_requirements_manifest(source_repo: &str, source_path: &str, text: &str) -> Result<Value, String> {
+    let mut edges = Vec::new();
+    let mut skipped = Vec::new();
+
+    for raw_line in text.lines() {
+        let line = raw_line.trim();
+
+        if line.is_empty() || line.starts_with('#') {
+            continue;
+        }
+
+        if line.starts_with("-r ") || line.starts_with("--requirement ") {
+            skipped.push(json!({
+                "rawReference": line,
+                "reasonCode": "nested_requirements_not_followed"
+            }));
+            continue;
+        }
+
+        let repo_ref = line.starts_with("git+https://")
+            || line.starts_with("git+ssh://")
+            || line.contains(" @ git+")
+            || line.contains("github.com/");
+
+        if repo_ref {
+            edges.push(edge(
+                &format!("requirements-edge-{}", edges.len() + 1),
+                "dependency_repo_reference",
+                source_repo,
+                source_path,
+                "requirements_manifest_parse",
+                line,
+            ));
+        } else {
+            skipped.push(json!({
+                "rawReference": line,
+                "reasonCode": "non_repo_style_dependency_reference"
+            }));
+        }
+    }
+
+    Ok(json!({
+        "kind": "worm_adapter_emission",
+        "schemaVersion": 1,
+        "adapterName": "requirements_manifest_parse",
+        "sourceRepo": source_repo,
+        "sourceArtifact": {
+            "path": source_path
+        },
+        "emittedEdges": edges,
+        "skippedReferences": skipped,
+        "posture": "evidence_bound",
+        "timestamp": "2026-04-22T04:31:00-04:00"
+    }))
+}
+
+pub fn parse_github_workflow(source_repo: &str, source_path: &str, text: &str) -> Result<Value, String> {
+    let mut edges = Vec::new();
+    let mut skipped = Vec::new();
+
+    for raw_line in text.lines() {
+        let line = raw_line.trim();
+
+        let candidate = if let Some(rest) = line.strip_prefix("uses:") {
+            Some(rest.trim())
+        } else if let Some(rest) = line.strip_prefix("- uses:") {
+            Some(rest.trim())
+        } else {
+            None
+        };
+
+        let Some(raw) = candidate else {
+            continue;
+        };
+
+        let raw = raw.trim_matches('"').trim_matches('\'');
+
+        if raw.starts_with("./") {
+            skipped.push(json!({
+                "rawReference": raw,
+                "reasonCode": "local_action_reference"
+            }));
+            continue;
+        }
+        if raw.starts_with("docker://") {
+            skipped.push(json!({
+                "rawReference": raw,
+                "reasonCode": "docker_action_reference"
+            }));
+            continue;
+        }
+        if raw.contains('/') && raw.contains('@') {
+            edges.push(edge(
+                &format!("workflow-edge-{}", edges.len() + 1),
+                "workflow_repo_reference",
+                source_repo,
+                source_path,
+                "github_workflow_parse",
+                raw,
+            ));
+        }
+    }
+
+    Ok(json!({
+        "kind": "worm_adapter_emission",
+        "schemaVersion": 1,
+        "adapterName": "github_workflow_parse",
+        "sourceRepo": source_repo,
+        "sourceArtifact": {
+            "path": source_path
+        },
+        "emittedEdges": edges,
+        "skippedReferences": skipped,
+        "posture": "evidence_bound",
+        "timestamp": "2026-04-22T04:31:00-04:00"
     }))
 }

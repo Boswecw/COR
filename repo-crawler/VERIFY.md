@@ -1,60 +1,22 @@
 # VERIFY
 
-Run these commands exactly after applying the slice.
-
 ```bash
 cd ~/Forge/ecosystem/local-systems/cortex/repo-crawler || exit 1
 
-cargo run --bin worm_pyproject_adapter_smoke
-
-mkdir -p /tmp/worm-repo-surface-pyproject
-cat > /tmp/worm-repo-surface-pyproject/.gitmodules <<'EOF'
-[submodule "linked-repo"]
-    path = linked-repo
-    url = ../linked-repo
-EOF
-
-cat > /tmp/worm-repo-surface-pyproject/package.json <<'EOF'
-{
-  "dependencies": {
-    "shared-lib": "git+ssh://git@github.com/Boswecw/shared-lib.git",
-    "forge-contract-core": "Boswecw/forge-contract-core",
-    "lodash": "^4.17.21"
-  }
-}
-EOF
-
-cat > /tmp/worm-repo-surface-pyproject/Cargo.toml <<'EOF'
-[package]
-name = "demo"
-version = "0.1.0"
-
-[dependencies]
-forge-contract-core = { git = "https://github.com/Boswecw/forge-contract-core.git" }
-serde = "1"
-
-[workspace.dependencies]
-dataforge = { git = "https://github.com/Boswecw/DataForge.git" }
-EOF
+cargo run --bin worm_pyproject_uv_sources_smoke
 
 cat > /tmp/worm-repo-surface-pyproject/pyproject.toml <<'EOF'
 [project]
+name = "repo-surface-test"
+version = "0.1.0"
 dependencies = [
   "fastapi>=0.110.0",
-  "my-lib @ git+https://github.com/Boswecw/my-lib.git"
+  "sharedpkg @ git+https://github.com/Boswecw/sharedpkg.git"
 ]
 
-[project.optional-dependencies]
-dev = [
-  "another-lib @ git+ssh://git@github.com/Boswecw/another-lib.git"
-]
-
-[tool.poetry.dependencies]
-python = "^3.12"
-sharedkit = { git = "https://github.com/Boswecw/sharedkit.git" }
-
-[tool.poetry.group.dev.dependencies]
-tooling = { git = "https://github.com/Boswecw/tooling.git" }
+[tool.uv.sources]
+sharedlib = { git = "https://github.com/Boswecw/sharedlib.git" }
+mytool = { git = "ssh://git@github.com/Boswecw/mytool.git" }
 EOF
 
 rm -rf /tmp/worm-repo-surface-pyproject-out
@@ -76,3 +38,7 @@ print("findings:", len(bundle["findings"]))
 print("candidateIssueKeys:", len(handoff["candidateIssueKeys"]))
 PY
 ```
+
+## Expected result
+
+The repo-surface edge count should increase by 2 compared with the previous run on the same temp repo.

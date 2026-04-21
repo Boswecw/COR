@@ -3,16 +3,12 @@ use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-#[path = "../worm_adapter_extractors.rs"]
-mod worm_adapter_extractors;
-#[path = "../worm_target_normalizer.rs"]
-mod worm_target_normalizer;
-#[path = "../worm_resolution_pipeline.rs"]
-mod worm_resolution_pipeline;
-#[path = "../worm_bundle_builder.rs"]
-mod worm_bundle_builder;
-#[path = "../worm_centipede_handoff_builder.rs"]
-mod worm_centipede_handoff_builder;
+use repo_crawler::{
+    worm_adapter_extractors,
+    worm_bundle_builder,
+    worm_centipede_handoff_builder,
+    worm_resolution_pipeline,
+};
 
 fn maybe_read(path: &Path) -> Result<Option<String>, String> {
     if !path.exists() {
@@ -51,6 +47,62 @@ fn write_json(path: &Path, value: &serde_json::Value) -> Result<(), String> {
         .map_err(|e| format!("failed to write {}: {}", path.display(), e))
 }
 
+fn process_file(
+    source_repo: &str,
+    label: &str,
+    path: &Path,
+    all_edges: &mut Vec<serde_json::Value>,
+    all_resolutions: &mut Vec<serde_json::Value>,
+) -> Result<(), String> {
+    let Some(text) = maybe_read(path)? else {
+        println!("SKIP  {}", path.display());
+        return Ok(());
+    };
+
+    let emission_result = match label {
+        ".gitmodules" => Ok(worm_adapter_extractors::parse_gitmodules(
+            source_repo,
+            label,
+            &text,
+        )),
+        "package.json" => worm_adapter_extractors::parse_package_manifest(
+            source_repo,
+            label,
+            &text,
+        ),
+        "Cargo.toml" => worm_adapter_extractors::parse_cargo_manifest(
+            source_repo,
+            label,
+            &text,
+        ),
+        "pyproject.toml" => worm_adapter_extractors::parse_pyproject_manifest(
+            source_repo,
+            label,
+            &text,
+        ),
+        "requirements.txt" | "requirements-dev.txt" => {
+            worm_adapter_extractors::parse_requirements_manifest(
+                source_repo,
+                label,
+                &text,
+            )
+        }
+        _ if label.starts_with(".github/workflows/") => {
+            worm_adapter_extractors::parse_github_workflow(
+                source_repo,
+                label,
+                &text,
+            )
+        }
+        _ => return Err(format!("unsupported repo surface label: {}", label)),
+    };
+
+    let emission = emission_result?;
+    push_emission(all_edges, all_resolutions, &emission)?;
+    println!("OK  read {}", path.display());
+    Ok(())
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -76,63 +128,71 @@ fn main() {
         (repo_root.join("package.json"), "package.json"),
         (repo_root.join("Cargo.toml"), "Cargo.toml"),
         (repo_root.join("pyproject.toml"), "pyproject.toml"),
+        (repo_root.join("requirements.txt"), "requirements.txt"),
+        (repo_root.join("requirements-dev.txt"), "requirements-dev.txt"),
     ];
 
     for (path, label) in surfaces {
-        match maybe_read(&path) {
-            Ok(Some(text)) => {
-                let emission_result = match label {
-                    ".gitmodules" => Ok(worm_adapter_extractors::parse_gitmodules(
-                        source_repo,
-                        label,
-                        &text,
-                    )),
-                    "package.json" => worm_adapter_extractors::parse_package_manifest(
-                        source_repo,
-                        label,
-                        &text,
-                    ),
-                    "Cargo.toml" => worm_adapter_extractors::parse_cargo_manifest(
-                        source_repo,
-                        label,
-                        &text,
-                    ),
-                    "pyproject.toml" => worm_adapter_extractors::parse_pyproject_manifest(
-                        source_repo,
-                        label,
-                        &text,
-                    ),
-                    _ => unreachable!(),
-                };
+        if let Err(err) = process_file(
+            source_repo,
+            label,
+            &path,
+            &mut all_edges,
+            &mut all_resolutions,
+        ) {
+            eprintln!("FAIL  {}", err);
+            std::process::exit(1);
+        }
+    }
 
-                let emission = match emission_result {
-                    Ok(value) => value,
-                    Err(err) => {
-                        eprintln!("FAIL  {}", err);
-                        std::process::exit(1);
-                    }
-                };
+    let workflows_dir = repo_root.join(".github/workflows");
+    if workflows_dir.is_dir() {
+        let entries = match fs::read_dir(&workflows_dir) {
+            Ok(value) => value,
+            Err(err) => {
+                eprintln!("FAIL  could not read {}: {}", workflows_dir.display(), err);
+                std::process::exit(1);
+            }
+        };
 
-                if let Err(err) = push_emission(&mut all_edges, &mut all_resolutions, &emission) {
-                    eprintln!("FAIL  {}", err);
+        for entry in entries {
+            let entry = match entry {
+                Ok(value) => value,
+                Err(err) => {
+                    eprintln!("FAIL  could not enumerate workflow entry: {}", err);
                     std::process::exit(1);
                 }
+            };
 
-                println!("OK  read {}", path.display());
+            let path = entry.path();
+            let ext = path.extension().and_then(|v| v.to_str()).unwrap_or_default();
+            if ext != "yml" && ext != "yaml" {
+                continue;
             }
-            Ok(None) => {
-                println!("SKIP  {}", path.display());
-            }
-            Err(err) => {
+
+            let relative = match path.strip_prefix(&repo_root) {
+                Ok(value) => value.to_string_lossy().replace('\\', "/"),
+                Err(_) => path.to_string_lossy().to_string(),
+            };
+
+            if let Err(err) = process_file(
+                source_repo,
+                &relative,
+                &path,
+                &mut all_edges,
+                &mut all_resolutions,
+            ) {
                 eprintln!("FAIL  {}", err);
                 std::process::exit(1);
             }
         }
+    } else {
+        println!("SKIP  {}", workflows_dir.display());
     }
 
     let bundle = match worm_bundle_builder::build_bundle(
         source_repo,
-        "bundle-run-repo-surface-03",
+        "bundle-run-repo-surface-05",
         &all_edges,
         &all_resolutions,
     ) {
