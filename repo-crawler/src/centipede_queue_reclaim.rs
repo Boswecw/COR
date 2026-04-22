@@ -44,16 +44,13 @@ pub fn reclaim_expired_claims(
             continue;
         }
 
-        let claimed_at = required_string(&claim, "claimedAt")?;
-        let claimed_epoch = parse_rfc3339_to_unix_seconds(claimed_at)?;
-        if reclaimed_epoch < claimed_epoch {
+        let (expiry_epoch, expiry_source) =
+            resolve_claim_expiry_epoch(&claim, lease_timeout_seconds)?;
+        if reclaimed_epoch < expiry_epoch {
             continue;
         }
 
-        let stale_age_seconds = reclaimed_epoch - claimed_epoch;
-        if stale_age_seconds < lease_timeout_seconds {
-            continue;
-        }
+        let stale_age_seconds = reclaimed_epoch - expiry_epoch;
 
         let item_path = PathBuf::from(required_string(&claim, "queueItemPath")?);
         if !item_path.exists() {
@@ -66,16 +63,21 @@ pub fn reclaim_expired_claims(
             reclaimer,
             reclaimed_at,
             lease_timeout_seconds,
+            expiry_epoch,
             stale_age_seconds,
+            expiry_source,
         )?;
         update_queue_item_reclaimed_state(&item_path, &claim, reclaimer, reclaimed_at)?;
 
         reclaimed_items.push(json!({
             "claimId": required_string(&claim, "claimId")?,
+            "claimAttempt": claim.get("claimAttempt").and_then(Value::as_u64).unwrap_or(1),
             "queueItemId": required_string(&claim, "queueItemId")?,
             "claimant": required_string(&claim, "claimant")?,
             "claimedAt": required_string(&claim, "claimedAt")?,
             "reclaimedAt": reclaimed_at,
+            "leaseExpirySource": expiry_source,
+            "leaseExpiresAtEpochSeconds": expiry_epoch,
             "staleAgeSeconds": stale_age_seconds,
             "sourceRepo": required_string(&claim, "sourceRepo")?,
             "intakeKind": required_string(&claim, "intakeKind")?,
@@ -120,7 +122,9 @@ fn update_claim_with_reclaim(
     reclaimer: &str,
     reclaimed_at: &str,
     lease_timeout_seconds: i64,
+    lease_expires_at_epoch_seconds: i64,
     stale_age_seconds: i64,
+    lease_expiry_source: &str,
 ) -> Result<(), String> {
     let mut updated = claim.clone();
     let object = updated
@@ -134,6 +138,8 @@ fn update_claim_with_reclaim(
             "reclaimedAt": reclaimed_at,
             "reason": "lease_expired",
             "leaseTimeoutSeconds": lease_timeout_seconds,
+            "leaseExpirySource": lease_expiry_source,
+            "leaseExpiresAtEpochSeconds": lease_expires_at_epoch_seconds,
             "staleAgeSeconds": stale_age_seconds
         }),
     );
@@ -157,6 +163,7 @@ fn update_queue_item_reclaimed_state(
         json!({
             "status": "queued",
             "reclaimedFromClaimId": required_string(claim, "claimId")?,
+            "reclaimedFromClaimAttempt": claim.get("claimAttempt").and_then(Value::as_u64).unwrap_or(1),
             "reclaimedFromClaimant": required_string(claim, "claimant")?,
             "reclaimedFromClaimedAt": required_string(claim, "claimedAt")?,
             "reclaimer": reclaimer,
@@ -193,6 +200,23 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "claimedAt": required_string(&value, "claimedAt")?,
             "claimAttempt": value.get("claimAttempt").and_then(Value::as_u64).unwrap_or(1),
             "state": claim_state(&value),
+            "heartbeatCount": value
+                .get("lease")
+                .and_then(|lease| lease.get("heartbeatCount"))
+                .and_then(Value::as_u64)
+                .unwrap_or(0),
+            "lastHeartbeatAt": value
+                .get("lease")
+                .and_then(|lease| lease.get("lastHeartbeatAt"))
+                .and_then(Value::as_str),
+            "leaseTimeoutSeconds": value
+                .get("lease")
+                .and_then(|lease| lease.get("leaseTimeoutSeconds"))
+                .and_then(Value::as_i64),
+            "leaseExpiresAtEpochSeconds": value
+                .get("lease")
+                .and_then(|lease| lease.get("leaseExpiresAtEpochSeconds"))
+                .and_then(Value::as_i64),
             "intakeKind": required_string(&value, "intakeKind")?,
             "sourceRepo": required_string(&value, "sourceRepo")?,
             "blocking": value
@@ -216,6 +240,27 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "reclaimed": items.iter().filter(|item| summary_state(item) == "reclaimed").count()
         }
     }))
+}
+
+fn resolve_claim_expiry_epoch(claim: &Value, fallback_timeout_seconds: i64) -> Result<(i64, &'static str), String> {
+    let last_heartbeat_at = claim
+        .get("lease")
+        .and_then(|lease| lease.get("lastHeartbeatAt"))
+        .and_then(Value::as_str);
+
+    let lease_timeout_seconds = claim
+        .get("lease")
+        .and_then(|lease| lease.get("leaseTimeoutSeconds"))
+        .and_then(Value::as_i64);
+
+    if let (Some(last_heartbeat_at), Some(lease_timeout_seconds)) = (last_heartbeat_at, lease_timeout_seconds) {
+        let heartbeat_epoch = parse_rfc3339_to_unix_seconds(last_heartbeat_at)?;
+        return Ok((heartbeat_epoch + lease_timeout_seconds, "heartbeat"));
+    }
+
+    let claimed_at = required_string(claim, "claimedAt")?;
+    let claimed_epoch = parse_rfc3339_to_unix_seconds(claimed_at)?;
+    Ok((claimed_epoch + fallback_timeout_seconds, "claim"))
 }
 
 fn claim_state(claim: &Value) -> &'static str {

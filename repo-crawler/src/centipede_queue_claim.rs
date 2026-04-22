@@ -141,6 +141,10 @@ fn build_claim(
         "queueItemPath": item_path.display().to_string(),
         "claimant": claimant,
         "claimedAt": claimed_at,
+        "lease": {
+            "heartbeatCount": 0,
+            "lastHeartbeatAt": claimed_at
+        },
         "intakeKind": required_string(item, "intakeKind")?,
         "sourceLane": required_string(item, "sourceLane")?,
         "sourceRepo": required_string(item, "sourceRepo")?,
@@ -162,6 +166,10 @@ fn build_claim_history_entry(existing_claim: &Value) -> Result<Value, String> {
             .unwrap_or(1),
         "claimant": required_string(existing_claim, "claimant")?,
         "claimedAt": required_string(existing_claim, "claimedAt")?,
+        "lease": existing_claim
+            .get("lease")
+            .cloned()
+            .unwrap_or(Value::Null),
         "reclaim": existing_claim
             .get("reclaim")
             .cloned()
@@ -185,7 +193,17 @@ fn update_queue_item_claimed_state(item_path: &Path, claim: &Value) -> Result<()
                 .and_then(Value::as_u64)
                 .unwrap_or(1),
             "claimant": required_string(claim, "claimant")?,
-            "claimedAt": required_string(claim, "claimedAt")?
+            "claimedAt": required_string(claim, "claimedAt")?,
+            "heartbeatCount": claim
+                .get("lease")
+                .and_then(|lease| lease.get("heartbeatCount"))
+                .and_then(Value::as_u64)
+                .unwrap_or(0),
+            "lastHeartbeatAt": claim
+                .get("lease")
+                .and_then(|lease| lease.get("lastHeartbeatAt"))
+                .and_then(Value::as_str)
+                .unwrap_or(required_string(claim, "claimedAt")?)
         }),
     );
 
@@ -217,6 +235,23 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "claimedAt": required_string(&value, "claimedAt")?,
             "claimAttempt": value.get("claimAttempt").and_then(Value::as_u64).unwrap_or(1),
             "state": claim_state(&value),
+            "heartbeatCount": value
+                .get("lease")
+                .and_then(|lease| lease.get("heartbeatCount"))
+                .and_then(Value::as_u64)
+                .unwrap_or(0),
+            "lastHeartbeatAt": value
+                .get("lease")
+                .and_then(|lease| lease.get("lastHeartbeatAt"))
+                .and_then(Value::as_str),
+            "leaseTimeoutSeconds": value
+                .get("lease")
+                .and_then(|lease| lease.get("leaseTimeoutSeconds"))
+                .and_then(Value::as_i64),
+            "leaseExpiresAtEpochSeconds": value
+                .get("lease")
+                .and_then(|lease| lease.get("leaseExpiresAtEpochSeconds"))
+                .and_then(Value::as_i64),
             "intakeKind": required_string(&value, "intakeKind")?,
             "sourceRepo": required_string(&value, "sourceRepo")?,
             "blocking": value
