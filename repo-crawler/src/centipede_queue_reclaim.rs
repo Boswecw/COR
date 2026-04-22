@@ -237,12 +237,16 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "blocking": items.iter().map(summary_blocking).sum::<u64>(),
             "active": items.iter().filter(|item| summary_state(item) == "active").count(),
             "completed": items.iter().filter(|item| summary_state(item) == "completed").count(),
+            "failed": items.iter().filter(|item| summary_state(item) == "failed").count(),
             "reclaimed": items.iter().filter(|item| summary_state(item) == "reclaimed").count()
         }
     }))
 }
 
-fn resolve_claim_expiry_epoch(claim: &Value, fallback_timeout_seconds: i64) -> Result<(i64, &'static str), String> {
+fn resolve_claim_expiry_epoch(
+    claim: &Value,
+    fallback_timeout_seconds: i64,
+) -> Result<(i64, &'static str), String> {
     let last_heartbeat_at = claim
         .get("lease")
         .and_then(|lease| lease.get("lastHeartbeatAt"))
@@ -253,7 +257,9 @@ fn resolve_claim_expiry_epoch(claim: &Value, fallback_timeout_seconds: i64) -> R
         .and_then(|lease| lease.get("leaseTimeoutSeconds"))
         .and_then(Value::as_i64);
 
-    if let (Some(last_heartbeat_at), Some(lease_timeout_seconds)) = (last_heartbeat_at, lease_timeout_seconds) {
+    if let (Some(last_heartbeat_at), Some(lease_timeout_seconds)) =
+        (last_heartbeat_at, lease_timeout_seconds)
+    {
         let heartbeat_epoch = parse_rfc3339_to_unix_seconds(last_heartbeat_at)?;
         return Ok((heartbeat_epoch + lease_timeout_seconds, "heartbeat"));
     }
@@ -266,6 +272,8 @@ fn resolve_claim_expiry_epoch(claim: &Value, fallback_timeout_seconds: i64) -> R
 fn claim_state(claim: &Value) -> &'static str {
     if claim.get("completion").is_some() {
         "completed"
+    } else if claim.get("failure").is_some() {
+        "failed"
     } else if claim.get("reclaim").is_some() {
         "reclaimed"
     } else {
@@ -274,7 +282,9 @@ fn claim_state(claim: &Value) -> &'static str {
 }
 
 fn claim_is_active(claim: &Value) -> bool {
-    claim.get("completion").is_none() && claim.get("reclaim").is_none()
+    claim.get("completion").is_none()
+        && claim.get("failure").is_none()
+        && claim.get("reclaim").is_none()
 }
 
 fn summary_blocking(value: &Value) -> u64 {

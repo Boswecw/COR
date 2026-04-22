@@ -252,6 +252,7 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "blocking": items.iter().map(summary_blocking).sum::<u64>(),
             "active": items.iter().filter(|item| summary_state(item) == "active").count(),
             "completed": items.iter().filter(|item| summary_state(item) == "completed").count(),
+            "failed": items.iter().filter(|item| summary_state(item) == "failed").count(),
             "reclaimed": items.iter().filter(|item| summary_state(item) == "reclaimed").count()
         }
     }))
@@ -315,6 +316,9 @@ fn ensure_claim_is_active(claim: &Value, claim_path: &Path) -> Result<(), String
     }
     if claim.get("reclaim").is_some() {
         return Err(format!("claim is not active (reclaimed): {}", claim_path.display()));
+    }
+    if claim.get("failure").is_some() {
+        return Err(format!("claim is already failed: {}", claim_path.display()));
     }
     Ok(())
 }
@@ -402,6 +406,8 @@ fn ensure_queue_item_matches_active_claim(
 fn claim_state(claim: &Value) -> &'static str {
     if claim.get("completion").is_some() {
         "completed"
+    } else if claim.get("failure").is_some() {
+        "failed"
     } else if claim.get("reclaim").is_some() {
         "reclaimed"
     } else {

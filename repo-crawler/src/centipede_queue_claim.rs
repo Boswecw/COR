@@ -30,7 +30,7 @@ pub fn claim_next_queue_item(queue_dir: &Path, claimant: &str, claimed_at: &str)
 
     for item_path in item_paths {
         let item = read_json(&item_path)?;
-        if item_is_completed(&item) {
+        if item_is_terminal(&item) {
             continue;
         }
 
@@ -45,7 +45,7 @@ pub fn claim_next_queue_item(queue_dir: &Path, claimant: &str, claimed_at: &str)
         };
 
         if let Some(claim) = &existing_claim {
-            if claim_has_completion(claim) || claim_is_active(claim) {
+            if claim_has_completion(claim) || claim_has_failure(claim) || claim_is_active(claim) {
                 continue;
             }
         }
@@ -272,6 +272,7 @@ fn build_claims_index(claims_dir: &Path) -> Result<Value, String> {
             "blocking": items.iter().map(summary_blocking).sum::<u64>(),
             "active": items.iter().filter(|item| summary_state(item) == "active").count(),
             "completed": items.iter().filter(|item| summary_state(item) == "completed").count(),
+            "failed": items.iter().filter(|item| summary_state(item) == "failed").count(),
             "reclaimed": items.iter().filter(|item| summary_state(item) == "reclaimed").count()
         }
     }))
@@ -297,16 +298,20 @@ fn extract_issue_keys(item: &Value) -> Result<Vec<String>, String> {
     Ok(keys)
 }
 
-fn item_is_completed(item: &Value) -> bool {
-    item.get("processingState")
-        .and_then(|value| value.get("status"))
-        .and_then(Value::as_str)
-        == Some("completed")
+fn item_is_terminal(item: &Value) -> bool {
+    matches!(
+        item.get("processingState")
+            .and_then(|value| value.get("status"))
+            .and_then(Value::as_str),
+        Some("completed") | Some("failed")
+    )
 }
 
 fn claim_state(claim: &Value) -> &'static str {
     if claim_has_completion(claim) {
         "completed"
+    } else if claim_has_failure(claim) {
+        "failed"
     } else if claim_has_reclaim(claim) {
         "reclaimed"
     } else {
@@ -315,11 +320,15 @@ fn claim_state(claim: &Value) -> &'static str {
 }
 
 fn claim_is_active(claim: &Value) -> bool {
-    !claim_has_completion(claim) && !claim_has_reclaim(claim)
+    !claim_has_completion(claim) && !claim_has_failure(claim) && !claim_has_reclaim(claim)
 }
 
 fn claim_has_completion(claim: &Value) -> bool {
     claim.get("completion").is_some()
+}
+
+fn claim_has_failure(claim: &Value) -> bool {
+    claim.get("failure").is_some()
 }
 
 fn claim_has_reclaim(claim: &Value) -> bool {
