@@ -72,6 +72,10 @@ pub fn claim_next_queue_item(queue_dir: &Path, claimant: &str, claimed_at: &str)
             "claimsDir": claims_dir.display().to_string(),
             "disposition": "claimed",
             "claimId": claim_id,
+            "claimAttempt": claim
+                .get("claimAttempt")
+                .and_then(Value::as_u64)
+                .unwrap_or(1),
             "queueItemId": queue_item_id,
             "claimant": claimant,
             "claimedAt": claimed_at,
