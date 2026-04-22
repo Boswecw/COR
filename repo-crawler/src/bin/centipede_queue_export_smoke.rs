@@ -65,6 +65,17 @@ fn run_smoke() -> Result<(), String> {
         ));
     }
 
+    if envelope.payload.schema_status != "validated-envelope-v2" {
+        return Err(format!(
+            "unexpected schema status '{}', expected 'validated-envelope-v2'",
+            envelope.payload.schema_status
+        ));
+    }
+
+    if envelope.payload.schema_fingerprint.is_empty() {
+        return Err("payload.schemaFingerprint must not be empty".to_string());
+    }
+
     let written_text = fs::read_to_string(&output_path)
         .map_err(|err| format!("failed to read export output '{}': {err}", output_path.display()))?;
     let written_json: Value = serde_json::from_str(&written_text)
@@ -82,12 +93,16 @@ fn run_smoke() -> Result<(), String> {
         return Err("selection.queueItemId mismatch".to_string());
     }
 
-    if written_json["capabilities"]["hasQueueTotals"] != true {
-        return Err("capabilities.hasQueueTotals mismatch".to_string());
+    if written_json["payload"]["schemaStatus"] != "validated-envelope-v2" {
+        return Err("payload.schemaStatus mismatch".to_string());
     }
 
-    if written_json["capabilities"]["hasClaimEpisodeChains"] != true {
-        return Err("capabilities.hasClaimEpisodeChains mismatch".to_string());
+    if written_json["payload"]["validation"]["reportKind"] != "centipede_queue_operator_report" {
+        return Err("payload.validation.reportKind mismatch".to_string());
+    }
+
+    if written_json["payload"]["validation"]["selectionQueueItemId"] != "Q-001" {
+        return Err("payload.validation.selectionQueueItemId mismatch".to_string());
     }
 
     if written_json["payload"]["report"]["items"][0]["processingState"]["status"] != "completed" {

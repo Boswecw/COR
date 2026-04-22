@@ -15,3 +15,4 @@ pub mod worm_centipede_handoff_builder;
 pub mod worm_resolution_pipeline;
 pub mod worm_target_normalizer;
 pub mod centipede_queue_export;
+pub mod centipede_queue_export_validate;

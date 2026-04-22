@@ -5,8 +5,12 @@ use std::io::{self, Read};
 use std::path::{Path, PathBuf};
 use std::time::{SystemTime, UNIX_EPOCH};
 
+use crate::centipede_queue_export_validate::{
+    validate_report_contract, QueueExportValidation,
+};
+
 pub const CONTRACT_TYPE: &str = "centipede.queue.report.export";
-pub const CONTRACT_VERSION: &str = "v1";
+pub const CONTRACT_VERSION: &str = "v2";
 
 #[derive(Debug, Clone, Default)]
 pub struct QueueExportArgs {
@@ -64,6 +68,9 @@ pub struct QueueExportPayload {
     pub format: String,
     #[serde(rename = "schemaStatus")]
     pub schema_status: String,
+    #[serde(rename = "schemaFingerprint")]
+    pub schema_fingerprint: String,
+    pub validation: QueueExportValidation,
     pub report: Value,
 }
 
@@ -115,7 +122,7 @@ pub fn help_text() -> String {
     [
         "centipede_queue_export",
         "",
-        "Wrap a queue report JSON document in a versioned export envelope for ForgeCommand ingestion.",
+        "Wrap a queue report JSON document in a validated, versioned export envelope for ForgeCommand ingestion.",
         "",
         "Usage:",
         "  cargo run --bin centipede_queue_report -- [report-args] > /tmp/queue-report.json",
@@ -157,7 +164,9 @@ pub fn build_export_envelope(
         return Err("queue report input must be a JSON object".to_string());
     }
 
+    let validation = validate_report_contract(&report, queue_item_id.as_deref())?;
     let capabilities = detect_capabilities(&report);
+    let schema_fingerprint = validation.schema_fingerprint.clone();
 
     Ok(QueueExportEnvelope {
         contract_type: CONTRACT_TYPE.to_string(),
@@ -175,7 +184,9 @@ pub fn build_export_envelope(
         capabilities,
         payload: QueueExportPayload {
             format: "json".to_string(),
-            schema_status: "passthrough-envelope-v1".to_string(),
+            schema_status: "validated-envelope-v2".to_string(),
+            schema_fingerprint,
+            validation,
             report,
         },
     })
@@ -234,7 +245,7 @@ fn detect_capabilities(report: &Value) -> QueueExportCapabilities {
     QueueExportCapabilities {
         has_queue_totals: has_top_level_key(report, &["totals", "queueTotals"]),
         has_item_states: has_top_level_key(report, &["items", "queueItems"]),
-        has_claim_episode_chains: contains_any_key(report, &["claimEpisodes", "claimEpisodeChains"]),
+        has_claim_episode_chains: contains_any_key(report, &["claimEpisodes", "claimEpisodeChains", "episodes"]),
         has_completion_evidence: contains_any_key(report, &["completionEvidence"]),
         has_failure_evidence: contains_any_key(report, &["failureEvidence"]),
     }
@@ -277,36 +288,45 @@ pub fn sample_report_json() -> Value {
         }),
     );
     item.insert(
-        "claimEpisodes".to_string(),
+        "claimRecord".to_string(),
+        serde_json::json!({
+            "episodes": [
+                { "state": "reclaimed" },
+                { "state": "completed" }
+            ]
+        }),
+    );
+    item.insert(
+        "completionEvidence".to_string(),
         serde_json::json!([
             {
-                "claimId": "C-001",
-                "status": "reclaimed"
-            },
-            {
-                "claimId": "C-002",
-                "status": "completed"
+                "completedAt": "2026-04-21T23:32:00-04:00",
+                "artifactPath": "/tmp/queue-complete.json"
             }
         ]),
     );
     item.insert(
-        "completionEvidence".to_string(),
-        serde_json::json!({
-            "completedAt": 1_710_000_000_000u64,
-            "artifactPath": "/tmp/queue-complete.json"
-        }),
-    );
-    item.insert(
         "failureEvidence".to_string(),
-        serde_json::json!(null),
+        serde_json::json!([]),
     );
 
     serde_json::json!({
+        "kind": "centipede_queue_operator_report",
+        "schemaVersion": 1,
+        "queueDir": "/tmp/centipede-queue-report-smoke/queue",
+        "selection": {
+            "queueItemId": "Q-001"
+        },
         "totals": {
-            "queued": 0,
-            "claimed": 0,
-            "completed": 1,
-            "failed": 0
+            "items": 1,
+            "claimRecords": 1,
+            "claimEpisodes": 2,
+            "reclaimedHistoryEpisodes": 1,
+            "completions": 1,
+            "failures": 0,
+            "processing": {
+                "completed": 1
+            }
         },
         "items": [Value::Object(item)]
     })
