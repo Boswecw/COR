@@ -18,3 +18,4 @@ pub mod centipede_queue_export;
 pub mod centipede_queue_export_validate;
 pub mod centipede_queue_consumer_stub;
 pub mod centipede_queue_consumer_adversarial;
+pub mod centipede_queue_handoff_artifact;
