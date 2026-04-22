@@ -21,3 +21,4 @@ pub mod centipede_queue_consumer_adversarial;
 pub mod centipede_queue_handoff_artifact;
 pub mod centipede_queue_handoff_manifest;
 pub mod centipede_queue_manifest_scan;
+pub mod centipede_queue_inbox_resolver;
