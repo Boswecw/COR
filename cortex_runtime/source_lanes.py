@@ -144,6 +144,8 @@ RTF_TEXT_LANE = SourceLaneSpec(
     operator_label="local RTF files",
     runtime_slice_id="slice7_rtf_source_lane",
     runtime_slice_label="bounded RTF source lane",
+    gnat_worker_type="rtf_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 DOCX_TEXT_LANE = SourceLaneSpec(

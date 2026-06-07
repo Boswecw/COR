@@ -7,7 +7,8 @@ FA-Local dispatch negotiation, FA-Local-gated bounded parallel proving slice,
 DF-Local GNAT persistence/cache contracts, and COR-side Operator-Local status/control contracts.
 The later source-lane expansion now admits bounded text-layer PDF GNAT extraction
 when host PDF tooling is present and bounded local DOCX GNAT extraction through
-the existing Cortex DOCX lane. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
+the existing Cortex DOCX lane. It also admits bounded paragraph-only RTF GNAT extraction
+through the existing Cortex RTF lane. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
 and shared-core extraction remain deferred.
 
 ## Governance
@@ -97,7 +98,7 @@ and shared-core extraction remain deferred.
 
 - [x] PDF benchmark/admission.
 - [x] DOCX benchmark/admission.
-- [ ] RTF benchmark/admission.
+- [x] RTF benchmark/admission.
 - [ ] ODT benchmark/admission.
 - [ ] EPUB benchmark/admission.
 - [ ] Scrivener remains separately governed.

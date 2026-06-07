@@ -11,10 +11,12 @@ GNAT-01 shard worker types are:
 - `plain_text_syntax`
 - `pdf_text_syntax`
 - `docx_text_syntax`
+- `rtf_text_syntax`
 
 PDF shards are admitted only for bounded text-layer PDF extraction through
 `application/pdf`. DOCX shards are admitted only for bounded local DOCX
 structure extraction through
 `application/vnd.openxmlformats-officedocument.wordprocessingml.document`.
-Other source lanes remain outside the Gnat proving slice until separately
+RTF shards are admitted only for bounded paragraph-only local RTF extraction
+through `application/rtf` or `text/rtf`. Other source lanes remain outside the Gnat proving slice until separately
 admitted.

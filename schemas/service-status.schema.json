@@ -170,7 +170,8 @@
               "markdown_syntax",
               "plain_text_syntax",
               "pdf_text_syntax",
-              "docx_text_syntax"
+              "docx_text_syntax",
+              "rtf_text_syntax"
             ]
           }
         },

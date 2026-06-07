@@ -26,6 +26,7 @@ def _registry() -> dict[str, GnatWorkerAdapter]:
     from cortex_runtime.gnats.workers.markdown_text import run_markdown_text_worker
     from cortex_runtime.gnats.workers.pdf_text import run_pdf_text_worker
     from cortex_runtime.gnats.workers.plain_text import run_plain_text_worker
+    from cortex_runtime.gnats.workers.rtf_text import run_rtf_text_worker
 
     return {
         "markdown_syntax": GnatWorkerAdapter(
@@ -51,6 +52,12 @@ def _registry() -> dict[str, GnatWorkerAdapter]:
             media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
             lane_id="local_file_docx_text",
             run=run_docx_text_worker,
+        ),
+        "rtf_text_syntax": GnatWorkerAdapter(
+            worker_type="rtf_text_syntax",
+            media_type="application/rtf",
+            lane_id="local_file_rtf_text",
+            run=run_rtf_text_worker,
         ),
     }
 

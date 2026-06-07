@@ -18,7 +18,7 @@ from cortex_runtime.gnats.models import (
     SourceFingerprint,
 )
 from cortex_runtime.gnats.schema_validation import require_schema_valid
-from cortex_runtime.source_lanes import DOCX_TEXT_LANE, MARKDOWN_LANE, PLAIN_TEXT_LANE, lane_eligibility_for_path
+from cortex_runtime.source_lanes import DOCX_TEXT_LANE, MARKDOWN_LANE, PLAIN_TEXT_LANE, RTF_TEXT_LANE, lane_eligibility_for_path
 from cortex_runtime.source_lanes import PDF_TEXT_LANE
 
 
@@ -93,8 +93,10 @@ def _worker_type_for_path(path: Path, media_type: str | None) -> tuple[str, str]
         return "pdf_text_syntax", "application/pdf"
     if lane.lane_id == DOCX_TEXT_LANE.lane_id:
         return "docx_text_syntax", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    if lane.lane_id == RTF_TEXT_LANE.lane_id:
+        return "rtf_text_syntax", "application/rtf"
 
-    raise GnatPlanningError("GNAT admits only Markdown, plain-text, PDF text-layer, and DOCX source lanes")
+    raise GnatPlanningError("GNAT admits only Markdown, plain-text, PDF text-layer, DOCX, and RTF source lanes")
 
 
 def _clamp_concurrency(requested_concurrency: int, max_concurrency: int) -> tuple[int, int]:

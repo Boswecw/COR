@@ -17,6 +17,7 @@ class GnatStatusRuntimeTests(unittest.TestCase):
         self.assertIn("markdown_syntax", summary["admitted_worker_types"])
         self.assertIn("plain_text_syntax", summary["admitted_worker_types"])
         self.assertIn("docx_text_syntax", summary["admitted_worker_types"])
+        self.assertIn("rtf_text_syntax", summary["admitted_worker_types"])
         if pdf_lane_runtime_available():
             self.assertIn("pdf_text_syntax", summary["admitted_worker_types"])
         self.assertEqual(summary["max_concurrency"], 4)

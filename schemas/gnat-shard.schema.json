@@ -44,7 +44,8 @@
         "markdown_syntax",
         "plain_text_syntax",
         "pdf_text_syntax",
-        "docx_text_syntax"
+        "docx_text_syntax",
+        "rtf_text_syntax"
       ]
     },
     "source_ref": {
@@ -63,7 +64,9 @@
         "text/markdown",
         "text/plain",
         "application/pdf",
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/rtf",
+        "text/rtf"
       ]
     },
     "source_fingerprint": {
