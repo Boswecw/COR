@@ -71,7 +71,8 @@
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
               "application/rtf",
               "text/rtf",
-              "application/vnd.oasis.opendocument.text"
+              "application/vnd.oasis.opendocument.text",
+              "application/epub+zip"
             ]
           }
         }

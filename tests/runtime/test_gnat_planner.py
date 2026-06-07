@@ -17,6 +17,7 @@ DOCX_MEDIA_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingm
 RTF_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.rtf"
 ODT_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.odt"
 ODT_MEDIA_TYPE = "application/vnd.oasis.opendocument.text"
+EPUB_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.epub"
 UNSUPPORTED_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 
 
@@ -95,6 +96,15 @@ class GnatPlannerRuntimeTests(unittest.TestCase):
 
         self.assertEqual(plan.shards[0].worker_type, "odt_text_syntax")
         self.assertEqual(plan.shards[0].media_type, ODT_MEDIA_TYPE)
+
+    def test_epub_lane_is_plannable(self) -> None:
+        plan = plan_gnat_run(
+            [GnatSourceInput(EPUB_FIXTURE, media_type="application/epub+zip", source_ref="epub-note")],
+            request_id="gnat-plan-epub",
+        )
+
+        self.assertEqual(plan.shards[0].worker_type, "epub_text_syntax")
+        self.assertEqual(plan.shards[0].media_type, "application/epub+zip")
 
     def test_concurrency_is_hard_capped(self) -> None:
         plan = plan_gnat_run(

@@ -27,9 +27,10 @@ GNAT admits bounded local syntax extraction for these lanes:
 - `application/pdf` with `pdf_text_syntax` when host `pdfinfo` and `pdftotext` are available;
 - `application/vnd.openxmlformats-officedocument.wordprocessingml.document` with `docx_text_syntax`;
 - `application/rtf` or `text/rtf` with `rtf_text_syntax`;
-- `application/vnd.oasis.opendocument.text` with `odt_text_syntax`.
+- `application/vnd.oasis.opendocument.text` with `odt_text_syntax`;
+- `application/epub+zip` with `epub_text_syntax`.
 
-All other existing source lanes remain on their current serial extraction path until separately admitted.
+Scrivener remains a separately governed project-source lane, not a routine GNAT source-lane admission.
 
 ## Guardrails
 

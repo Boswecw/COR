@@ -180,6 +180,8 @@ EPUB_TEXT_LANE = SourceLaneSpec(
     operator_label="local EPUB files",
     runtime_slice_id="slice9_epub_source_lane",
     runtime_slice_label="bounded EPUB source lane",
+    gnat_worker_type="epub_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 ALL_SOURCE_LANES = (

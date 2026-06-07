@@ -46,7 +46,8 @@
         "pdf_text_syntax",
         "docx_text_syntax",
         "rtf_text_syntax",
-        "odt_text_syntax"
+        "odt_text_syntax",
+        "epub_text_syntax"
       ]
     },
     "source_ref": {
@@ -68,7 +69,8 @@
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "application/rtf",
         "text/rtf",
-        "application/vnd.oasis.opendocument.text"
+        "application/vnd.oasis.opendocument.text",
+        "application/epub+zip"
       ]
     },
     "source_fingerprint": {

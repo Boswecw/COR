@@ -9,7 +9,8 @@ The later source-lane expansion now admits bounded text-layer PDF GNAT extractio
 when host PDF tooling is present and bounded local DOCX GNAT extraction through
 the existing Cortex DOCX lane. It also admits bounded paragraph-only RTF GNAT extraction
 through the existing Cortex RTF lane and bounded OpenDocument text GNAT extraction
-through the existing Cortex ODT lane. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
+through the existing Cortex ODT lane. It also admits bounded EPUB package-text
+GNAT extraction through the existing Cortex EPUB lane. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
 and shared-core extraction remain deferred.
 
 ## Governance
@@ -101,7 +102,7 @@ and shared-core extraction remain deferred.
 - [x] DOCX benchmark/admission.
 - [x] RTF benchmark/admission.
 - [x] ODT benchmark/admission.
-- [ ] EPUB benchmark/admission.
+- [x] EPUB benchmark/admission.
 - [ ] Scrivener remains separately governed.
 
 ## Shared-core extraction

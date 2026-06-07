@@ -65,6 +65,7 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
             "docx_text_syntax",
             "rtf_text_syntax",
             "odt_text_syntax",
+            "epub_text_syntax",
         ]
         if pdf_lane_runtime_available():
             expected_gnat_workers.append("pdf_text_syntax")

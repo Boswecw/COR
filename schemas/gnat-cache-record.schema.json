@@ -45,7 +45,8 @@
         "pdf_text_syntax",
         "docx_text_syntax",
         "rtf_text_syntax",
-        "odt_text_syntax"
+        "odt_text_syntax",
+        "epub_text_syntax"
       ]
     },
     "worker_implementation_version": {
@@ -66,7 +67,8 @@
         "local_file_pdf_text.v1",
         "local_file_docx_text.v1",
         "local_file_rtf_text.v1",
-        "local_file_odt_text.v1"
+        "local_file_odt_text.v1",
+        "local_file_epub_text.v1"
       ]
     },
     "run_id": {

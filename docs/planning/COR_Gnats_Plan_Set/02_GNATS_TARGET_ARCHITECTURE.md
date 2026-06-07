@@ -92,9 +92,10 @@ application/pdf + syntax_extract -> PdfTextGnat
 application/vnd.openxmlformats-officedocument.wordprocessingml.document + syntax_extract -> DocxTextGnat
 application/rtf + syntax_extract -> RtfTextGnat
 application/vnd.oasis.opendocument.text + syntax_extract -> OdtTextGnat
+application/epub+zip + syntax_extract -> EpubTextGnat
 ```
 
-Later entries can reuse the existing EPUB lane adapter after the concurrency model is proven.
+Scrivener remains a separately governed source-authority lane, not a routine GNAT lane adapter.
 
 ### 3. Receipt validator
 

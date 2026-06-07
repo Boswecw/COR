@@ -23,6 +23,7 @@ class GnatWorkerUnavailable(LookupError):
 
 def _registry() -> dict[str, GnatWorkerAdapter]:
     from cortex_runtime.gnats.workers.docx_text import run_docx_text_worker
+    from cortex_runtime.gnats.workers.epub_text import run_epub_text_worker
     from cortex_runtime.gnats.workers.markdown_text import run_markdown_text_worker
     from cortex_runtime.gnats.workers.odt_text import run_odt_text_worker
     from cortex_runtime.gnats.workers.pdf_text import run_pdf_text_worker
@@ -65,6 +66,12 @@ def _registry() -> dict[str, GnatWorkerAdapter]:
             media_type="application/vnd.oasis.opendocument.text",
             lane_id="local_file_odt_text",
             run=run_odt_text_worker,
+        ),
+        "epub_text_syntax": GnatWorkerAdapter(
+            worker_type="epub_text_syntax",
+            media_type="application/epub+zip",
+            lane_id="local_file_epub_text",
+            run=run_epub_text_worker,
         ),
     }
 
