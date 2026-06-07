@@ -110,7 +110,17 @@ Validates every worker result against schema and verifies:
 - extraction payload reference or inline bounded payload;
 - error reason code when unsuccessful.
 
-### 4. Reconciler
+### 4. Retrieval preparation
+
+After extraction receipts are validated and reconciled, Cortex can derive one
+governed retrieval package from completed extraction outputs. The merge order is
+plan shard order followed by each source's bounded syntax chunk order.
+
+Retrieval preparation does not rank, embed, summarize, or interpret content.
+If one or more shards fail while at least one shard remains chunkable, the output
+is `partial_success`; if no shard is chunkable, the output is `denied`.
+
+### 5. Reconciler
 
 Combines valid receipts only. It never invents missing output.
 
@@ -126,7 +136,7 @@ failed
 stale
 ```
 
-### 5. Status reporter extension
+### 6. Status reporter extension
 
 Adds Gnat capability truth without claiming active execution when FA-Local is unavailable.
 

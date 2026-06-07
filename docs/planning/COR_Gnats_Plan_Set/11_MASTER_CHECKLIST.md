@@ -10,7 +10,9 @@ when host PDF tooling is present and bounded local DOCX GNAT extraction through
 the existing Cortex DOCX lane. It also admits bounded paragraph-only RTF GNAT extraction
 through the existing Cortex RTF lane and bounded OpenDocument text GNAT extraction
 through the existing Cortex ODT lane. It also admits bounded EPUB package-text
-GNAT extraction through the existing Cortex EPUB lane. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
+GNAT extraction through the existing Cortex EPUB lane. It now prepares a single
+governed retrieval package from validated GNAT extraction receipts without semantic ranking.
+Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
 and shared-core extraction remain deferred.
 
 ## Governance
@@ -104,6 +106,15 @@ and shared-core extraction remain deferred.
 - [x] ODT benchmark/admission.
 - [x] EPUB benchmark/admission.
 - [ ] Scrivener remains separately governed.
+
+## Retrieval-package preparation
+
+- [x] Consume validated extraction receipts.
+- [x] Preserve deterministic shard/chunk ordering.
+- [x] Emit one governed retrieval package.
+- [x] Surface partial-success when only some shards are chunkable.
+- [x] Deny when no completed shard is chunkable.
+- [x] Avoid semantic ranking or scoring.
 
 ## Shared-core extraction
 
