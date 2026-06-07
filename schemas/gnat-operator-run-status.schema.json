@@ -1,0 +1,263 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-operator-run-status.schema.json",
+  "title": "Cortex Gnat Operator Run Status",
+  "description": "Operator-facing bounded status and controls for one Cortex Gnat run.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "run_state",
+    "state_label",
+    "execution_mode",
+    "mode_label",
+    "expected_shards",
+    "counts",
+    "concurrency_used",
+    "serial_fallback_used",
+    "cache_reuse",
+    "persistence_state",
+    "bounded_failure_reasons",
+    "elapsed_ms",
+    "allowed_controls",
+    "keyboard_controls",
+    "operator_visible_summary",
+    "details_redacted"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatOperatorRunStatus.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "run_state": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "submitted",
+        "running",
+        "ready",
+        "partial_success",
+        "degraded",
+        "cancelled",
+        "denied",
+        "failed",
+        "stale"
+      ]
+    },
+    "state_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "execution_mode": {
+      "type": "string",
+      "enum": [
+        "parallel",
+        "serial_fallback",
+        "cache_reuse",
+        "mixed_cache_parallel"
+      ]
+    },
+    "mode_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "expected_shards": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "completed",
+        "failed",
+        "stale",
+        "cancelled",
+        "missing"
+      ],
+      "properties": {
+        "completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "stale": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cancelled": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "concurrency_used": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "serial_fallback_used": {
+      "type": "boolean"
+    },
+    "cache_reuse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "used",
+        "hits",
+        "misses"
+      ],
+      "properties": {
+        "used": {
+          "type": "boolean"
+        },
+        "hits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "misses": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "persistence_state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "degraded",
+        "unavailable"
+      ]
+    },
+    "bounded_failure_reasons": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "source_ineligible",
+          "source_changed",
+          "unsupported_lane",
+          "schema_invalid",
+          "worker_unavailable",
+          "deadline_exceeded",
+          "resource_limit",
+          "cancelled_by_operator",
+          "fa_local_unavailable",
+          "output_contract_violation",
+          "internal_error_redacted"
+        ]
+      }
+    },
+    "elapsed_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "allowed_controls": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "cancel_run",
+          "rerun_failed_shards",
+          "clear_changed_source_cache"
+        ]
+      }
+    },
+    "keyboard_controls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control_id",
+          "label",
+          "aria_label",
+          "shortcut",
+          "enabled"
+        ],
+        "properties": {
+          "control_id": {
+            "type": "string",
+            "enum": [
+              "cancel_run",
+              "rerun_failed_shards",
+              "clear_changed_source_cache"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "aria_label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 140
+          },
+          "shortcut": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "operator_visible_summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "raw_content_preview"
+            ]
+          },
+          {
+            "required": [
+              "full_text_preview"
+            ]
+          },
+          {
+            "required": [
+              "workflow_id"
+            ]
+          },
+          {
+            "required": [
+              "content_browser"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

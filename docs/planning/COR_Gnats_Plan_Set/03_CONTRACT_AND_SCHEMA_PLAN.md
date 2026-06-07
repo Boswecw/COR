@@ -123,6 +123,23 @@ operation_contract_version
 lane_contract_version
 ```
 
+### 8. `gnat-operator-run-status.schema.json`
+
+Added for the COR-side Operator-Local status/control contract.
+
+Required concepts:
+
+- distinguishable run state and display label;
+- execution mode;
+- shard counts;
+- concurrency used;
+- serial fallback indicator;
+- cache reuse indicator;
+- persistence state;
+- bounded failure reasons;
+- accessible controls and keyboard labels;
+- no raw-content or source-browser surface.
+
 ## Enums
 
 ### `GnatOperation`

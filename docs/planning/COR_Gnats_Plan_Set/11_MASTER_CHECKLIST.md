@@ -4,8 +4,8 @@
 
 This Cortex local-system implementation completed the contract scaffold, serial proving slice,
 FA-Local dispatch negotiation, FA-Local-gated bounded parallel proving slice,
-and DF-Local GNAT persistence/cache contracts.
-Integrated FA-Local lifecycle/routing, Operator-Local controls, later source-lane expansion,
+DF-Local GNAT persistence/cache contracts, and COR-side Operator-Local status/control contracts.
+Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring, later source-lane expansion,
 and shared-core extraction remain deferred.
 
 ## Governance
@@ -26,6 +26,7 @@ and shared-core extraction remain deferred.
 - [x] `GnatRunSummary.v1`
 - [x] `GnatDispatchEnvelope.v1`
 - [x] `GnatCacheRecord.v1`
+- [x] `GnatOperatorRunStatus.v1`
 - [x] Valid fixtures.
 - [x] Invalid fixtures.
 - [x] Cross-schema validation.
@@ -79,16 +80,16 @@ and shared-core extraction remain deferred.
 
 ## Operator-Local
 
-- [ ] Run progress.
-- [ ] Concurrency display.
-- [ ] Cancel control.
-- [ ] Serial fallback indicator.
-- [ ] Cache reuse indicator.
-- [ ] Partial-success display.
-- [ ] Stale-source display.
-- [ ] Bounded reason codes.
-- [ ] No raw-content surveillance.
-- [ ] Accessibility review.
+- [x] Run progress.
+- [x] Concurrency display.
+- [x] Cancel control.
+- [x] Serial fallback indicator.
+- [x] Cache reuse indicator.
+- [x] Partial-success display.
+- [x] Stale-source display.
+- [x] Bounded reason codes.
+- [x] No raw-content surveillance.
+- [x] Accessibility review.
 
 ## Later lane expansion
 

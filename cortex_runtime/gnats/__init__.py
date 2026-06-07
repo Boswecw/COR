@@ -11,6 +11,7 @@ from cortex_runtime.gnats.models import (
 )
 from cortex_runtime.gnats.fa_local_client import GnatDispatchError, build_dispatch_envelope, negotiate_dispatch
 from cortex_runtime.gnats.models import FaLocalCapabilityState, GnatDispatchNegotiation
+from cortex_runtime.gnats.operator_status import build_operator_run_status
 from cortex_runtime.gnats.parallel_runner import run_parallel_gnat_plan
 from cortex_runtime.gnats.persistence import (
     GnatCacheIdentity,
@@ -45,6 +46,7 @@ __all__ = [
     "InMemoryGnatPersistenceStore",
     "build_cache_record",
     "build_dispatch_envelope",
+    "build_operator_run_status",
     "cache_identity_for_shard",
     "cache_key_for_identity",
     "exact_cache_record_matches",
