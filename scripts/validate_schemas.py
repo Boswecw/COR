@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Any
@@ -80,19 +81,26 @@ def load_json(path: Path) -> Any:
         return json.load(f)
 
 
-def validate_file(instance_path: Path, schema_path: Path) -> list[str]:
+def collect_errors(instance_path: Path, schema_path: Path) -> list[tuple[str, str]]:
     schema = load_json(schema_path)
     instance = load_json(instance_path)
 
     validator = Draft202012Validator(schema)
     errors = sorted(validator.iter_errors(instance), key=lambda e: list(e.path))
 
-    messages: list[str] = []
+    located: list[tuple[str, str]] = []
     for error in errors:
         loc = ".".join(str(part) for part in error.path) or "<root>"
-        messages.append(f"{instance_path}: {loc}: {error.message}")
+        located.append((loc, error.message))
 
-    return messages
+    return located
+
+
+def validate_file(instance_path: Path, schema_path: Path) -> list[str]:
+    return [
+        f"{instance_path}: {loc}: {message}"
+        for loc, message in collect_errors(instance_path, schema_path)
+    ]
 
 
 def expect_valid(instance_path: Path, schema_path: Path) -> list[str]:
@@ -274,7 +282,52 @@ def verify_embedded_diagnostics_schema_contract() -> list[str]:
     return failures
 
 
-def main() -> int:
+def _schema_key_of(schema_path: Path) -> str:
+    return schema_path.name.removesuffix(".schema.json")
+
+
+def print_verbose_report(
+    valid_cases: list[tuple[Path, Path]],
+    invalid_cases: list[tuple[Path, Path]],
+) -> None:
+    print("VALIDATION DETAIL")
+
+    print(f"\nValid fixtures ({len(valid_cases)}) — each must satisfy its schema:")
+    for instance_path, schema_path in valid_cases:
+        errors = collect_errors(instance_path, schema_path)
+        schema_key = _schema_key_of(schema_path)
+        if errors:
+            loc, message = errors[0]
+            print(f"  [FAIL] {instance_path.name} -> {schema_key}: unexpectedly invalid")
+            print(f"         at [{loc}]: {message}")
+        else:
+            print(f"  [ok]   {instance_path.name} -> {schema_key}")
+
+    print(f"\nInvalid fixtures ({len(invalid_cases)}) — each must be rejected by its schema:")
+    for instance_path, schema_path in invalid_cases:
+        errors = collect_errors(instance_path, schema_path)
+        schema_key = _schema_key_of(schema_path)
+        if not errors:
+            print(f"  [FAIL] {instance_path.name} -> {schema_key}: unexpectedly valid")
+        else:
+            loc, message = errors[0]
+            print(f"  [rej]  {instance_path.name} -> {schema_key}")
+            print(f"         at [{loc}]: {message}")
+    print()
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(
+        description="Validate Cortex contract schemas against valid and invalid fixtures.",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Print the per-fixture schema match and the exact rejection reason for each invalid fixture.",
+    )
+    args = parser.parse_args(argv)
+
     failures: list[str] = []
     schema_map = discover_schemas()
 
@@ -293,6 +346,9 @@ def main() -> int:
 
     for instance_path, schema_path in invalid_cases:
         failures.extend(expect_invalid(instance_path, schema_path))
+
+    if args.verbose:
+        print_verbose_report(valid_cases, invalid_cases)
 
     if failures:
         print("VALIDATION FAILED")
