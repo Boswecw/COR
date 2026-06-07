@@ -19,6 +19,8 @@ class SourceLaneSpec:
     runtime_slice_id: str | None = None
     runtime_slice_label: str | None = None
     dependency_summary: str | None = None
+    gnat_worker_type: str | None = None
+    gnat_parallel_admitted: bool = False
 
 
 @dataclass(frozen=True)
@@ -107,6 +109,8 @@ MARKDOWN_LANE = SourceLaneSpec(
     suffix=".md",
     media_types=("text/markdown",),
     operator_label="local Markdown files",
+    gnat_worker_type="markdown_syntax",
+    gnat_parallel_admitted=True,
 )
 
 PLAIN_TEXT_LANE = SourceLaneSpec(
@@ -115,6 +119,8 @@ PLAIN_TEXT_LANE = SourceLaneSpec(
     suffix=".txt",
     media_types=("text/plain",),
     operator_label="local plain-text files",
+    gnat_worker_type="plain_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 PDF_TEXT_LANE = SourceLaneSpec(
@@ -255,6 +261,18 @@ def admitted_lane_specs() -> list[SourceLaneSpec]:
 
 def admitted_source_lanes() -> list[str]:
     return [lane.lane_id for lane in admitted_lane_specs()]
+
+
+def gnat_admitted_lane_specs() -> list[SourceLaneSpec]:
+    return [
+        lane
+        for lane in admitted_lane_specs()
+        if lane.gnat_parallel_admitted and lane.gnat_worker_type is not None
+    ]
+
+
+def gnat_admitted_worker_types() -> list[str]:
+    return sorted(lane.gnat_worker_type for lane in gnat_admitted_lane_specs() if lane.gnat_worker_type is not None)
 
 
 def implemented_source_lane_slices() -> list[str]:

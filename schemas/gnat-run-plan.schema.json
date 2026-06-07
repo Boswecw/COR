@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-run-plan.schema.json",
+  "title": "Cortex Gnat Run Plan",
+  "description": "Immutable Cortex-created plan for bounded Gnat syntax extraction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "request_id",
+    "correlation_id",
+    "planner_version",
+    "operation",
+    "shard_count",
+    "shards",
+    "execution_limits",
+    "expected_receipt_schema",
+    "plan_hash",
+    "serial_fallback_allowed",
+    "created_at"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatRunPlan.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "planner_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "operation": {
+      "type": "string",
+      "const": "syntax_extract"
+    },
+    "shard_count": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 256
+    },
+    "shards": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 256,
+      "items": {
+        "$ref": "#/$defs/plan_shard"
+      }
+    },
+    "execution_limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requested_concurrency",
+        "max_concurrency",
+        "deadline_ms"
+      ],
+      "properties": {
+        "requested_concurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "max_concurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "deadline_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400000
+        }
+      }
+    },
+    "expected_receipt_schema": {
+      "type": "string",
+      "const": "gnat-worker-receipt.schema.json"
+    },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "serial_fallback_allowed": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "$defs": {
+    "source_fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "digest",
+        "byte_count",
+        "modified_at"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "sha256"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "plan_shard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "run_id",
+        "shard_id",
+        "ordinal",
+        "worker_type",
+        "source_ref",
+        "source_path_token",
+        "media_type",
+        "source_fingerprint",
+        "operation",
+        "limits",
+        "output_contract"
+      ],
+      "properties": {
+        "contract_version": {
+          "type": "string",
+          "const": "GnatShard.v1"
+        },
+        "run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "shard_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "ordinal": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "worker_type": {
+          "type": "string",
+          "enum": [
+            "markdown_syntax",
+            "plain_text_syntax"
+          ]
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "source_path_token": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "media_type": {
+          "type": "string",
+          "enum": [
+            "text/markdown",
+            "text/plain"
+          ]
+        },
+        "source_fingerprint": {
+          "$ref": "#/$defs/source_fingerprint"
+        },
+        "operation": {
+          "type": "string",
+          "const": "syntax_extract"
+        },
+        "limits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "deadline_ms",
+            "max_bytes"
+          ],
+          "properties": {
+            "deadline_ms": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 86400000
+            },
+            "max_bytes": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "output_contract": {
+          "type": "string",
+          "const": "extraction-result.schema.json"
+        }
+      }
+    }
+  }
+}

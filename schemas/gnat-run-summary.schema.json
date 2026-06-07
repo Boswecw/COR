@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-run-summary.schema.json",
+  "title": "Cortex Gnat Run Summary",
+  "description": "Authoritative Cortex summary of validated Gnat worker receipts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "run_state",
+    "expected_shards",
+    "completed_count",
+    "failed_count",
+    "stale_count",
+    "cancelled_count",
+    "missing_count",
+    "accepted_receipt_hashes",
+    "rejected_receipts",
+    "aggregate_timing",
+    "concurrency_used",
+    "fallback_used",
+    "output_artifact_refs",
+    "operator_visible_summary",
+    "details_redacted"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatRunSummary.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "run_state": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "submitted",
+        "running",
+        "ready",
+        "partial_success",
+        "degraded",
+        "cancelled",
+        "denied",
+        "failed",
+        "stale"
+      ]
+    },
+    "expected_shards": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "completed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failed_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "stale_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "cancelled_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "missing_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "accepted_receipt_hashes": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^sha256:[a-f0-9]{64}$"
+      }
+    },
+    "rejected_receipts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "receipt_hash",
+          "reason_code"
+        ],
+        "properties": {
+          "receipt_hash": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          },
+          "reason_code": {
+            "type": "string",
+            "enum": [
+              "duplicate_shard",
+              "missing_shard",
+              "run_id_mismatch",
+              "shard_id_mismatch",
+              "schema_invalid",
+              "source_fingerprint_mismatch"
+            ]
+          }
+        }
+      }
+    },
+    "aggregate_timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "completed_at",
+        "duration_ms"
+      ],
+      "properties": {
+        "started_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "concurrency_used": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8
+    },
+    "fallback_used": {
+      "type": "boolean"
+    },
+    "output_artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "operator_visible_summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 300
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "raw_content_preview"
+            ]
+          },
+          {
+            "required": [
+              "full_text_preview"
+            ]
+          },
+          {
+            "required": [
+              "workflow_id"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

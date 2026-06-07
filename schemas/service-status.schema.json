@@ -140,6 +140,68 @@
         }
       }
     },
+    "gnat_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile",
+        "admitted_worker_types",
+        "max_concurrency",
+        "hard_cap",
+        "fa_local_required_for_parallel",
+        "fa_local_state",
+        "parallel_execution_ready",
+        "serial_fallback_available"
+      ],
+      "properties": {
+        "profile": {
+          "type": "string",
+          "enum": [
+            "serial_contract_proof",
+            "bounded_parallel_extraction"
+          ]
+        },
+        "admitted_worker_types": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "markdown_syntax",
+              "plain_text_syntax"
+            ]
+          }
+        },
+        "max_concurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "hard_cap": {
+          "type": "integer",
+          "const": 8
+        },
+        "fa_local_required_for_parallel": {
+          "type": "boolean",
+          "const": true
+        },
+        "fa_local_state": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "ready",
+            "degraded",
+            "unavailable"
+          ]
+        },
+        "parallel_execution_ready": {
+          "type": "boolean"
+        },
+        "serial_fallback_available": {
+          "type": "boolean"
+        }
+      }
+    },
     "runtime_surface_summary": {
       "type": "object",
       "additionalProperties": false,

@@ -17,6 +17,7 @@ from cortex_runtime.source_lanes import (
     configured_source_lane_slice_ids,
     implemented_source_lane_slices,
 )
+from cortex_runtime.gnats.status import gnat_status_summary
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -147,6 +148,7 @@ def _build_status(
             "active_watch_scope_count": 0,
             "contract_scoped_only": True,
         },
+        "gnat_summary": gnat_status_summary(),
         "operator_visible_message": operator_visible_message,
         "details_redacted": True,
         "last_updated_at": _utc_now(),

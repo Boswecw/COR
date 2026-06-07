@@ -1,0 +1,3 @@
+Plain fixture line one.
+
+Plain fixture line two.
