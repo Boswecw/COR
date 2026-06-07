@@ -5,7 +5,8 @@
 This Cortex local-system implementation completed the contract scaffold, serial proving slice,
 FA-Local dispatch negotiation, FA-Local-gated bounded parallel proving slice,
 DF-Local GNAT persistence/cache contracts, and COR-side Operator-Local status/control contracts.
-Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring, later source-lane expansion,
+The first later source-lane expansion now admits bounded text-layer PDF GNAT extraction
+when host PDF tooling is present. Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
 and shared-core extraction remain deferred.
 
 ## Governance
@@ -93,7 +94,7 @@ and shared-core extraction remain deferred.
 
 ## Later lane expansion
 
-- [ ] PDF benchmark/admission.
+- [x] PDF benchmark/admission.
 - [ ] DOCX benchmark/admission.
 - [ ] RTF benchmark/admission.
 - [ ] ODT benchmark/admission.

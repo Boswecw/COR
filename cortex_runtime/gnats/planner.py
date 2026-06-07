@@ -19,6 +19,7 @@ from cortex_runtime.gnats.models import (
 )
 from cortex_runtime.gnats.schema_validation import require_schema_valid
 from cortex_runtime.source_lanes import MARKDOWN_LANE, PLAIN_TEXT_LANE, lane_eligibility_for_path
+from cortex_runtime.source_lanes import PDF_TEXT_LANE
 
 
 class GnatPlanningError(ValueError):
@@ -88,8 +89,10 @@ def _worker_type_for_path(path: Path, media_type: str | None) -> tuple[str, str]
         return "markdown_syntax", "text/markdown"
     if lane.lane_id == PLAIN_TEXT_LANE.lane_id:
         return "plain_text_syntax", "text/plain"
+    if lane.lane_id == PDF_TEXT_LANE.lane_id:
+        return "pdf_text_syntax", "application/pdf"
 
-    raise GnatPlanningError("GNAT-01 admits only Markdown and plain-text source lanes")
+    raise GnatPlanningError("GNAT-01 admits only Markdown, plain-text, and PDF text-layer source lanes")
 
 
 def _clamp_concurrency(requested_concurrency: int, max_concurrency: int) -> tuple[int, int]:

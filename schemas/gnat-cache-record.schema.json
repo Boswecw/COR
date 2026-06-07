@@ -41,7 +41,8 @@
       "type": "string",
       "enum": [
         "markdown_syntax",
-        "plain_text_syntax"
+        "plain_text_syntax",
+        "pdf_text_syntax"
       ]
     },
     "worker_implementation_version": {
@@ -58,7 +59,8 @@
       "type": "string",
       "enum": [
         "local_file_markdown.v1",
-        "local_file_plain_text.v1"
+        "local_file_plain_text.v1",
+        "local_file_pdf_text.v1"
       ]
     },
     "run_id": {

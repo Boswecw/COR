@@ -42,7 +42,8 @@
       "type": "string",
       "enum": [
         "markdown_syntax",
-        "plain_text_syntax"
+        "plain_text_syntax",
+        "pdf_text_syntax"
       ]
     },
     "source_ref": {
@@ -59,7 +60,8 @@
       "type": "string",
       "enum": [
         "text/markdown",
-        "text/plain"
+        "text/plain",
+        "application/pdf"
       ]
     },
     "source_fingerprint": {

@@ -51,7 +51,8 @@
       "type": "string",
       "enum": [
         "markdown_syntax",
-        "plain_text_syntax"
+        "plain_text_syntax",
+        "pdf_text_syntax"
       ]
     },
     "implementation_version": {

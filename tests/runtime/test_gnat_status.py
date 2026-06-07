@@ -5,6 +5,7 @@ import unittest
 from cortex_runtime.gnats import FaLocalCapabilityState
 from cortex_runtime.gnats.status import gnat_status_summary
 from cortex_runtime.service_status import emit_service_status
+from cortex_runtime.source_lanes import pdf_lane_runtime_available
 from tests.runtime.runtime_test_support import assert_schema_valid
 
 
@@ -13,7 +14,10 @@ class GnatStatusRuntimeTests(unittest.TestCase):
         summary = gnat_status_summary()
 
         self.assertEqual(summary["profile"], "serial_contract_proof")
-        self.assertEqual(summary["admitted_worker_types"], ["markdown_syntax", "plain_text_syntax"])
+        self.assertIn("markdown_syntax", summary["admitted_worker_types"])
+        self.assertIn("plain_text_syntax", summary["admitted_worker_types"])
+        if pdf_lane_runtime_available():
+            self.assertIn("pdf_text_syntax", summary["admitted_worker_types"])
         self.assertEqual(summary["max_concurrency"], 4)
         self.assertEqual(summary["hard_cap"], 8)
         self.assertTrue(summary["fa_local_required_for_parallel"])

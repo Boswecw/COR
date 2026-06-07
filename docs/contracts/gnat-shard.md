@@ -9,5 +9,8 @@ GNAT-01 shard worker types are:
 
 - `markdown_syntax`
 - `plain_text_syntax`
+- `pdf_text_syntax`
 
-Other source lanes remain outside the Gnat proving slice until separately admitted.
+PDF shards are admitted only for bounded text-layer PDF extraction through
+`application/pdf`. Other source lanes remain outside the Gnat proving slice
+until separately admitted.

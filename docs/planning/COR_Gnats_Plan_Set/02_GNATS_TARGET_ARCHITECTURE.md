@@ -88,9 +88,10 @@ Initial entries:
 ```text
 text/markdown + syntax_extract -> MarkdownTextGnat
 text/plain    + syntax_extract -> PlainTextGnat
+application/pdf + syntax_extract -> PdfTextGnat
 ```
 
-Later entries can reuse existing PDF, DOCX, RTF, ODT, and EPUB lane adapters after the concurrency model is proven.
+Later entries can reuse existing DOCX, RTF, ODT, and EPUB lane adapters after the concurrency model is proven.
 
 ### 3. Receipt validator
 
@@ -131,7 +132,7 @@ Suggested fields:
 {
   "gnat_summary": {
     "profile": "bounded_parallel_extraction",
-    "admitted_worker_types": ["markdown_syntax", "plain_text_syntax"],
+    "admitted_worker_types": ["markdown_syntax", "plain_text_syntax", "pdf_text_syntax"],
     "max_concurrency": 4,
     "fa_local_required": true,
     "fa_local_state": "unknown|ready|degraded|unavailable"

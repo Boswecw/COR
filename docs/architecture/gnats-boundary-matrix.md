@@ -7,30 +7,31 @@ They are not agents, semantic judges, workflow owners, or mutation surfaces.
 |---|---|---|---|---|---|---|
 | Source eligibility | Owns | No | No | No | Displays | Requests |
 | Source-lane admission | Owns | Reads | No | No | Displays | Requests |
-| Batch plan construction | Owns | Receives | No | May persist later | Displays summary | Requests |
+| Batch plan construction | Owns | Receives | No | May persist | Displays summary | Requests |
 | Execution routing | No | Owns | No | No | Displays | No |
 | Worker lifecycle | No in integrated mode | Owns | No | No | Displays | No |
 | Serial fallback | Owns only when contract permits | May be unavailable | No | No | Displays | Requests |
-| Syntax extraction | Owns deterministic implementation | Routes | No | May cache later | Displays bounded state | Consumes result |
+| Syntax extraction | Owns deterministic implementation | Routes | No | May cache | Displays bounded state | Consumes result |
 | Semantic interpretation | No | No | Owns candidate generation later | No | Displays candidate labels later | Owns app truth |
-| Receipt validation | Owns | No | No | May persist later | Displays state | Consumes summary |
-| Durable record/cache | No | No | No | Owns later | Displays state | Reads through app |
+| Receipt validation | Owns | No | No | May persist | Displays state | Consumes summary |
+| Durable record/cache | Defines exact cache identity | No | No | Owns local storage | Displays state | Reads through app |
 | Operator controls | Reports state | Cancels/reroutes when integrated | No | No | Owns presentation | May request |
 | Canonical meaning | No | No | No | No | No | Owns |
 
-## GNAT-01 admitted lane
+## Admitted GNAT lanes
 
-GNAT-01 admits only Markdown and plain-text syntax extraction:
+GNAT admits bounded local syntax extraction for these lanes:
 
 - `text/markdown` with `markdown_syntax`;
-- `text/plain` with `plain_text_syntax`.
+- `text/plain` with `plain_text_syntax`;
+- `application/pdf` with `pdf_text_syntax` when host `pdfinfo` and `pdftotext` are available.
 
 All other existing source lanes remain on their current serial extraction path until separately admitted.
 
 ## Guardrails
 
 - No NeuronForge calls in GNAT-01.
-- No DF-Local cache or persistence claims in GNAT-01.
+- No DF-Local execution routing; DF-Local remains the durable storage/cache owner.
 - No watcher activation.
 - No source mutation.
 - No raw-content diagnostics surface.

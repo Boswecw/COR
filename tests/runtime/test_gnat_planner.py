@@ -4,6 +4,7 @@ import unittest
 
 from cortex_runtime.gnats import GnatPlanningError, GnatSourceInput, plan_gnat_run
 from cortex_runtime.gnats.registry import admitted_worker_types
+from cortex_runtime.source_lanes import pdf_lane_runtime_available
 from tests.runtime.runtime_test_support import ROOT, assert_schema_valid
 
 
@@ -11,6 +12,7 @@ GNAT_FIXTURE_DIR = ROOT / "tests/runtime/fixtures/gnats/text-batch-small"
 MARKDOWN_FIXTURE = GNAT_FIXTURE_DIR / "chapter-01.md"
 TEXT_FIXTURE = GNAT_FIXTURE_DIR / "note-plain.txt"
 PDF_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.pdf"
+UNSUPPORTED_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 
 
 class GnatPlannerRuntimeTests(unittest.TestCase):
@@ -45,11 +47,22 @@ class GnatPlannerRuntimeTests(unittest.TestCase):
         self.assertEqual(left.run_id, right.run_id)
 
     def test_registry_admits_only_initial_text_worker_types(self) -> None:
-        self.assertEqual(admitted_worker_types(), ["markdown_syntax", "plain_text_syntax"])
+        self.assertIn("markdown_syntax", admitted_worker_types())
+        self.assertIn("plain_text_syntax", admitted_worker_types())
 
     def test_unsupported_lane_is_denied_during_planning(self) -> None:
         with self.assertRaises(GnatPlanningError):
-            plan_gnat_run([GnatSourceInput(PDF_FIXTURE, media_type="application/pdf")], request_id="gnat-plan-pdf")
+            plan_gnat_run([GnatSourceInput(UNSUPPORTED_FIXTURE, media_type="application/octet-stream")], request_id="gnat-plan-bin")
+
+    @unittest.skipUnless(pdf_lane_runtime_available(), "bounded local PDF tooling is not available")
+    def test_pdf_lane_is_plannable_when_runtime_admitted(self) -> None:
+        plan = plan_gnat_run(
+            [GnatSourceInput(PDF_FIXTURE, media_type="application/pdf", source_ref="pdf-note")],
+            request_id="gnat-plan-pdf",
+        )
+
+        self.assertEqual(plan.shards[0].worker_type, "pdf_text_syntax")
+        self.assertEqual(plan.shards[0].media_type, "application/pdf")
 
     def test_concurrency_is_hard_capped(self) -> None:
         plan = plan_gnat_run(

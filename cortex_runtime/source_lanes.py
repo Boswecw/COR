@@ -132,6 +132,8 @@ PDF_TEXT_LANE = SourceLaneSpec(
     runtime_slice_id="slice5_pdf_source_lane",
     runtime_slice_label="bounded PDF source lane",
     dependency_summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
+    gnat_worker_type="pdf_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 RTF_TEXT_LANE = SourceLaneSpec(

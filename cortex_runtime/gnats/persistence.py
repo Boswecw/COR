@@ -22,6 +22,7 @@ GNAT_DEFAULT_RETENTION_DAYS = 30
 GNAT_LANE_CONTRACT_VERSION_BY_WORKER = {
     "markdown_syntax": "local_file_markdown.v1",
     "plain_text_syntax": "local_file_plain_text.v1",
+    "pdf_text_syntax": "local_file_pdf_text.v1",
 }
 
 

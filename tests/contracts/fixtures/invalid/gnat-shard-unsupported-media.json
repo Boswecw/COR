@@ -6,7 +6,7 @@
   "worker_type": "markdown_syntax",
   "source_ref": "sample-note-md",
   "source_path_token": "src-token-001",
-  "media_type": "application/pdf",
+  "media_type": "application/octet-stream",
   "source_fingerprint": {
     "algorithm": "sha256",
     "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
