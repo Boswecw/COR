@@ -91,9 +91,10 @@ text/plain    + syntax_extract -> PlainTextGnat
 application/pdf + syntax_extract -> PdfTextGnat
 application/vnd.openxmlformats-officedocument.wordprocessingml.document + syntax_extract -> DocxTextGnat
 application/rtf + syntax_extract -> RtfTextGnat
+application/vnd.oasis.opendocument.text + syntax_extract -> OdtTextGnat
 ```
 
-Later entries can reuse existing ODT and EPUB lane adapters after the concurrency model is proven.
+Later entries can reuse the existing EPUB lane adapter after the concurrency model is proven.
 
 ### 3. Receipt validator
 

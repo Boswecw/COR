@@ -25,6 +25,7 @@ GNAT_LANE_CONTRACT_VERSION_BY_WORKER = {
     "pdf_text_syntax": "local_file_pdf_text.v1",
     "docx_text_syntax": "local_file_docx_text.v1",
     "rtf_text_syntax": "local_file_rtf_text.v1",
+    "odt_text_syntax": "local_file_odt_text.v1",
 }
 
 

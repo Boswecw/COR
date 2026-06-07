@@ -1,6 +1,6 @@
 PYTHON ?= python3
 
-.PHONY: validate test-runtime test-gnats benchmark-gnats benchmark-gnat-pdf benchmark-gnat-docx benchmark-gnat-rtf test-repo-crawler test-worm
+.PHONY: validate test-runtime test-gnats benchmark-gnats benchmark-gnat-pdf benchmark-gnat-docx benchmark-gnat-rtf benchmark-gnat-odt test-repo-crawler test-worm
 
 validate:
 	$(PYTHON) scripts/validate_schemas.py
@@ -22,6 +22,9 @@ benchmark-gnat-docx:
 
 benchmark-gnat-rtf:
 	$(PYTHON) scripts/benchmark_gnat_rtf.py --output docs/benchmarks/gnat-rtf-lane-proof.md
+
+benchmark-gnat-odt:
+	$(PYTHON) scripts/benchmark_gnat_odt.py --output docs/benchmarks/gnat-odt-lane-proof.md
 
 test-repo-crawler:
 	cargo test --manifest-path repo-crawler/Cargo.toml

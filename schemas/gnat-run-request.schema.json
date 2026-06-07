@@ -70,7 +70,8 @@
               "application/pdf",
               "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
               "application/rtf",
-              "text/rtf"
+              "text/rtf",
+              "application/vnd.oasis.opendocument.text"
             ]
           }
         }

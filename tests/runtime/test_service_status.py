@@ -59,7 +59,13 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         self.assertEqual(result["runtime_surface_summary"]["admitted_source_lanes"], expected_lanes)
         self.assertEqual(result["watcher_summary"]["active_watch_scope_count"], 0)
         self.assertEqual(result["gnat_summary"]["profile"], "serial_contract_proof")
-        expected_gnat_workers = ["markdown_syntax", "plain_text_syntax", "docx_text_syntax", "rtf_text_syntax"]
+        expected_gnat_workers = [
+            "markdown_syntax",
+            "plain_text_syntax",
+            "docx_text_syntax",
+            "rtf_text_syntax",
+            "odt_text_syntax",
+        ]
         if pdf_lane_runtime_available():
             expected_gnat_workers.append("pdf_text_syntax")
         expected_gnat_workers = sorted(expected_gnat_workers)

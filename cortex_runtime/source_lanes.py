@@ -168,6 +168,8 @@ ODT_TEXT_LANE = SourceLaneSpec(
     operator_label="local ODT files",
     runtime_slice_id="slice8_odt_source_lane",
     runtime_slice_label="bounded ODT source lane",
+    gnat_worker_type="odt_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 EPUB_TEXT_LANE = SourceLaneSpec(

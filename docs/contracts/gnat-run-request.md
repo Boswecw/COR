@@ -6,7 +6,7 @@ Schema: `schemas/gnat-run-request.schema.json`
 GNAT-01 initially admitted `syntax_extract` over Markdown and plain-text source
 references. Phase 7 extends the admitted GNAT source lanes to bounded text-layer
 PDF when the host PDF tools are available, bounded local DOCX structure, and
-bounded paragraph-only local RTF.
+bounded paragraph-only local RTF, and bounded local OpenDocument text.
 
 The contract uses scoped source tokens and caller authority references.
 It does not admit raw path persistence, workflow IDs, executor fields, semantic operations, or raw-content previews.
