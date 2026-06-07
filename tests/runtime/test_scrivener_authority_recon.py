@@ -74,7 +74,7 @@ class ScrivenerAuthorityReconRuntimeTests(unittest.TestCase):
         )
         self.assertNotIn("refusal", result)
 
-    def test_faith_fixture_emits_ready_but_mapping_unresolved(self) -> None:
+    def test_faith_fixture_emits_ready_with_candidate_mapping(self) -> None:
         result = emit_scrivener_authority_recon_from_source_file(
             SCRIV_FAITH_FIXTURE,
             request_id="scriv-stage1-ready-002",
@@ -84,8 +84,12 @@ class ScrivenerAuthorityReconRuntimeTests(unittest.TestCase):
         assert_schema_valid(self, result, schema_name="scrivener-authority-recon-status.schema.json")
         self.assertEqual(result["state"], "ready")
         self.assertEqual(result["authority_status"]["state"], "single_authority_observed")
-        self.assertEqual(result["mapping_status"]["state"], "mapping_unresolved")
-        self.assertGreater(result["mapping_status"]["data_only_uuid_count"], 0)
+        # The sanitized faith fixture is fully mirrored: every data directory is
+        # referenced by the binder and no orphan data directories remain, so
+        # Stage 1 reports candidate mapping rather than unresolved mapping.
+        self.assertEqual(result["mapping_status"]["state"], "candidate_mapping_observed")
+        self.assertGreater(result["mapping_status"]["mirrored_uuid_count"], 0)
+        self.assertEqual(result["mapping_status"]["data_only_uuid_count"], 0)
         self.assertTrue(result["provenance"]["authority_path"].endswith(".scrivx"))
 
     def test_missing_top_level_authority_is_unavailable(self) -> None:

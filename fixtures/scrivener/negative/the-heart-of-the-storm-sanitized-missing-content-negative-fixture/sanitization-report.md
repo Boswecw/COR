@@ -17,6 +17,7 @@ It preserves readable authority while removing one expected text-body artifact.
 - scrubbed selected device / modification metadata
 - removed bundled PDF and autosave / backup binder artifacts
 - removed `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/content.rtf` only in the negative derivative represented by this packet
+- retained the `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/` directory with a `synopsis.txt` sidecar so the present-directory-with-missing-body condition survives version control
 
 ## Caveats
 

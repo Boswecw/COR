@@ -41,7 +41,7 @@ The current suite modules are:
 - `test_scrivener_authority_recon.py`
 
 The PDF lane carries a host-independent mocked-admission test class so the lane's unavailable-tooling and no-OCR behavior is provable on any host.
-Runtime PDF tests that exercise real extraction depend on local `pdfinfo`/`pdftotext` (poppler) tooling and are environment-sensitive when that tooling is absent.
+Runtime PDF tests that exercise real extraction depend on local `pdfinfo`/`pdftotext` (poppler) tooling and are skipped when that tooling is absent, and the service-status test adapts its expected posture to PDF-lane availability, so the suite stays green on hosts without poppler tooling.
 
 ## Runtime slice 1 delivered
 

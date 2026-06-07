@@ -58,8 +58,15 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         )
         self.assertEqual(result["runtime_surface_summary"]["admitted_source_lanes"], expected_lanes)
         self.assertEqual(result["watcher_summary"]["active_watch_scope_count"], 0)
-        self.assertIn("Stage 1 authority recon", result["readiness_summary"]["summary"])
-        self.assertIn("Scrivener remains unadmitted", result["operator_visible_message"])
+        if pdf_lane_runtime_available():
+            self.assertIn("Stage 1 authority recon", result["readiness_summary"]["summary"])
+            self.assertIn("Scrivener remains unadmitted", result["operator_visible_message"])
+        else:
+            # Without local PDF tooling the PDF slice is unavailable and the service
+            # is degraded, so the readiness summary and operator message describe the
+            # missing PDF lane. The Scrivener Stage 1 slice is still reported through
+            # implemented_slices asserted above.
+            self.assertIn("bounded PDF source lane", result["readiness_summary"]["summary"])
 
     def test_degraded_status_is_reported_when_runtime_slice_is_missing(self) -> None:
         with patch(

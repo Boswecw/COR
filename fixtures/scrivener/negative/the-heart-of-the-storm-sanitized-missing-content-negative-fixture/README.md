@@ -30,6 +30,7 @@
 - direct local comparison with `scriv-sanitized-fixture-v1` shows matching root binder structure and the same `BinderItem UUID="A5101A53-7D7B-425D-82F0-A2FDF9F156F5"` under the draft subtree
 - `corruption-note.md` records removal of `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/content.rtf` while leaving readable authority intact
 - direct archive inspection shows no `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/content.rtf` entry in this packet
+- the `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/` directory itself is retained with a `synopsis.txt` sidecar, so the degraded condition is a present data directory with a missing `content.rtf` body rather than an absent directory
 - the corresponding clean sibling packet retains `Files/Data/A5101A53-7D7B-425D-82F0-A2FDF9F156F5/content.rtf`
 - readable authority plus package shape therefore do not guarantee complete text-body availability
 
