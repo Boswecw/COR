@@ -105,7 +105,7 @@ and shared-core extraction remain deferred.
 - [x] RTF benchmark/admission.
 - [x] ODT benchmark/admission.
 - [x] EPUB benchmark/admission.
-- [ ] Scrivener remains separately governed.
+- [x] Scrivener remains separately governed.
 
 ## Retrieval-package preparation
 
