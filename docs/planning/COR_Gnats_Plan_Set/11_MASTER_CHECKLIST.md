@@ -21,7 +21,7 @@ FA-Local dispatch, bounded parallel routing, DF-Local persistence, Operator-Loca
 - [x] `GnatShard.v1`
 - [x] `GnatWorkerReceipt.v1`
 - [x] `GnatRunSummary.v1`
-- [ ] `GnatDispatchEnvelope.v1`
+- [x] `GnatDispatchEnvelope.v1`
 - [x] Valid fixtures.
 - [x] Invalid fixtures.
 - [x] Cross-schema validation.
@@ -40,15 +40,15 @@ FA-Local dispatch, bounded parallel routing, DF-Local persistence, Operator-Loca
 
 ## FA-Local integration
 
-- [ ] Capability negotiation.
-- [ ] Contract-version negotiation.
-- [ ] Worker-type admission.
-- [ ] Concurrency clamp.
-- [ ] Cancellation.
-- [ ] Deadlines.
-- [ ] Infrastructure-only retry rules.
-- [ ] Serial fallback policy.
-- [ ] FA-Local status truth.
+- [x] Capability negotiation.
+- [x] Contract-version negotiation.
+- [x] Worker-type admission.
+- [x] Concurrency clamp.
+- [x] Cancellation.
+- [x] Deadlines.
+- [x] Infrastructure-only retry rules.
+- [x] Serial fallback policy.
+- [x] FA-Local status truth.
 
 ## Parallel proof
 

@@ -12,6 +12,7 @@ GNAT_RUN_PLAN_VERSION = "GnatRunPlan.v1"
 GNAT_SHARD_VERSION = "GnatShard.v1"
 GNAT_WORKER_RECEIPT_VERSION = "GnatWorkerReceipt.v1"
 GNAT_RUN_SUMMARY_VERSION = "GnatRunSummary.v1"
+GNAT_DISPATCH_ENVELOPE_VERSION = "GnatDispatchEnvelope.v1"
 GNAT_OPERATION = "syntax_extract"
 GNAT_OUTPUT_CONTRACT = "extraction-result.schema.json"
 GNAT_RECEIPT_SCHEMA = "gnat-worker-receipt.schema.json"
@@ -118,3 +119,22 @@ class GnatSerialResult:
     plan: GnatRunPlan
     receipts: tuple[dict[str, Any], ...]
     summary: dict[str, Any]
+
+
+@dataclass(frozen=True)
+class FaLocalCapabilityState:
+    fa_local_state: str
+    supported_contract_versions: tuple[str, ...] = ()
+    admitted_worker_types: tuple[str, ...] = ()
+    max_concurrency: int = 0
+    cancellation_supported: bool = False
+
+
+@dataclass(frozen=True)
+class GnatDispatchNegotiation:
+    state: str
+    run_id: str
+    correlation_id: str
+    effective_concurrency: int
+    admitted_worker_types: tuple[str, ...]
+    operator_visible_summary: str
