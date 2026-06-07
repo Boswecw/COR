@@ -138,3 +138,11 @@ class GnatDispatchNegotiation:
     effective_concurrency: int
     admitted_worker_types: tuple[str, ...]
     operator_visible_summary: str
+
+
+@dataclass(frozen=True)
+class GnatParallelResult:
+    plan: GnatRunPlan
+    receipts: tuple[dict[str, Any], ...]
+    summary: dict[str, Any]
+    negotiation: GnatDispatchNegotiation

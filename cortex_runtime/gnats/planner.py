@@ -92,11 +92,13 @@ def _worker_type_for_path(path: Path, media_type: str | None) -> tuple[str, str]
     raise GnatPlanningError("GNAT-01 admits only Markdown and plain-text source lanes")
 
 
-def _clamp_concurrency(requested_concurrency: int) -> tuple[int, int]:
+def _clamp_concurrency(requested_concurrency: int, max_concurrency: int) -> tuple[int, int]:
     if requested_concurrency < 1:
         raise GnatPlanningError("requested_concurrency must be at least 1")
+    if max_concurrency < 1:
+        raise GnatPlanningError("max_concurrency must be at least 1")
     requested = min(requested_concurrency, GNAT_HARD_MAX_CONCURRENCY)
-    configured = min(GNAT_DEFAULT_MAX_CONCURRENCY, GNAT_HARD_MAX_CONCURRENCY)
+    configured = min(max_concurrency, GNAT_HARD_MAX_CONCURRENCY)
     return requested, configured
 
 
@@ -122,6 +124,7 @@ def plan_gnat_run(
     request_id: str,
     correlation_id: str | None = None,
     requested_concurrency: int = 1,
+    max_concurrency: int = GNAT_DEFAULT_MAX_CONCURRENCY,
     deadline_ms: int = GNAT_DEFAULT_DEADLINE_MS,
     max_bytes: int = GNAT_DEFAULT_MAX_BYTES,
     serial_fallback_allowed: bool = True,
@@ -139,7 +142,7 @@ def plan_gnat_run(
     if len(source_inputs) > 256:
         raise GnatPlanningError("GNAT-01 admits at most 256 shards per run")
 
-    requested, configured_max = _clamp_concurrency(requested_concurrency)
+    requested, configured_max = _clamp_concurrency(requested_concurrency, max_concurrency)
     prepared: list[tuple[GnatSourceInput, str, str, SourceFingerprint]] = []
     shard_basis: list[dict[str, object]] = []
     for source in source_inputs:

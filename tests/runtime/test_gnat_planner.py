@@ -52,7 +52,18 @@ class GnatPlannerRuntimeTests(unittest.TestCase):
             plan_gnat_run([GnatSourceInput(PDF_FIXTURE, media_type="application/pdf")], request_id="gnat-plan-pdf")
 
     def test_concurrency_is_hard_capped(self) -> None:
-        plan = plan_gnat_run([MARKDOWN_FIXTURE], request_id="gnat-plan-cap", requested_concurrency=99)
+        plan = plan_gnat_run(
+            [MARKDOWN_FIXTURE],
+            request_id="gnat-plan-cap",
+            requested_concurrency=99,
+            max_concurrency=99,
+        )
+
+        self.assertEqual(plan.requested_concurrency, 8)
+        self.assertEqual(plan.max_concurrency, 8)
+
+    def test_default_max_concurrency_remains_four(self) -> None:
+        plan = plan_gnat_run([MARKDOWN_FIXTURE], request_id="gnat-plan-default-cap", requested_concurrency=8)
 
         self.assertEqual(plan.requested_concurrency, 8)
         self.assertEqual(plan.max_concurrency, 4)

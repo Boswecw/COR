@@ -2,8 +2,10 @@
 
 ## Implementation note
 
-This Cortex local-system implementation completed the contract scaffold and serial proving slice.
-FA-Local dispatch, bounded parallel routing, DF-Local persistence, Operator-Local controls, later source-lane expansion, and shared-core extraction remain deferred.
+This Cortex local-system implementation completed the contract scaffold, serial proving slice,
+FA-Local dispatch negotiation, and FA-Local-gated bounded parallel proving slice.
+Integrated FA-Local lifecycle/routing, DF-Local persistence, Operator-Local controls,
+later source-lane expansion, and shared-core extraction remain deferred.
 
 ## Governance
 
@@ -52,16 +54,16 @@ FA-Local dispatch, bounded parallel routing, DF-Local persistence, Operator-Loca
 
 ## Parallel proof
 
-- [ ] Two-worker test.
-- [ ] Four-worker test.
-- [ ] Eight-worker hard-cap test.
-- [ ] Worker crash test.
-- [ ] Duplicate receipt test.
-- [ ] Missing receipt test.
-- [ ] Stale source test.
-- [ ] Partial-success test.
-- [ ] Deterministic output test.
-- [ ] Performance report.
+- [x] Two-worker test.
+- [x] Four-worker test.
+- [x] Eight-worker hard-cap test.
+- [x] Worker crash test.
+- [x] Duplicate receipt test.
+- [x] Missing receipt test.
+- [x] Stale source test.
+- [x] Partial-success test.
+- [x] Deterministic output test.
+- [x] Performance report.
 
 ## DF-Local
 

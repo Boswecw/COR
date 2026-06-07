@@ -83,7 +83,13 @@ def _operator_summary(run_state: str, *, completed: int, expected: int) -> str:
     return "Gnat syntax extraction did not produce a complete result."
 
 
-def reconcile_receipts(plan: GnatRunPlan, receipts: list[dict[str, Any]] | tuple[dict[str, Any], ...]) -> dict[str, Any]:
+def reconcile_receipts(
+    plan: GnatRunPlan,
+    receipts: list[dict[str, Any]] | tuple[dict[str, Any], ...],
+    *,
+    concurrency_used: int = 1,
+    fallback_used: bool = True,
+) -> dict[str, Any]:
     shards = _shard_by_id(plan)
     accepted: list[dict[str, Any]] = []
     accepted_hashes: list[str] = []
@@ -161,8 +167,8 @@ def reconcile_receipts(plan: GnatRunPlan, receipts: list[dict[str, Any]] | tuple
         "accepted_receipt_hashes": sorted(accepted_hashes),
         "rejected_receipts": sorted(rejected, key=lambda item: (item["reason_code"], item["receipt_hash"])),
         "aggregate_timing": _aggregate_timing(accepted),
-        "concurrency_used": 1,
-        "fallback_used": True,
+        "concurrency_used": concurrency_used,
+        "fallback_used": fallback_used,
         "output_artifact_refs": output_refs,
         "operator_visible_summary": _operator_summary(run_state, completed=completed, expected=len(plan.shards)),
         "details_redacted": True,

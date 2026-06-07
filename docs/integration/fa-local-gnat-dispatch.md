@@ -1,7 +1,10 @@
 # FA-Local Gnat Dispatch
 
-GNAT-01 in this repository is the Cortex contract and serial proof slice.
-It does not implement FA-Local dispatch.
+GNAT-01 in this repository is the Cortex contract, serial proof, receipt reconciliation,
+and FA-Local-gated bounded parallel worker proof for Cortex-owned Markdown/plain-text
+syntax extraction.
+
+It does not implement FA-Local worker lifecycle or integrated FA-Local dispatch.
 
 The intended split is:
 
@@ -24,3 +27,7 @@ Future FA-Local integration should negotiate:
 - serial fallback policy.
 
 When FA-Local is unavailable, Cortex service status must report that parallel Gnat execution is unavailable and may expose only the serial fallback state if the request permits it.
+
+The Cortex parallel runner must be entered only after a ready FA-Local capability state
+admits the run. This keeps worker execution deterministic and receipt-validated inside
+Cortex while preserving FA-Local as the integrated routing, lifecycle, and cancellation owner.
