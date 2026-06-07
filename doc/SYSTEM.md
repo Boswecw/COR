@@ -370,6 +370,7 @@ Cortex now includes:
 - invalid fixtures in `tests/contracts/fixtures/invalid/`
 - a lightweight validator at `scripts/validate_schemas.py`
 - repo-level validation through `make validate`
+- a `--verbose` validator flag that prints the per-fixture schema match plus the exact rejection reason for each invalid fixture
 - automatic fixture discovery by schema-prefix naming
 - explicit schema-contract checks for handoff reverse signaling, denial taxonomy, anti-orchestration guards, and embedded diagnostics privacy boundaries
 
