@@ -1,17 +1,15 @@
 from __future__ import annotations
 
-import hashlib
-import json
 from typing import Any
 
 from cortex_runtime.gnats.models import GNAT_RUN_SUMMARY_VERSION, GnatRunPlan, GnatShard
 from cortex_runtime.gnats.receipt import utc_now
 from cortex_runtime.gnats.schema_validation import require_schema_valid, schema_error_messages
+from gnat_core import RunStateCounts, canonical_hash, run_state_from_counts
 
 
 def _hash_payload(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
-    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+    return canonical_hash(payload)
 
 
 def _shard_by_id(plan: GnatRunPlan) -> dict[str, GnatShard]:
@@ -58,17 +56,17 @@ def _run_state(
     missing: int,
     rejected: int,
 ) -> str:
-    if expected == 0:
-        return "failed"
-    if completed == expected and failed == stale == cancelled == missing == rejected == 0:
-        return "ready"
-    if completed > 0:
-        return "partial_success"
-    if stale > 0 and failed == cancelled == missing == 0:
-        return "stale"
-    if cancelled > 0 and failed == stale == missing == 0:
-        return "cancelled"
-    return "failed"
+    return run_state_from_counts(
+        RunStateCounts(
+            expected=expected,
+            completed=completed,
+            failed=failed,
+            stale=stale,
+            cancelled=cancelled,
+            missing=missing,
+            rejected=rejected,
+        )
+    )
 
 
 def _operator_summary(run_state: str, *, completed: int, expected: int) -> str:

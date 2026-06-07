@@ -30,6 +30,7 @@ Operator-Local owns user/operator presentation and controls.
 9. `09_RISKS_NON_GOALS_AND_ADRS.md` — drift controls and decisions.
 10. `10_CODEX_IMPLEMENTATION_PROMPTS.md` — implementation-ready prompts.
 11. `11_MASTER_CHECKLIST.md` — execution checklist and completion definition.
+12. `12_PHASE_10_SHARED_CORE_EXTRACTION.md` — local `gnat_core` extraction record.
 
 ## Recommended first proving slice
 

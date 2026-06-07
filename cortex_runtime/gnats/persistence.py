@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 import copy
-import hashlib
-import json
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
 from typing import Any, Protocol
@@ -16,6 +14,7 @@ from cortex_runtime.gnats.models import (
 )
 from cortex_runtime.gnats.receipt import build_receipt_from_extraction, utc_now
 from cortex_runtime.gnats.schema_validation import require_schema_valid
+from gnat_core import cache_key_from_identity, canonical_hash as core_canonical_hash
 
 
 GNAT_DEFAULT_RETENTION_DAYS = 30
@@ -135,8 +134,7 @@ class InMemoryGnatPersistenceStore:
 
 
 def canonical_hash(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")
-    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
+    return core_canonical_hash(payload)
 
 
 def cache_identity_for_shard(shard: GnatShard) -> GnatCacheIdentity:
@@ -153,12 +151,7 @@ def cache_identity_for_shard(shard: GnatShard) -> GnatCacheIdentity:
 
 
 def cache_key_for_identity(identity: GnatCacheIdentity) -> str:
-    return canonical_hash(
-        {
-            "contract_version": GNAT_CACHE_RECORD_VERSION,
-            "cache_identity": identity.to_contract(),
-        }
-    )
+    return cache_key_from_identity(GNAT_CACHE_RECORD_VERSION, identity.to_contract())
 
 
 def build_cache_record(

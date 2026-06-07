@@ -92,3 +92,19 @@ AuthorForge owns writing meaning and user-facing decisions. Shared Gnat machiner
 ## Distribution recommendation
 
 Prefer a versioned local package/library consumed by separate repos rather than git copy-paste. Keep release notes and compatibility tests for each consuming app.
+
+## Phase 10 local extraction status
+
+The first local shared-core extraction is `gnat_core` version `0.1.0`.
+
+It includes only scheduling-neutral primitives:
+
+- canonical hashing;
+- redacted source path token construction;
+- bounded/effective concurrency helpers;
+- run-state derivation from neutral counts;
+- cache-key construction from a supplied identity contract;
+- cancellation and receipt-envelope protocols.
+
+It remains in this repository until a second application imports it and proves
+compatibility. External packaging is deferred.

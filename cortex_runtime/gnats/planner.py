@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import hashlib
-import json
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Iterable
@@ -22,6 +20,7 @@ from cortex_runtime.source_lanes import DOCX_TEXT_LANE, EPUB_TEXT_LANE, MARKDOWN
 from cortex_runtime.source_lanes import RTF_TEXT_LANE
 from cortex_runtime.source_lanes import lane_eligibility_for_path
 from cortex_runtime.source_lanes import PDF_TEXT_LANE
+from gnat_core import bounded_concurrency, canonical_hash, sha256_bytes_digest, source_path_token, stable_short_digest
 
 
 class GnatPlanningError(ValueError):
@@ -36,23 +35,6 @@ def _timestamp_from_epoch(epoch_seconds: float) -> str:
     return datetime.fromtimestamp(epoch_seconds, tz=UTC).isoformat().replace("+00:00", "Z")
 
 
-def _canonical_hash(payload: object) -> str:
-    encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
-    return f"sha256:{hashlib.sha256(encoded).hexdigest()}"
-
-
-def _short_digest(payload: str) -> str:
-    return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:12]
-
-
-def _source_path_token(path: Path) -> str:
-    try:
-        resolved = str(path.resolve())
-    except OSError:
-        resolved = str(path)
-    return f"src:{_short_digest(resolved)}"
-
-
 def _fingerprint_source(path: Path) -> SourceFingerprint:
     try:
         raw_bytes = path.read_bytes()
@@ -62,7 +44,7 @@ def _fingerprint_source(path: Path) -> SourceFingerprint:
 
     return SourceFingerprint(
         algorithm="sha256",
-        digest=hashlib.sha256(raw_bytes).hexdigest(),
+        digest=sha256_bytes_digest(raw_bytes),
         byte_count=len(raw_bytes),
         modified_at=_timestamp_from_epoch(file_stat.st_mtime),
     )
@@ -108,22 +90,23 @@ def _worker_type_for_path(path: Path, media_type: str | None) -> tuple[str, str]
 
 
 def _clamp_concurrency(requested_concurrency: int, max_concurrency: int) -> tuple[int, int]:
-    if requested_concurrency < 1:
-        raise GnatPlanningError("requested_concurrency must be at least 1")
-    if max_concurrency < 1:
-        raise GnatPlanningError("max_concurrency must be at least 1")
-    requested = min(requested_concurrency, GNAT_HARD_MAX_CONCURRENCY)
-    configured = min(max_concurrency, GNAT_HARD_MAX_CONCURRENCY)
-    return requested, configured
+    try:
+        return bounded_concurrency(
+            requested_concurrency,
+            max_concurrency,
+            hard_cap=GNAT_HARD_MAX_CONCURRENCY,
+        )
+    except ValueError as exc:
+        raise GnatPlanningError(str(exc)) from exc
 
 
 def _derive_run_id(request_id: str, shard_basis: list[dict[str, object]]) -> str:
-    digest = _canonical_hash({"request_id": request_id, "shards": shard_basis}).removeprefix("sha256:")
+    digest = canonical_hash({"request_id": request_id, "shards": shard_basis}).removeprefix("sha256:")
     return f"gnat-run-{digest[:16]}"
 
 
 def _derive_shard_id(run_id: str, ordinal: int, source_ref: str, fingerprint: SourceFingerprint) -> str:
-    digest = _short_digest(f"{run_id}:{ordinal}:{source_ref}:{fingerprint.digest}")
+    digest = stable_short_digest(f"{run_id}:{ordinal}:{source_ref}:{fingerprint.digest}")
     return f"{run_id}-shard-{ordinal:04d}-{digest}"
 
 
@@ -189,7 +172,7 @@ def plan_gnat_run(
                 ordinal=ordinal,
                 worker_type=worker_type,
                 source_ref=source_ref,
-                source_path_token=_source_path_token(path),
+                source_path_token=source_path_token(path),
                 media_type=media_type,
                 source_fingerprint=fingerprint,
                 deadline_ms=deadline_ms,
@@ -219,7 +202,7 @@ def plan_gnat_run(
         requested_concurrency=draft_plan.requested_concurrency,
         max_concurrency=draft_plan.max_concurrency,
         deadline_ms=draft_plan.deadline_ms,
-        plan_hash=_canonical_hash(
+        plan_hash=canonical_hash(
             {
                 "planner_version": GNAT_PLANNER_VERSION,
                 "plan": _plan_payload_without_hash(draft_plan),

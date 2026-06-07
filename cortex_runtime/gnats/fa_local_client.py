@@ -15,6 +15,7 @@ from cortex_runtime.gnats.models import (
     GnatRunPlan,
 )
 from cortex_runtime.gnats.schema_validation import require_schema_valid
+from gnat_core import effective_concurrency
 
 
 SUPPORTED_GNAT_CONTRACTS = (
@@ -97,20 +98,21 @@ def negotiate_dispatch(
         if not fa_local_capability_state.cancellation_supported:
             raise GnatDispatchError("FA-Local does not currently report Gnat cancellation support")
 
-        effective_concurrency = min(
-            plan.requested_concurrency,
-            plan.max_concurrency,
-            fa_local_capability_state.max_concurrency,
-            GNAT_HARD_MAX_CONCURRENCY,
-        )
-        if effective_concurrency < 1:
-            raise GnatDispatchError("FA-Local reported invalid Gnat concurrency")
+        try:
+            negotiated_concurrency = effective_concurrency(
+                plan.requested_concurrency,
+                plan.max_concurrency,
+                fa_local_capability_state.max_concurrency,
+                GNAT_HARD_MAX_CONCURRENCY,
+            )
+        except ValueError as exc:
+            raise GnatDispatchError("FA-Local reported invalid Gnat concurrency") from exc
 
         return GnatDispatchNegotiation(
             state="fa_local_dispatch_ready",
             run_id=plan.run_id,
             correlation_id=str(envelope["correlation_id"]),
-            effective_concurrency=effective_concurrency,
+            effective_concurrency=negotiated_concurrency,
             admitted_worker_types=tuple(sorted(set(fa_local_capability_state.admitted_worker_types))),
             operator_visible_summary=f"FA-Local admitted Cortex Gnat run {plan.run_id} for bounded dispatch.",
         )

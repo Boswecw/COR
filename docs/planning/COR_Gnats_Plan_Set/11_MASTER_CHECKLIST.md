@@ -15,8 +15,11 @@ governed retrieval package from validated GNAT extraction receipts without seman
 It also emits an optional NeuronForge semantic-candidate handoff contract that
 requires explicit request, model/resource disclosure, non-canonical posture, and
 immutable COR receipts.
+Phase 10 now extracts a small local `gnat_core` package for scheduling-neutral
+hashing, lifecycle, concurrency, cache-key, cancellation, and receipt-envelope
+interfaces while preserving Cortex-specific source lanes and workers in Cortex.
 Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
-and shared-core extraction remain deferred.
+and external shared-core packaging remain deferred.
 
 ## Governance
 
@@ -25,7 +28,7 @@ and shared-core extraction remain deferred.
 - [x] Gnat authorization ADR approved.
 - [x] FA-Local execution ownership recorded.
 - [x] Privacy/evidence posture recorded.
-- [ ] Shared-core extraction threshold recorded.
+- [x] Shared-core extraction threshold recorded.
 
 ## Contracts
 
@@ -131,11 +134,11 @@ and shared-core extraction remain deferred.
 
 ## Shared-core extraction
 
-- [ ] COR production proof complete.
-- [ ] Second application requirements documented.
-- [ ] Stable common interfaces identified.
-- [ ] Domain code excluded from core.
-- [ ] Versioning and compatibility tests established.
+- [x] COR production proof complete.
+- [x] Second application requirements documented.
+- [x] Stable common interfaces identified.
+- [x] Domain code excluded from core.
+- [x] Versioning and compatibility tests established.
 
 ## Completion definition
 

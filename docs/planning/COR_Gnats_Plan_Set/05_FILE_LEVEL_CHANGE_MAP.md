@@ -58,6 +58,24 @@ cortex_runtime/gnats/workers/plain_text.py
 
 When the repository completes identity migration, move these to `cor_runtime/gnats/` in a separate refactor.
 
+## Shared core package
+
+Phase 10 extracts scheduling-neutral primitives into:
+
+```text
+gnat_core/__init__.py
+gnat_core/cache.py
+gnat_core/hashing.py
+gnat_core/interfaces.py
+gnat_core/lifecycle.py
+gnat_core/limits.py
+```
+
+The shared package must not import Cortex source lanes, workers, FA-Local
+dispatch implementations, DF-Local stores, NeuronForge logic, or application
+policy. Cortex keeps its existing public GNAT API and delegates stable generic
+behavior to `gnat_core`.
+
 ## Existing files to modify
 
 ### `cortex_runtime/service_status.py`
