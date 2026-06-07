@@ -67,7 +67,8 @@
             "enum": [
               "text/markdown",
               "text/plain",
-              "application/pdf"
+              "application/pdf",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             ]
           }
         }

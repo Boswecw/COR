@@ -24,7 +24,8 @@ GNAT admits bounded local syntax extraction for these lanes:
 
 - `text/markdown` with `markdown_syntax`;
 - `text/plain` with `plain_text_syntax`;
-- `application/pdf` with `pdf_text_syntax` when host `pdfinfo` and `pdftotext` are available.
+- `application/pdf` with `pdf_text_syntax` when host `pdfinfo` and `pdftotext` are available;
+- `application/vnd.openxmlformats-officedocument.wordprocessingml.document` with `docx_text_syntax`.
 
 All other existing source lanes remain on their current serial extraction path until separately admitted.
 

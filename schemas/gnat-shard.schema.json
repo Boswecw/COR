@@ -43,7 +43,8 @@
       "enum": [
         "markdown_syntax",
         "plain_text_syntax",
-        "pdf_text_syntax"
+        "pdf_text_syntax",
+        "docx_text_syntax"
       ]
     },
     "source_ref": {
@@ -61,7 +62,8 @@
       "enum": [
         "text/markdown",
         "text/plain",
-        "application/pdf"
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       ]
     },
     "source_fingerprint": {

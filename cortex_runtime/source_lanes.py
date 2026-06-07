@@ -154,6 +154,8 @@ DOCX_TEXT_LANE = SourceLaneSpec(
     operator_label="local DOCX files",
     runtime_slice_id="slice6_docx_source_lane",
     runtime_slice_label="bounded DOCX source lane",
+    gnat_worker_type="docx_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 ODT_TEXT_LANE = SourceLaneSpec(

@@ -22,6 +22,7 @@ class GnatWorkerUnavailable(LookupError):
 
 
 def _registry() -> dict[str, GnatWorkerAdapter]:
+    from cortex_runtime.gnats.workers.docx_text import run_docx_text_worker
     from cortex_runtime.gnats.workers.markdown_text import run_markdown_text_worker
     from cortex_runtime.gnats.workers.pdf_text import run_pdf_text_worker
     from cortex_runtime.gnats.workers.plain_text import run_plain_text_worker
@@ -44,6 +45,12 @@ def _registry() -> dict[str, GnatWorkerAdapter]:
             media_type="application/pdf",
             lane_id="local_file_pdf_text",
             run=run_pdf_text_worker,
+        ),
+        "docx_text_syntax": GnatWorkerAdapter(
+            worker_type="docx_text_syntax",
+            media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            lane_id="local_file_docx_text",
+            run=run_docx_text_worker,
         ),
     }
 

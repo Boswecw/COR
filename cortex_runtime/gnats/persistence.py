@@ -23,6 +23,7 @@ GNAT_LANE_CONTRACT_VERSION_BY_WORKER = {
     "markdown_syntax": "local_file_markdown.v1",
     "plain_text_syntax": "local_file_plain_text.v1",
     "pdf_text_syntax": "local_file_pdf_text.v1",
+    "docx_text_syntax": "local_file_docx_text.v1",
 }
 
 

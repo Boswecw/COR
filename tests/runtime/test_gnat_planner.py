@@ -12,6 +12,8 @@ GNAT_FIXTURE_DIR = ROOT / "tests/runtime/fixtures/gnats/text-batch-small"
 MARKDOWN_FIXTURE = GNAT_FIXTURE_DIR / "chapter-01.md"
 TEXT_FIXTURE = GNAT_FIXTURE_DIR / "note-plain.txt"
 PDF_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.pdf"
+DOCX_FIXTURE = ROOT / "tests/runtime/fixtures/sample-note.docx"
+DOCX_MEDIA_TYPE = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 UNSUPPORTED_FIXTURE = ROOT / "tests/runtime/fixtures/sample-unsupported.bin"
 
 
@@ -63,6 +65,15 @@ class GnatPlannerRuntimeTests(unittest.TestCase):
 
         self.assertEqual(plan.shards[0].worker_type, "pdf_text_syntax")
         self.assertEqual(plan.shards[0].media_type, "application/pdf")
+
+    def test_docx_lane_is_plannable(self) -> None:
+        plan = plan_gnat_run(
+            [GnatSourceInput(DOCX_FIXTURE, media_type=DOCX_MEDIA_TYPE, source_ref="docx-note")],
+            request_id="gnat-plan-docx",
+        )
+
+        self.assertEqual(plan.shards[0].worker_type, "docx_text_syntax")
+        self.assertEqual(plan.shards[0].media_type, DOCX_MEDIA_TYPE)
 
     def test_concurrency_is_hard_capped(self) -> None:
         plan = plan_gnat_run(
