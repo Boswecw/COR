@@ -20,6 +20,28 @@ The current machine-checked contract layer covers:
 - service status
 - handoff envelope
 - embedded diagnostics
+- scrivener authority-recon status (special-track Stage 1)
+
+## Runtime test surface
+
+The executable runtime is covered by a focused `unittest` suite under `tests/runtime/`, run through `make test-runtime` (`python3 -m unittest discover -s tests/runtime -p 'test_*.py' -t .`).
+
+The current suite modules are:
+
+- `test_intake_validation.py`
+- `test_extraction_emission.py`
+- `test_retrieval_package_emission.py`
+- `test_service_status.py`
+- `test_source_lane_framework.py`
+- `test_pdf_lane.py`
+- `test_docx_lane.py`
+- `test_rtf_lane.py`
+- `test_odt_lane.py`
+- `test_epub_lane.py`
+- `test_scrivener_authority_recon.py`
+
+The PDF lane carries a host-independent mocked-admission test class so the lane's unavailable-tooling and no-OCR behavior is provable on any host.
+Runtime PDF tests that exercise real extraction depend on local `pdfinfo`/`pdftotext` (poppler) tooling and are environment-sensitive when that tooling is absent.
 
 ## Runtime slice 1 delivered
 
@@ -243,7 +265,7 @@ The current pass resolves mypy errors across the runtime and test surfaces witho
 
 It adds:
 
-- `mypy.ini` at repo root with `[mypy-jsonschema.*] ignore_missing_imports = true` as a project-level override
+- `mypy.ini` at repo root pinning `python_version = 3.11` (non-strict) with `[mypy-jsonschema.*] ignore_missing_imports = true` as a project-level override
 - `# type: ignore[import-untyped]` on every `from jsonschema import Draft202012Validator` line across `cortex_runtime/` and `tests/runtime/` so the suppression is source-of-truth regardless of how the mypy extension discovers config
 - an `isinstance(uuid, str)` guard at the top of the `direct_missing_targets` loop in `scrivener_authority_recon.py` so mypy can narrow the dict key from `str | None` to `str` before the `Path /` operator and `list.append` calls
 - corrected return type on `build_supported_intake_payload` in `test_extraction_emission.py` from `dict[str, object]` to `dict[str, Any]` so nested subscript operations type-check
@@ -299,4 +321,4 @@ This assembled system doc is therefore a control reference, not a product or roa
 
 ## Assembly purpose
 
-`doc/cxSYSTEM.md` is intended to give a single assembled system reference without replacing the canonical source files that define the actual doctrine and contracts.
+The assembled `SYSTEM.md` (mirrored to `doc/SYSTEM.md` and legacy `doc/cxSYSTEM.md`) is intended to give a single assembled system reference without replacing the canonical source files that define the actual doctrine and contracts.

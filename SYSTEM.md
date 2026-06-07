@@ -1,13 +1,14 @@
 # Cortex - System Documentation
 
-**Document version:** 1.14 (2026-03-20) - Type-checking hygiene pass
+**Document version:** 1.15 (2026-06-07) - doc/system audit pass
 **Protocol:** Forge Documentation Protocol v1
 
 | Key | Value |
 |-----|-------|
 | **Project** | Cortex |
 | **Prefix** | `cx` |
-| **Output** | `doc/cxSYSTEM.md` |
+| **Primary output** | `SYSTEM.md` (repo root) |
+| **Mirrors** | `doc/SYSTEM.md`, legacy `doc/cxSYSTEM.md` |
 
 This `doc/system/` tree is the assembled system reference for Cortex as a bounded local file-intelligence service.
 It reflects the current repo state through Wave 3 hardening, audit-remediation tightening, the shared source-lane framework, Runtime Slices 1 through 9, the post-Slice-7 hardening and lane-admission-governance pass, bounded ODT lane delivery, bounded EPUB lane delivery, the post-Slice-8 governance execution, the post-Slice-9 governance selection, the bounded special-track Scrivener Stage 1 authority-recon runtime slice, the current Scrivener Stage 2 planning-control packet, the explicit Stage 2 implementation-remains-blocked decision, the PDF lane admission hardening and structured probe pass, and the mypy type-checking hygiene pass.
@@ -15,7 +16,8 @@ It reflects the current repo state through Wave 3 hardening, audit-remediation t
 Assembly contract:
 
 - Command: `bash doc/system/BUILD.sh`
-- Output: `doc/cxSYSTEM.md`
+- Primary output: `SYSTEM.md` at the repo root
+- Mirror outputs: `doc/SYSTEM.md` and legacy `doc/cxSYSTEM.md`
 
 | Part | File | Contents |
 |------|------|----------|
@@ -30,7 +32,7 @@ Assembly contract:
 bash doc/system/BUILD.sh
 ```
 
-*Last updated: 2026-03-20*
+*Last updated: 2026-06-07*
 
 ---
 
@@ -314,6 +316,14 @@ They must reject content-exposure shapes such as:
 - `content_browser`
 - `raw_artifact_dump`
 
+## Scrivener Stage 1 authority-recon status
+
+The Scrivener surface is special-track and status-only.
+It is not a Phase 1 admitted source lane.
+
+The Stage 1 authority-recon status envelope exposes `ready`, `denied`, or `unavailable` outcomes with a fixed `status_only` observation boundary and an enforced semantic boundary.
+It reports bounded authority, package, and mapping status plus observed role surfaces and a binder summary, without extracting Scrivener content, resolving manuscript policy, or admitting Scrivener as a source lane.
+
 ## Implemented schema layer
 
 The current machine-checked schema inventory is:
@@ -324,6 +334,7 @@ The current machine-checked schema inventory is:
 - `schemas/service-status.schema.json`
 - `schemas/handoff-envelope.schema.json`
 - `schemas/embedded-diagnostics.schema.json`
+- `schemas/scrivener-authority-recon-status.schema.json` (special-track Stage 1 status only)
 
 ## Supporting references
 
@@ -341,6 +352,7 @@ This section is grounded in:
 - `docs/contracts/handoff-envelope.md`
 - `docs/contracts/service-status.md`
 - `docs/contracts/embedded-diagnostics.md`
+- `docs/contracts/scrivener-authority-recon-status-draft.md`
 - `docs/source-lanes/README.md`
 - `docs/source-lanes/contract-symmetry-audit.md`
 - `docs/source-lanes/lane-admission-playbook.md`
@@ -369,6 +381,28 @@ The current machine-checked contract layer covers:
 - service status
 - handoff envelope
 - embedded diagnostics
+- scrivener authority-recon status (special-track Stage 1)
+
+## Runtime test surface
+
+The executable runtime is covered by a focused `unittest` suite under `tests/runtime/`, run through `make test-runtime` (`python3 -m unittest discover -s tests/runtime -p 'test_*.py' -t .`).
+
+The current suite modules are:
+
+- `test_intake_validation.py`
+- `test_extraction_emission.py`
+- `test_retrieval_package_emission.py`
+- `test_service_status.py`
+- `test_source_lane_framework.py`
+- `test_pdf_lane.py`
+- `test_docx_lane.py`
+- `test_rtf_lane.py`
+- `test_odt_lane.py`
+- `test_epub_lane.py`
+- `test_scrivener_authority_recon.py`
+
+The PDF lane carries a host-independent mocked-admission test class so the lane's unavailable-tooling and no-OCR behavior is provable on any host.
+Runtime PDF tests that exercise real extraction depend on local `pdfinfo`/`pdftotext` (poppler) tooling and are environment-sensitive when that tooling is absent.
 
 ## Runtime slice 1 delivered
 
@@ -592,7 +626,7 @@ The current pass resolves mypy errors across the runtime and test surfaces witho
 
 It adds:
 
-- `mypy.ini` at repo root with `[mypy-jsonschema.*] ignore_missing_imports = true` as a project-level override
+- `mypy.ini` at repo root pinning `python_version = 3.11` (non-strict) with `[mypy-jsonschema.*] ignore_missing_imports = true` as a project-level override
 - `# type: ignore[import-untyped]` on every `from jsonschema import Draft202012Validator` line across `cortex_runtime/` and `tests/runtime/` so the suppression is source-of-truth regardless of how the mypy extension discovers config
 - an `isinstance(uuid, str)` guard at the top of the `direct_missing_targets` loop in `scrivener_authority_recon.py` so mypy can narrow the dict key from `str | None` to `str` before the `Path /` operator and `list.append` calls
 - corrected return type on `build_supported_intake_payload` in `test_extraction_emission.py` from `dict[str, object]` to `dict[str, Any]` so nested subscript operations type-check
@@ -648,4 +682,4 @@ This assembled system doc is therefore a control reference, not a product or roa
 
 ## Assembly purpose
 
-`doc/cxSYSTEM.md` is intended to give a single assembled system reference without replacing the canonical source files that define the actual doctrine and contracts.
+The assembled `SYSTEM.md` (mirrored to `doc/SYSTEM.md` and legacy `doc/cxSYSTEM.md`) is intended to give a single assembled system reference without replacing the canonical source files that define the actual doctrine and contracts.

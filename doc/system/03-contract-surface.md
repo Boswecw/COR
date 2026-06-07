@@ -135,6 +135,14 @@ They must reject content-exposure shapes such as:
 - `content_browser`
 - `raw_artifact_dump`
 
+## Scrivener Stage 1 authority-recon status
+
+The Scrivener surface is special-track and status-only.
+It is not a Phase 1 admitted source lane.
+
+The Stage 1 authority-recon status envelope exposes `ready`, `denied`, or `unavailable` outcomes with a fixed `status_only` observation boundary and an enforced semantic boundary.
+It reports bounded authority, package, and mapping status plus observed role surfaces and a binder summary, without extracting Scrivener content, resolving manuscript policy, or admitting Scrivener as a source lane.
+
 ## Implemented schema layer
 
 The current machine-checked schema inventory is:
@@ -145,6 +153,7 @@ The current machine-checked schema inventory is:
 - `schemas/service-status.schema.json`
 - `schemas/handoff-envelope.schema.json`
 - `schemas/embedded-diagnostics.schema.json`
+- `schemas/scrivener-authority-recon-status.schema.json` (special-track Stage 1 status only)
 
 ## Supporting references
 
@@ -162,6 +171,7 @@ This section is grounded in:
 - `docs/contracts/handoff-envelope.md`
 - `docs/contracts/service-status.md`
 - `docs/contracts/embedded-diagnostics.md`
+- `docs/contracts/scrivener-authority-recon-status-draft.md`
 - `docs/source-lanes/README.md`
 - `docs/source-lanes/contract-symmetry-audit.md`
 - `docs/source-lanes/lane-admission-playbook.md`
