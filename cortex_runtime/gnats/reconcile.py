@@ -89,6 +89,7 @@ def reconcile_receipts(
     *,
     concurrency_used: int = 1,
     fallback_used: bool = True,
+    persistence: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     shards = _shard_by_id(plan)
     accepted: list[dict[str, Any]] = []
@@ -173,5 +174,7 @@ def reconcile_receipts(
         "operator_visible_summary": _operator_summary(run_state, completed=completed, expected=len(plan.shards)),
         "details_redacted": True,
     }
+    if persistence is not None:
+        summary["persistence"] = persistence
     require_schema_valid(summary, schema_name="gnat-run-summary.schema.json")
     return summary

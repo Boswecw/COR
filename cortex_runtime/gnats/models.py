@@ -13,6 +13,7 @@ GNAT_SHARD_VERSION = "GnatShard.v1"
 GNAT_WORKER_RECEIPT_VERSION = "GnatWorkerReceipt.v1"
 GNAT_RUN_SUMMARY_VERSION = "GnatRunSummary.v1"
 GNAT_DISPATCH_ENVELOPE_VERSION = "GnatDispatchEnvelope.v1"
+GNAT_CACHE_RECORD_VERSION = "GnatCacheRecord.v1"
 GNAT_OPERATION = "syntax_extract"
 GNAT_OUTPUT_CONTRACT = "extraction-result.schema.json"
 GNAT_RECEIPT_SCHEMA = "gnat-worker-receipt.schema.json"
@@ -146,3 +147,31 @@ class GnatParallelResult:
     receipts: tuple[dict[str, Any], ...]
     summary: dict[str, Any]
     negotiation: GnatDispatchNegotiation
+
+
+@dataclass(frozen=True)
+class GnatPersistenceOutcome:
+    state: str
+    cache_hits: int
+    cache_misses: int
+    cache_records_written: int
+    operator_visible_summary: str
+
+    def to_contract(self) -> dict[str, Any]:
+        return {
+            "state": self.state,
+            "cache_hits": self.cache_hits,
+            "cache_misses": self.cache_misses,
+            "cache_records_written": self.cache_records_written,
+            "operator_visible_summary": self.operator_visible_summary,
+            "details_redacted": True,
+        }
+
+
+@dataclass(frozen=True)
+class GnatPersistentResult:
+    plan: GnatRunPlan
+    receipts: tuple[dict[str, Any], ...]
+    summary: dict[str, Any]
+    negotiation: GnatDispatchNegotiation
+    persistence: GnatPersistenceOutcome

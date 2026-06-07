@@ -111,7 +111,7 @@ Must state explicitly that FA-Local owns execution routing and COR owns result-c
 
 ### 7. `gnat-cache-record.schema.json`
 
-Deferred until after GNAT-01 correctness proof.
+Added after the GNAT-01 correctness and bounded parallel proof.
 
 Key:
 

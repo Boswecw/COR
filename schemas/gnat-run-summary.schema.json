@@ -153,6 +153,49 @@
       "minLength": 1,
       "maxLength": 300
     },
+    "persistence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "cache_hits",
+        "cache_misses",
+        "cache_records_written",
+        "operator_visible_summary",
+        "details_redacted"
+      ],
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "degraded",
+            "unavailable"
+          ]
+        },
+        "cache_hits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cache_misses": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cache_records_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+        "details_redacted": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
     "details_redacted": {
       "type": "boolean",
       "const": true

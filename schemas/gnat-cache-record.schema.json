@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-cache-record.schema.json",
+  "title": "Cortex Gnat Cache Record",
+  "description": "Exact-version cache identity for a bounded Cortex Gnat shard result stored by DF-Local.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "cache_key",
+    "source_fingerprint_digest",
+    "worker_type",
+    "worker_implementation_version",
+    "operation_contract_version",
+    "lane_contract_version",
+    "run_id",
+    "shard_id",
+    "receipt_hash",
+    "output_artifact_refs",
+    "cache_state",
+    "created_at",
+    "last_used_at",
+    "expires_at",
+    "invalidated_at",
+    "details_redacted"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatCacheRecord.v1"
+    },
+    "cache_key": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "source_fingerprint_digest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "markdown_syntax",
+        "plain_text_syntax"
+      ]
+    },
+    "worker_implementation_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "operation_contract_version": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "lane_contract_version": {
+      "type": "string",
+      "enum": [
+        "local_file_markdown.v1",
+        "local_file_plain_text.v1"
+      ]
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "shard_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "receipt_hash": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "output_artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      }
+    },
+    "cache_state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "invalidated",
+        "expired"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "last_used_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "invalidated_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "details_redacted": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "raw_content_preview"
+            ]
+          },
+          {
+            "required": [
+              "full_text_preview"
+            ]
+          },
+          {
+            "required": [
+              "workflow_id"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

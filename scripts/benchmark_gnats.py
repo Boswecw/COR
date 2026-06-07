@@ -227,7 +227,7 @@ def render_report(records: list[BenchmarkRecord], *, worker_delay_ms: int) -> st
             "",
             f"- Four-worker speedup over serial Gnat: {four_worker_speedup:.2f}x ({pass_label}; target 1.7x).",
             "- Reconciliation and receipt validation are included in the Gnat timings.",
-            "- Warm-cache and cache-hit fields remain out of scope until the DF-Local persistence phase lands.",
+            "- This Phase 4 benchmark does not measure warm-cache behavior; Phase 5 cache reuse is covered by runtime tests.",
             "- The benchmark is a local proof artifact, not a cross-machine performance guarantee.",
             "",
         ]

@@ -6,15 +6,15 @@ The run used a controlled per-file worker delay of 5 ms to keep the local schedu
 
 | path | concurrency | run state | wall ms | cpu ms | files/sec | bytes/sec | max rss kb |
 |---|---:|---|---:|---:|---:|---:|---:|
-| legacy serial extraction | 1 | ready | 184.68 | 23.01 | 173.28 | 638989.06 | 29692 |
-| serial Gnat compatibility path | 1 | ready | 219.34 | 57.68 | 145.89 | 537995.08 | 30332 |
-| parallel Gnat path (2 workers) | 2 | ready | 117.73 | 55.22 | 271.81 | 1002360.57 | 30716 |
-| parallel Gnat path (4 workers) | 4 | ready | 71.10 | 58.11 | 450.04 | 1659611.59 | 31100 |
-| parallel Gnat path (8 workers) | 8 | ready | 67.11 | 69.33 | 476.86 | 1758501.79 | 31484 |
+| legacy serial extraction | 1 | ready | 181.99 | 20.12 | 175.84 | 648434.52 | 29848 |
+| serial Gnat compatibility path | 1 | ready | 215.74 | 53.91 | 148.33 | 546982.21 | 30488 |
+| parallel Gnat path (2 workers) | 2 | ready | 117.98 | 56.54 | 271.23 | 1000194.93 | 31272 |
+| parallel Gnat path (4 workers) | 4 | ready | 69.18 | 54.42 | 462.58 | 1705833.63 | 31656 |
+| parallel Gnat path (8 workers) | 8 | ready | 61.19 | 62.71 | 522.97 | 1928556.53 | 31912 |
 
 ## Acceptance Readout
 
-- Four-worker speedup over serial Gnat: 3.08x (pass; target 1.7x).
+- Four-worker speedup over serial Gnat: 3.12x (pass; target 1.7x).
 - Reconciliation and receipt validation are included in the Gnat timings.
-- Warm-cache and cache-hit fields remain out of scope until the DF-Local persistence phase lands.
+- This Phase 4 benchmark does not measure warm-cache behavior; Phase 5 cache reuse is covered by runtime tests.
 - The benchmark is a local proof artifact, not a cross-machine performance guarantee.

@@ -31,7 +31,34 @@ def run_parallel_gnat_plan(
             negotiation=negotiation,
         )
 
-    executor = ThreadPoolExecutor(max_workers=negotiation.effective_concurrency)
+    typed_receipts = execute_parallel_gnat_shards(
+        plan,
+        plan.shards,
+        effective_concurrency=negotiation.effective_concurrency,
+        retry_infrastructure_failures=retry_infrastructure_failures,
+        cancel_requested=cancel_requested,
+    )
+    summary = reconcile_receipts(
+        plan,
+        typed_receipts,
+        concurrency_used=negotiation.effective_concurrency,
+        fallback_used=False,
+    )
+    return GnatParallelResult(plan=plan, receipts=typed_receipts, summary=summary, negotiation=negotiation)
+
+
+def execute_parallel_gnat_shards(
+    plan: GnatRunPlan,
+    shards: tuple[GnatShard, ...] | list[GnatShard],
+    *,
+    effective_concurrency: int,
+    retry_infrastructure_failures: int = 1,
+    cancel_requested: CancelCheck | None = None,
+) -> tuple[dict[str, object], ...]:
+    if not shards:
+        return ()
+
+    executor = ThreadPoolExecutor(max_workers=effective_concurrency)
     future_by_shard: dict[Future[dict[str, object]], GnatShard] = {
         executor.submit(
             _execute_shard_with_retry,
@@ -39,7 +66,7 @@ def run_parallel_gnat_plan(
             retry_budget=max(0, retry_infrastructure_failures),
             cancel_requested=cancel_requested,
         ): shard
-        for shard in plan.shards
+        for shard in shards
     }
 
     done, not_done = wait(future_by_shard, timeout=plan.deadline_ms / 1000.0)
@@ -72,14 +99,7 @@ def run_parallel_gnat_plan(
         )
 
     executor.shutdown(wait=not not_done, cancel_futures=bool(not_done))
-    typed_receipts = tuple(_sort_receipts(plan, receipts))
-    summary = reconcile_receipts(
-        plan,
-        typed_receipts,
-        concurrency_used=negotiation.effective_concurrency,
-        fallback_used=False,
-    )
-    return GnatParallelResult(plan=plan, receipts=typed_receipts, summary=summary, negotiation=negotiation)
+    return tuple(_sort_receipts(plan, receipts))
 
 
 def _execute_shard_with_retry(
