@@ -1,0 +1,44 @@
+{
+  "contract_version": "GnatSemanticHandoff.v1",
+  "handoff_id": "gnat-semantic-handoff-001",
+  "request_id": "gnat-request-001",
+  "source_service_id": "cortex",
+  "destination_service_id": "neuronforge-local",
+  "source_artifact": {
+    "artifact_ref": "pkg-gnat-001",
+    "artifact_class": "retrieval_package",
+    "artifact_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "source_gnat_run_id": "gnat-run-001",
+    "source_plan_hash": "plan-hash-001",
+    "source_state": "ready",
+    "completeness_status": "complete",
+    "retrieval_profile_id": "gnat.retrieval-prep-bounded.v1"
+  },
+  "explicit_request": {
+    "request_scope": "app_request",
+    "requested_by": "authorforge",
+    "operator_visible_summary": "AuthorForge requested non-canonical semantic candidates from the referenced GNAT syntax artifact."
+  },
+  "candidate_generation": {
+    "candidate_contract_family": "neuronforge.cor_gnat.semantic-candidates.v1",
+    "semantic_result_posture": "non_canonical_candidate",
+    "allowed_candidate_classes": [
+      "structure_summary_candidate"
+    ],
+    "model_resource_disclosure": {
+      "route_class": "WORKHORSE_LOCAL",
+      "model_id": "qwen2.5:14b",
+      "resource_budget_class": "workhorse_local",
+      "execution_mode": "local_model"
+    }
+  },
+  "transfer_guardrails": {
+    "cor_receipts_immutable": false,
+    "receipt_mutation_allowed": true,
+    "semantic_output_canonical": false,
+    "raw_content_included": false,
+    "details_redacted": true
+  },
+  "operator_visible_message": "NeuronForge may generate reviewable non-canonical semantic candidates only; COR receipts remain immutable.",
+  "created_at": "2026-06-07T00:00:00Z"
+}

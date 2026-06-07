@@ -28,6 +28,7 @@ from cortex_runtime.gnats.planner import GnatPlanningError, plan_gnat_run
 from cortex_runtime.gnats.reconcile import reconcile_receipts
 from cortex_runtime.gnats.retrieval_prepare import emit_retrieval_package_from_gnat_result
 from cortex_runtime.gnats.retrieval_prepare import emit_retrieval_package_from_gnat_receipts
+from cortex_runtime.gnats.semantic_handoff import emit_gnat_semantic_handoff_from_retrieval_package
 from cortex_runtime.gnats.serial_runner import run_serial_gnat_plan
 from cortex_runtime.gnats.status import gnat_status_summary
 
@@ -59,6 +60,7 @@ __all__ = [
     "reconcile_receipts",
     "emit_retrieval_package_from_gnat_receipts",
     "emit_retrieval_package_from_gnat_result",
+    "emit_gnat_semantic_handoff_from_retrieval_package",
     "run_parallel_gnat_plan",
     "run_parallel_gnat_plan_with_persistence",
     "run_serial_gnat_plan",

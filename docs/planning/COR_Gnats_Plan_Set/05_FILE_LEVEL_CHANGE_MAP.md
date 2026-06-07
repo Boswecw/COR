@@ -27,13 +27,13 @@ schemas/gnat-shard.schema.json
 schemas/gnat-worker-receipt.schema.json
 schemas/gnat-run-summary.schema.json
 schemas/gnat-dispatch-envelope.schema.json
+schemas/gnat-semantic-handoff.schema.json
 ```
 
 Deferred:
 
 ```text
 schemas/gnat-cache-record.schema.json
-schemas/gnat-semantic-handoff.schema.json
 ```
 
 ## Runtime package

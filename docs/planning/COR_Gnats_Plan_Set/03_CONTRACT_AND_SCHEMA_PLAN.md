@@ -140,6 +140,20 @@ Required concepts:
 - accessible controls and keyboard labels;
 - no raw-content or source-browser surface.
 
+### 9. `gnat-semantic-handoff.schema.json`
+
+Purpose: optional COR-to-NeuronForge handoff after GNAT retrieval preparation.
+
+Required concepts:
+
+- separate semantic-candidate handoff contract family;
+- explicit app or user request;
+- referenced retrieval package artifact, not inline raw text;
+- model and resource disclosure;
+- non-canonical candidate posture;
+- immutable COR receipts and no receipt mutation allowance;
+- no queue, workflow, executor, or dispatch-planning fields.
+
 ## Enums
 
 ### `GnatOperation`

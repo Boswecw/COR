@@ -12,6 +12,9 @@ through the existing Cortex RTF lane and bounded OpenDocument text GNAT extracti
 through the existing Cortex ODT lane. It also admits bounded EPUB package-text
 GNAT extraction through the existing Cortex EPUB lane. It now prepares a single
 governed retrieval package from validated GNAT extraction receipts without semantic ranking.
+It also emits an optional NeuronForge semantic-candidate handoff contract that
+requires explicit request, model/resource disclosure, non-canonical posture, and
+immutable COR receipts.
 Integrated FA-Local lifecycle/routing, live Operator-Local UI wiring,
 and shared-core extraction remain deferred.
 
@@ -34,6 +37,7 @@ and shared-core extraction remain deferred.
 - [x] `GnatDispatchEnvelope.v1`
 - [x] `GnatCacheRecord.v1`
 - [x] `GnatOperatorRunStatus.v1`
+- [x] `GnatSemanticHandoff.v1`
 - [x] Valid fixtures.
 - [x] Invalid fixtures.
 - [x] Cross-schema validation.
@@ -115,6 +119,15 @@ and shared-core extraction remain deferred.
 - [x] Surface partial-success when only some shards are chunkable.
 - [x] Deny when no completed shard is chunkable.
 - [x] Avoid semantic ranking or scoring.
+
+## Optional NeuronForge handoff
+
+- [x] Add a separate semantic-candidate handoff contract family.
+- [x] Require explicit user/app request.
+- [x] Require model/resource disclosure.
+- [x] Label semantic output posture as non-canonical candidate.
+- [x] Preserve immutable COR receipts.
+- [x] Keep raw content, queue, executor, and workflow fields out of the handoff.
 
 ## Shared-core extraction
 
