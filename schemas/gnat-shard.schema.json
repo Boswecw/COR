@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-shard.schema.json",
+  "title": "Cortex Gnat Shard",
+  "description": "One bounded unit of deterministic Cortex Gnat syntax extraction work.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "run_id",
+    "shard_id",
+    "ordinal",
+    "worker_type",
+    "source_ref",
+    "source_path_token",
+    "media_type",
+    "source_fingerprint",
+    "operation",
+    "limits",
+    "output_contract"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatShard.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "shard_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "ordinal": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "worker_type": {
+      "type": "string",
+      "enum": [
+        "markdown_syntax",
+        "plain_text_syntax",
+        "pdf_text_syntax",
+        "docx_text_syntax",
+        "rtf_text_syntax",
+        "odt_text_syntax",
+        "epub_text_syntax"
+      ]
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "source_path_token": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "media_type": {
+      "type": "string",
+      "enum": [
+        "text/markdown",
+        "text/plain",
+        "application/pdf",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "application/rtf",
+        "text/rtf",
+        "application/vnd.oasis.opendocument.text",
+        "application/epub+zip"
+      ]
+    },
+    "source_fingerprint": {
+      "$ref": "#/$defs/source_fingerprint"
+    },
+    "operation": {
+      "type": "string",
+      "const": "syntax_extract"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deadline_ms",
+        "max_bytes"
+      ],
+      "properties": {
+        "deadline_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 86400000
+        },
+        "max_bytes": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "output_contract": {
+      "type": "string",
+      "const": "extraction-result.schema.json"
+    }
+  },
+  "$defs": {
+    "source_fingerprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "digest",
+        "byte_count",
+        "modified_at"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "const": "sha256"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "byte_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

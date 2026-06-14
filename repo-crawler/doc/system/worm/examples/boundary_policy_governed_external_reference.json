@@ -1,0 +1,34 @@
+{
+  "kind": "worm_traversal_policy",
+  "schemaVersion": 1,
+  "policyId": "worm-policy-003",
+  "mode": "governed_external_reference",
+  "maxDepth": 1,
+  "maxTargetsPerSourceRepo": 5,
+  "deterministicTraversal": true,
+  "cycleDetection": {
+    "enabled": true,
+    "identityKey": "normalized_repo"
+  },
+  "scopePolicy": {
+    "allowSameOrg": true,
+    "allowExternalReferences": true,
+    "requireExplicitAllowlistForExpansion": true
+  },
+  "repoAllowlist": [
+    "Boswecw/Cortex",
+    "Boswecw/rak-adatsik",
+    "trusted-org/shared-contracts"
+  ],
+  "repoDenylist": [
+    "unknown-org/untrusted-repo"
+  ],
+  "networkPolicy": {
+    "allowUnknownHosts": false,
+    "allowedHosts": [
+      "github.com"
+    ]
+  },
+  "fallbackPosture": "ambiguous",
+  "notes": "External expansion allowed only when repo and host are explicitly governed."
+}

@@ -1,0 +1,31 @@
+{
+  "contract_version": "GnatOperatorRunStatus.v1",
+  "run_id": "gnat-run-status-001",
+  "run_state": "ready",
+  "state_label": "Ready",
+  "execution_mode": "parallel",
+  "mode_label": "Bounded parallel execution",
+  "expected_shards": 1,
+  "counts": {
+    "completed": 1,
+    "failed": 0,
+    "stale": 0,
+    "cancelled": 0,
+    "missing": 0
+  },
+  "concurrency_used": 1,
+  "serial_fallback_used": false,
+  "cache_reuse": {
+    "used": false,
+    "hits": 0,
+    "misses": 1
+  },
+  "persistence_state": "ready",
+  "bounded_failure_reasons": [],
+  "elapsed_ms": 12,
+  "allowed_controls": [],
+  "keyboard_controls": [],
+  "operator_visible_summary": "Gnat syntax extraction completed for all planned shards.",
+  "raw_content_preview": "not allowed",
+  "details_redacted": true
+}

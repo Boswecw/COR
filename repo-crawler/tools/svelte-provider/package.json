@@ -1,0 +1,19 @@
+{
+  "name": "svelte-provider",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.5",
+  "scripts": {
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "probe": "bun run src/probe.ts",
+    "self-check": "bun run src/probe.ts --self-check"
+  },
+  "dependencies": {
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "svelte-check": "^4.4.0",
+    "typescript": ">=5 <7"
+  }
+}

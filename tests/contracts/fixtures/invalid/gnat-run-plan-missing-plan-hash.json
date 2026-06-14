@@ -1,0 +1,41 @@
+{
+  "contract_version": "GnatRunPlan.v1",
+  "run_id": "gnat-run-001",
+  "request_id": "gnat-request-001",
+  "correlation_id": "corr-gnat-001",
+  "planner_version": "gnat-planner.v1",
+  "operation": "syntax_extract",
+  "shard_count": 1,
+  "shards": [
+    {
+      "contract_version": "GnatShard.v1",
+      "run_id": "gnat-run-001",
+      "shard_id": "gnat-run-001-shard-0000-63f3",
+      "ordinal": 0,
+      "worker_type": "markdown_syntax",
+      "source_ref": "sample-note-md",
+      "source_path_token": "src-token-001",
+      "media_type": "text/markdown",
+      "source_fingerprint": {
+        "algorithm": "sha256",
+        "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "byte_count": 42,
+        "modified_at": "2026-06-07T04:18:00Z"
+      },
+      "operation": "syntax_extract",
+      "limits": {
+        "deadline_ms": 30000,
+        "max_bytes": 1048576
+      },
+      "output_contract": "extraction-result.schema.json"
+    }
+  ],
+  "execution_limits": {
+    "requested_concurrency": 1,
+    "max_concurrency": 4,
+    "deadline_ms": 30000
+  },
+  "expected_receipt_schema": "gnat-worker-receipt.schema.json",
+  "serial_fallback_allowed": true,
+  "created_at": "2026-06-07T04:18:01Z"
+}

@@ -1,0 +1,14 @@
+{
+  "kind": "worm_target_resolution",
+  "schemaVersion": 1,
+  "resolutionId": "resolve-003",
+  "rawReference": "../Cortex",
+  "resolutionPosture": "ambiguous",
+  "resolutionMethod": "relative_path_inference",
+  "evidence": [
+    "relative path discovered",
+    "insufficient repo root context to resolve canonical identity safely"
+  ],
+  "notes": "Do not promote to resolved without additional source context",
+  "timestamp": "2026-04-21T23:35:00-04:00"
+}

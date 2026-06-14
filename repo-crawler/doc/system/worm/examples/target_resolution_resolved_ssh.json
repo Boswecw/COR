@@ -1,0 +1,19 @@
+{
+  "kind": "worm_target_resolution",
+  "schemaVersion": 1,
+  "resolutionId": "resolve-001",
+  "rawReference": "git@github.com:Boswecw/Cortex.git",
+  "resolutionPosture": "resolved",
+  "resolutionMethod": "ssh_remote_parse",
+  "canonicalIdentity": {
+    "host": "github.com",
+    "owner": "Boswecw",
+    "repo": "Cortex",
+    "display": "Boswecw/Cortex"
+  },
+  "evidence": [
+    "ssh remote pattern matched",
+    "owner and repo segments extracted"
+  ],
+  "timestamp": "2026-04-21T23:35:00-04:00"
+}

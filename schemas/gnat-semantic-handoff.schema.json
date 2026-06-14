@@ -1,0 +1,380 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://boswelldigitalsolutions.com/schemas/cortex/gnat-semantic-handoff.schema.json",
+  "title": "Cortex GNAT Semantic Handoff",
+  "description": "Optional Cortex-to-NeuronForge handoff for non-canonical semantic candidate generation from reconciled GNAT syntax artifacts.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "handoff_id",
+    "request_id",
+    "source_service_id",
+    "destination_service_id",
+    "source_artifact",
+    "explicit_request",
+    "candidate_generation",
+    "transfer_guardrails",
+    "operator_visible_message",
+    "created_at"
+  ],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "const": "GnatSemanticHandoff.v1"
+    },
+    "handoff_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "source_service_id": {
+      "type": "string",
+      "const": "cortex"
+    },
+    "destination_service_id": {
+      "type": "string",
+      "const": "neuronforge-local"
+    },
+    "source_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_ref",
+        "artifact_class",
+        "artifact_hash",
+        "source_gnat_run_id",
+        "source_plan_hash",
+        "source_state",
+        "completeness_status",
+        "retrieval_profile_id"
+      ],
+      "properties": {
+        "artifact_ref": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "artifact_class": {
+          "type": "string",
+          "const": "retrieval_package"
+        },
+        "artifact_hash": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 128
+        },
+        "source_gnat_run_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "source_plan_hash": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "source_state": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "partial_success"
+          ]
+        },
+        "completeness_status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "incomplete"
+          ]
+        },
+        "retrieval_profile_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        }
+      }
+    },
+    "explicit_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_scope",
+        "requested_by",
+        "operator_visible_summary"
+      ],
+      "properties": {
+        "request_scope": {
+          "type": "string",
+          "enum": [
+            "app_request",
+            "user_request"
+          ]
+        },
+        "requested_by": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "operator_visible_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "candidate_generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_contract_family",
+        "semantic_result_posture",
+        "allowed_candidate_classes",
+        "model_resource_disclosure"
+      ],
+      "properties": {
+        "candidate_contract_family": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "semantic_result_posture": {
+          "type": "string",
+          "const": "non_canonical_candidate"
+        },
+        "allowed_candidate_classes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "structure_summary_candidate",
+              "continuity_candidate",
+              "code_relationship_candidate",
+              "suggestion_candidate"
+            ]
+          }
+        },
+        "model_resource_disclosure": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "route_class",
+            "model_id",
+            "resource_budget_class",
+            "execution_mode"
+          ],
+          "properties": {
+            "route_class": {
+              "type": "string",
+              "enum": [
+                "DETERMINISTIC",
+                "FAST_LOCAL",
+                "WORKHORSE_LOCAL",
+                "HIGH_QUALITY_LOCAL"
+              ]
+            },
+            "model_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 200
+            },
+            "resource_budget_class": {
+              "type": "string",
+              "enum": [
+                "deterministic",
+                "fast_local",
+                "workhorse_local",
+                "high_quality_local"
+              ]
+            },
+            "execution_mode": {
+              "type": "string",
+              "enum": [
+                "deterministic_adapter",
+                "local_model"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "transfer_guardrails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cor_receipts_immutable",
+        "receipt_mutation_allowed",
+        "semantic_output_canonical",
+        "raw_content_included",
+        "details_redacted"
+      ],
+      "properties": {
+        "cor_receipts_immutable": {
+          "type": "boolean",
+          "const": true
+        },
+        "receipt_mutation_allowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "semantic_output_canonical": {
+          "type": "boolean",
+          "const": false
+        },
+        "raw_content_included": {
+          "type": "boolean",
+          "const": false
+        },
+        "details_redacted": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "operator_visible_message": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "chunks"
+            ]
+          },
+          {
+            "required": [
+              "text"
+            ]
+          },
+          {
+            "required": [
+              "raw_content"
+            ]
+          },
+          {
+            "required": [
+              "source_text"
+            ]
+          },
+          {
+            "required": [
+              "receipt_mutation"
+            ]
+          },
+          {
+            "required": [
+              "canonical_output"
+            ]
+          },
+          {
+            "required": [
+              "promotion_state"
+            ]
+          },
+          {
+            "required": [
+              "workflow_id"
+            ]
+          },
+          {
+            "required": [
+              "queue_name"
+            ]
+          },
+          {
+            "required": [
+              "executor"
+            ]
+          },
+          {
+            "required": [
+              "dispatch_plan"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_artifact": {
+            "properties": {
+              "source_state": {
+                "const": "ready"
+              }
+            },
+            "required": [
+              "source_state"
+            ]
+          }
+        },
+        "required": [
+          "source_artifact"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_artifact": {
+            "properties": {
+              "completeness_status": {
+                "const": "complete"
+              }
+            },
+            "required": [
+              "completeness_status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "source_artifact": {
+            "properties": {
+              "source_state": {
+                "const": "partial_success"
+              }
+            },
+            "required": [
+              "source_state"
+            ]
+          }
+        },
+        "required": [
+          "source_artifact"
+        ]
+      },
+      "then": {
+        "properties": {
+          "source_artifact": {
+            "properties": {
+              "completeness_status": {
+                "const": "incomplete"
+              }
+            },
+            "required": [
+              "completeness_status"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

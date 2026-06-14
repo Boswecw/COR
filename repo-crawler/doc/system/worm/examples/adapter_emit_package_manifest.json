@@ -1,0 +1,42 @@
+{
+  "kind": "worm_adapter_emission",
+  "schemaVersion": 1,
+  "adapterName": "package_manifest_parse",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": "package.json",
+    "artifactSha256": "def456"
+  },
+  "emittedEdges": [
+    {
+      "kind": "worm_edge",
+      "schemaVersion": 1,
+      "edgeId": "edge-102",
+      "relationType": "dependency_repo_reference",
+      "sourceRepo": "Boswecw/Cortex",
+      "sourceArtifact": {
+        "path": "package.json",
+        "line": 14,
+        "artifactSha256": "def456"
+      },
+      "discoveryMethod": "package_manifest_parse",
+      "target": {
+        "rawReference": "git+ssh://git@github.com/Boswecw/shared-lib.git",
+        "normalizedRepo": "Boswecw/shared-lib",
+        "identityPosture": "resolved"
+      },
+      "crawlScope": "cross_repo",
+      "confidence": "medium",
+      "posture": "evidence_bound",
+      "timestamp": "2026-04-21T23:20:00-04:00"
+    }
+  ],
+  "skippedReferences": [
+    {
+      "rawReference": "^1.2.3",
+      "reasonCode": "non_repo_style_dependency_reference"
+    }
+  ],
+  "posture": "evidence_bound",
+  "timestamp": "2026-04-21T23:20:00-04:00"
+}

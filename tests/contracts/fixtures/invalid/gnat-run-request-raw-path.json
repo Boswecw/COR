@@ -1,0 +1,20 @@
+{
+  "contract_version": "GnatRunRequest.v1",
+  "request_id": "gnat-request-001",
+  "correlation_id": "corr-gnat-001",
+  "operation": "syntax_extract",
+  "sources": [
+    {
+      "source_ref": "sample-note-md",
+      "source_path_token": "src-token-001",
+      "media_type": "text/markdown",
+      "raw_path": "/home/user/private/sample-note.md"
+    }
+  ],
+  "requested_concurrency": 1,
+  "deadline_ms": 30000,
+  "privacy_mode": "local_bounded",
+  "result_mode": "bounded_output",
+  "caller_authority_context_ref": "operator-local-fixture",
+  "serial_fallback_allowed": true
+}

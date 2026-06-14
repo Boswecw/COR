@@ -1,0 +1,31 @@
+{
+  "contract_version": "GnatWorkerReceipt.v1",
+  "run_id": "gnat-run-001",
+  "shard_id": "gnat-run-001-shard-0000-63f3",
+  "attempt_id": "gnat-run-001-shard-0000-63f3-attempt-1",
+  "worker_id": "markdown_syntax:serial",
+  "worker_type": "markdown_syntax",
+  "implementation_version": "gnat-worker.v1",
+  "source_fingerprint_before": {
+    "algorithm": "sha256",
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "byte_count": 42,
+    "modified_at": "2026-06-07T04:18:00Z"
+  },
+  "source_fingerprint_after": {
+    "algorithm": "sha256",
+    "digest": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "byte_count": 42,
+    "modified_at": "2026-06-07T04:18:00Z"
+  },
+  "state": "failed",
+  "started_at": "2026-06-07T04:18:02Z",
+  "completed_at": "2026-06-07T04:18:03Z",
+  "duration_ms": 1000,
+  "finding_counts": {
+    "content_blocks": 0,
+    "sections": 0,
+    "tables_detected": 0
+  },
+  "redaction_applied": true
+}

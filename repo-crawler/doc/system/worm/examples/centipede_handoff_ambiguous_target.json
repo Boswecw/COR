@@ -1,0 +1,21 @@
+{
+  "kind": "worm_centipede_handoff",
+  "schemaVersion": 1,
+  "handoffId": "handoff-002",
+  "sourceLane": "worm",
+  "sourceRepo": "Boswecw/Cortex",
+  "runId": "worm-run-20260422-0005",
+  "bundleIds": [
+    "bundle-002"
+  ],
+  "candidateIssueKeys": [
+    {
+      "issueKey": "Boswecw/Cortex::ambiguous_target_identity::edge-301",
+      "findingClass": "ambiguous_target_identity",
+      "proposedWeightClass": "supporting",
+      "confidence": "low"
+    }
+  ],
+  "notes": "Ambiguous identity should remain reconcilable, not prematurely escalated.",
+  "timestamp": "2026-04-22T00:20:00-04:00"
+}

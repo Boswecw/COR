@@ -1,0 +1,17 @@
+{
+  "kind": "worm_reason_code_catalog",
+  "schemaVersion": 1,
+  "issueClass": "stale_submodule_pointer",
+  "reasonCodes": [
+    {
+      "code": "submodule_pointer_no_longer_matches_expected_target_state",
+      "severity": "medium",
+      "description": "The recorded submodule pointer no longer matches the expected target state."
+    },
+    {
+      "code": "submodule_target_commit_not_found",
+      "severity": "high",
+      "description": "The referenced target commit cannot be found in the target repo."
+    }
+  ]
+}

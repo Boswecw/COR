@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormEdge",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "edgeId",
+    "relationType",
+    "sourceRepo",
+    "sourceArtifact",
+    "discoveryMethod",
+    "target",
+    "crawlScope",
+    "confidence",
+    "posture",
+    "timestamp"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_edge"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "edgeId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relationType": {
+      "type": "string",
+      "enum": [
+        "git_submodule",
+        "git_remote_reference",
+        "workspace_member",
+        "dependency_repo_reference",
+        "ci_pipeline_reference",
+        "docs_repo_reference",
+        "shared_contract_reference",
+        "unknown_external_reference"
+      ]
+    },
+    "sourceRepo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "line": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "artifactSha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "discoveryMethod": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "rawReference"
+      ],
+      "properties": {
+        "rawReference": {
+          "type": "string",
+          "minLength": 1
+        },
+        "normalizedRepo": {
+          "type": "string"
+        },
+        "targetPath": {
+          "type": "string"
+        },
+        "identityPosture": {
+          "type": "string",
+          "enum": [
+            "resolved",
+            "ambiguous",
+            "unresolved"
+          ]
+        }
+      }
+    },
+    "crawlScope": {
+      "type": "string",
+      "enum": [
+        "local_repo",
+        "cross_repo",
+        "external_reference"
+      ]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "high",
+        "medium",
+        "low",
+        "unassessable"
+      ]
+    },
+    "posture": {
+      "type": "string",
+      "enum": [
+        "evidence_bound",
+        "ambiguous",
+        "unresolved",
+        "blocked"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

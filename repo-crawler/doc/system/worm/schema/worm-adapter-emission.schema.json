@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WormAdapterEmission",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "kind",
+    "schemaVersion",
+    "adapterName",
+    "sourceRepo",
+    "sourceArtifact",
+    "emittedEdges",
+    "skippedReferences",
+    "posture",
+    "timestamp"
+  ],
+  "properties": {
+    "kind": {
+      "const": "worm_adapter_emission"
+    },
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "adapterName": {
+      "type": "string",
+      "enum": [
+        "gitmodules_parse",
+        "package_manifest_parse"
+      ]
+    },
+    "sourceRepo": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifactSha256": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "emittedEdges": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "skippedReferences": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "rawReference",
+          "reasonCode"
+        ],
+        "properties": {
+          "rawReference": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reasonCode": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "posture": {
+      "type": "string",
+      "enum": [
+        "evidence_bound",
+        "ambiguous",
+        "unresolved",
+        "blocked"
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

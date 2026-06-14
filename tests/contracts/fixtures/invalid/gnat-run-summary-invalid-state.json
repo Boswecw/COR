@@ -1,0 +1,23 @@
+{
+  "contract_version": "GnatRunSummary.v1",
+  "run_id": "gnat-run-001",
+  "run_state": "complete",
+  "expected_shards": 1,
+  "completed_count": 1,
+  "failed_count": 0,
+  "stale_count": 0,
+  "cancelled_count": 0,
+  "missing_count": 0,
+  "accepted_receipt_hashes": [],
+  "rejected_receipts": [],
+  "aggregate_timing": {
+    "started_at": "2026-06-07T04:18:02Z",
+    "completed_at": "2026-06-07T04:18:03Z",
+    "duration_ms": 1000
+  },
+  "concurrency_used": 1,
+  "fallback_used": true,
+  "output_artifact_refs": [],
+  "operator_visible_summary": "Gnat syntax extraction completed.",
+  "details_redacted": true
+}

@@ -1,0 +1,52 @@
+{
+  "contract_version": "GnatOperatorRunStatus.v1",
+  "run_id": "gnat-run-status-001",
+  "run_state": "ready",
+  "state_label": "Ready",
+  "execution_mode": "parallel",
+  "mode_label": "Bounded parallel execution",
+  "expected_shards": 2,
+  "counts": {
+    "completed": 2,
+    "failed": 0,
+    "stale": 0,
+    "cancelled": 0,
+    "missing": 0
+  },
+  "concurrency_used": 2,
+  "serial_fallback_used": false,
+  "cache_reuse": {
+    "used": false,
+    "hits": 0,
+    "misses": 2
+  },
+  "persistence_state": "ready",
+  "bounded_failure_reasons": [],
+  "elapsed_ms": 24,
+  "allowed_controls": [],
+  "keyboard_controls": [
+    {
+      "control_id": "cancel_run",
+      "label": "Cancel",
+      "aria_label": "Cancel remaining GNAT shards",
+      "shortcut": "Ctrl+.",
+      "enabled": false
+    },
+    {
+      "control_id": "rerun_failed_shards",
+      "label": "Rerun failed",
+      "aria_label": "Rerun failed or missing GNAT shards",
+      "shortcut": "Ctrl+R",
+      "enabled": false
+    },
+    {
+      "control_id": "clear_changed_source_cache",
+      "label": "Clear stale cache",
+      "aria_label": "Clear cache records for changed GNAT sources",
+      "shortcut": "Ctrl+Shift+C",
+      "enabled": false
+    }
+  ],
+  "operator_visible_summary": "Gnat syntax extraction completed for all planned shards.",
+  "details_redacted": true
+}

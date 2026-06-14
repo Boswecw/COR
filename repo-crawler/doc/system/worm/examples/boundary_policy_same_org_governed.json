@@ -1,0 +1,32 @@
+{
+  "kind": "worm_traversal_policy",
+  "schemaVersion": 1,
+  "policyId": "worm-policy-002",
+  "mode": "same_org_governed",
+  "maxDepth": 2,
+  "maxTargetsPerSourceRepo": 10,
+  "deterministicTraversal": true,
+  "cycleDetection": {
+    "enabled": true,
+    "identityKey": "normalized_repo"
+  },
+  "scopePolicy": {
+    "allowSameOrg": true,
+    "allowExternalReferences": false,
+    "requireExplicitAllowlistForExpansion": true
+  },
+  "repoAllowlist": [
+    "Boswecw/Cortex",
+    "Boswecw/rak-adatsik",
+    "Boswecw/cortex_local"
+  ],
+  "repoDenylist": [],
+  "networkPolicy": {
+    "allowUnknownHosts": false,
+    "allowedHosts": [
+      "github.com"
+    ]
+  },
+  "fallbackPosture": "blocked",
+  "notes": "Same-organization expansion only, with explicit allowlist enforcement."
+}

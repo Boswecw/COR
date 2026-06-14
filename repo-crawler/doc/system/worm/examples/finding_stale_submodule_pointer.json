@@ -1,0 +1,26 @@
+{
+  "kind": "worm_finding",
+  "schemaVersion": 1,
+  "findingId": "finding-001",
+  "findingClass": "stale_submodule_pointer",
+  "sourceRepo": "Boswecw/Cortex",
+  "sourceArtifact": {
+    "path": ".gitmodules",
+    "line": 3,
+    "artifactSha256": "abc123"
+  },
+  "relatedEdgeIds": [
+    "edge-001"
+  ],
+  "target": {
+    "rawReference": "../linked-repo",
+    "normalizedRepo": "Boswecw/linked-repo",
+    "targetPath": "",
+    "identityPosture": "resolved"
+  },
+  "reasonCode": "submodule_pointer_no_longer_matches_expected_target_state",
+  "crawlScope": "cross_repo",
+  "confidence": "medium",
+  "posture": "evidence_bound",
+  "timestamp": "2026-04-21T22:45:00-04:00"
+}

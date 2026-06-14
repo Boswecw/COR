@@ -58,14 +58,29 @@ class ServiceStatusRuntimeTests(unittest.TestCase):
         )
         self.assertEqual(result["runtime_surface_summary"]["admitted_source_lanes"], expected_lanes)
         self.assertEqual(result["watcher_summary"]["active_watch_scope_count"], 0)
+        # master's GNAT serial-proof summary assertions (the 44-commit GNAT core work) ...
+        self.assertEqual(result["gnat_summary"]["profile"], "serial_contract_proof")
+        expected_gnat_workers = [
+            "markdown_syntax",
+            "plain_text_syntax",
+            "docx_text_syntax",
+            "rtf_text_syntax",
+            "odt_text_syntax",
+            "epub_text_syntax",
+        ]
+        if pdf_lane_runtime_available():
+            expected_gnat_workers.append("pdf_text_syntax")
+        expected_gnat_workers = sorted(expected_gnat_workers)
+        self.assertEqual(result["gnat_summary"]["admitted_worker_types"], expected_gnat_workers)
+        self.assertFalse(result["gnat_summary"]["parallel_execution_ready"])
+        self.assertEqual(result["gnat_summary"]["fa_local_state"], "unavailable")
+        # ... combined with main's PDF-availability handling of the readiness/operator message:
+        # without local PDF tooling the PDF slice is unavailable and the service is degraded, so
+        # the readiness summary describes the missing PDF lane rather than the Stage 1 recon.
         if pdf_lane_runtime_available():
             self.assertIn("Stage 1 authority recon", result["readiness_summary"]["summary"])
             self.assertIn("Scrivener remains unadmitted", result["operator_visible_message"])
         else:
-            # Without local PDF tooling the PDF slice is unavailable and the service
-            # is degraded, so the readiness summary and operator message describe the
-            # missing PDF lane. The Scrivener Stage 1 slice is still reported through
-            # implemented_slices asserted above.
             self.assertIn("bounded PDF source lane", result["readiness_summary"]["summary"])
 
     def test_degraded_status_is_reported_when_runtime_slice_is_missing(self) -> None:

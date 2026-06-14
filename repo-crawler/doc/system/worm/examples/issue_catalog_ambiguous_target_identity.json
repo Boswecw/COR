@@ -1,0 +1,17 @@
+{
+  "kind": "worm_reason_code_catalog",
+  "schemaVersion": 1,
+  "issueClass": "ambiguous_target_identity",
+  "reasonCodes": [
+    {
+      "code": "target_repo_identity_not_resolvable_from_source_reference",
+      "severity": "low",
+      "description": "The raw reference does not provide enough information to resolve the target repo safely."
+    },
+    {
+      "code": "multiple_target_candidates_match_reference",
+      "severity": "medium",
+      "description": "More than one plausible target matches the raw reference."
+    }
+  ]
+}

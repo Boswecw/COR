@@ -19,6 +19,8 @@ class SourceLaneSpec:
     runtime_slice_id: str | None = None
     runtime_slice_label: str | None = None
     dependency_summary: str | None = None
+    gnat_worker_type: str | None = None
+    gnat_parallel_admitted: bool = False
 
 
 @dataclass(frozen=True)
@@ -107,6 +109,8 @@ MARKDOWN_LANE = SourceLaneSpec(
     suffix=".md",
     media_types=("text/markdown",),
     operator_label="local Markdown files",
+    gnat_worker_type="markdown_syntax",
+    gnat_parallel_admitted=True,
 )
 
 PLAIN_TEXT_LANE = SourceLaneSpec(
@@ -115,6 +119,8 @@ PLAIN_TEXT_LANE = SourceLaneSpec(
     suffix=".txt",
     media_types=("text/plain",),
     operator_label="local plain-text files",
+    gnat_worker_type="plain_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 PDF_TEXT_LANE = SourceLaneSpec(
@@ -126,6 +132,8 @@ PDF_TEXT_LANE = SourceLaneSpec(
     runtime_slice_id="slice5_pdf_source_lane",
     runtime_slice_label="bounded PDF source lane",
     dependency_summary="Extraction is unavailable because bounded local PDF text tooling is not present.",
+    gnat_worker_type="pdf_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 RTF_TEXT_LANE = SourceLaneSpec(
@@ -136,6 +144,8 @@ RTF_TEXT_LANE = SourceLaneSpec(
     operator_label="local RTF files",
     runtime_slice_id="slice7_rtf_source_lane",
     runtime_slice_label="bounded RTF source lane",
+    gnat_worker_type="rtf_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 DOCX_TEXT_LANE = SourceLaneSpec(
@@ -146,6 +156,8 @@ DOCX_TEXT_LANE = SourceLaneSpec(
     operator_label="local DOCX files",
     runtime_slice_id="slice6_docx_source_lane",
     runtime_slice_label="bounded DOCX source lane",
+    gnat_worker_type="docx_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 ODT_TEXT_LANE = SourceLaneSpec(
@@ -156,6 +168,8 @@ ODT_TEXT_LANE = SourceLaneSpec(
     operator_label="local ODT files",
     runtime_slice_id="slice8_odt_source_lane",
     runtime_slice_label="bounded ODT source lane",
+    gnat_worker_type="odt_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 EPUB_TEXT_LANE = SourceLaneSpec(
@@ -166,6 +180,8 @@ EPUB_TEXT_LANE = SourceLaneSpec(
     operator_label="local EPUB files",
     runtime_slice_id="slice9_epub_source_lane",
     runtime_slice_label="bounded EPUB source lane",
+    gnat_worker_type="epub_text_syntax",
+    gnat_parallel_admitted=True,
 )
 
 ALL_SOURCE_LANES = (
@@ -255,6 +271,18 @@ def admitted_lane_specs() -> list[SourceLaneSpec]:
 
 def admitted_source_lanes() -> list[str]:
     return [lane.lane_id for lane in admitted_lane_specs()]
+
+
+def gnat_admitted_lane_specs() -> list[SourceLaneSpec]:
+    return [
+        lane
+        for lane in admitted_lane_specs()
+        if lane.gnat_parallel_admitted and lane.gnat_worker_type is not None
+    ]
+
+
+def gnat_admitted_worker_types() -> list[str]:
+    return sorted(lane.gnat_worker_type for lane in gnat_admitted_lane_specs() if lane.gnat_worker_type is not None)
 
 
 def implemented_source_lane_slices() -> list[str]:
